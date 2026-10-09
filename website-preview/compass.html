@@ -1,8 +1,259 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>罗盘笔记</title><link rel="stylesheet" href="style.css"></head><body><nav class="nav"><div class="wrap navin"><a class="brand" href="index.html"><b>✿</b> 张小花</a><div class="links">
-  <a  href="index.html">首页</a><a  href="system.html">能力地图</a><a  href="problems.html">问题导航</a><a class="active" href="compass.html">罗盘笔记</a><a  href="about.html">关于我</a></div><button class="theme" aria-label="切换色调">☾</button></div></nav>
-<header class="hero page"><div class="wrap"><div class="eyebrow">COMPASS NOTES</div><h1>拾起工业时代的碎片，<br>组成AI时代的罗盘。</h1><p>书籍、课程、论文、想法和困惑，都不是孤立收藏。每一块碎片都要回答：它校准了什么问题？最终流向系统哪里？</p></div></header>
-<section><div class="wrap"><div class="tabs"><button class="tab active" data-tab="subject">学科视图</button><button class="tab" data-tab="problem">问题视图</button><button class="tab" data-tab="flow">流向视图</button></div>
-<div class="panel show" id="subject"><a class="card note-card" href="notes/sociological-imagination.html"><div><div class="small">书籍 · 社会学</div><h3>《社会学的想象力》</h3><div class="meta"><span class="tag">三观构建</span><span class="tag">认知体系-L2</span></div><p>从个人困扰与公共议题的区分开始，学习用结构、历史与人性理解个人处境和真实世界。</p></div><div class="arrow">→</div></a></div>
-<div class="panel" id="problem"><a class="card note-card" href="notes/sociological-imagination.html"><div><div class="small">当你只知道自己很困惑，却说不清困惑是什么</div><h3>《社会学的想象力》</h3><p>它提供的不是一个结论，而是一种把个人处境放回结构与历史中的视角。</p></div><div class="arrow">→</div></a></div>
-<div class="panel" id="flow"><a class="card note-card" href="notes/sociological-imagination.html"><div><div class="small">流向：三观构建 · L2视野校准</div><h3>《社会学的想象力》</h3><p>当前第一块已接入真实 Obsidian 内容的罗盘碎片。</p></div><div class="arrow">→</div></a></div>
-</div></section><footer class="footer"><div class="wrap">✿ 张小花 · AI时代以人为中心的终身能力发展系统</div></footer><script src="site.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>罗盘笔记｜张小花</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .compass-hero{text-align:center;padding:170px 0 90px}
+  .compass-hero .big{font-family:var(--serif);font-size:clamp(26px,4.5vw,42px);line-height:1.6;margin:26px 0}
+  .compass-hero .big em{font-style:normal;color:var(--gold2)}
+  .compass-hero .sub{color:var(--ink2);max-width:600px;margin:0 auto;font-size:16px}
+  .needle{width:120px;height:120px;margin:0 auto 10px;position:relative;animation:spin 24s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .needle svg{width:100%;height:100%}
+  .frag-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:40px}
+  .frag{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:24px;text-align:center;color:var(--ink3);font-size:14px;transition:.25s}
+  .frag:hover{border-color:var(--gold);color:var(--ink2)}
+  .frag .disc{font-family:var(--serif);font-size:17px;color:var(--ink2);display:block;margin-bottom:6px}
+  .view-toggle{display:flex;gap:10px;margin-bottom:32px}
+  .vt-btn{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:9px 22px;font-size:14px;color:var(--ink2);cursor:pointer;font-family:var(--sans);transition:.25s}
+  .vt-btn:hover{border-color:var(--gold)}
+  .vt-btn.active{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600}
+  body.light .vt-btn.active{color:#fff}
+  .frag-view{display:none}
+  .frag-view.show{display:block}
+  .aud-group{margin-bottom:36px}
+  .aud-head{display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+  .aud-badge{font-family:var(--serif);font-size:15px;padding:4px 16px;border-radius:999px;border:1px solid}
+  .aud-badge.g1{color:var(--gold2);border-color:rgba(212,162,78,.5)}
+  .aud-badge.g2{color:var(--teal);border-color:color-mix(in srgb,var(--teal) 45%,transparent)}
+  .aud-badge.g3{color:var(--ink2);border-color:var(--line)}
+  .aud-desc{color:var(--ink3);font-size:13px}
+  .frag.sample{border-style:solid;text-align:left}
+  .frag.sample .disc{color:var(--ink);font-size:16px}
+  .frag-eg{display:block;font-size:12.5px;color:var(--ink3);line-height:1.8;margin-top:8px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="flower">✿</span>张小花</a>
+    <div class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="system.html">能力地图</a>
+      <a href="problems.html">问题导航</a>
+      <a href="compass.html" class="active">罗盘笔记</a>
+      <a href="about.html">关于我</a>
+    </div>
+    <button class="theme-toggle" aria-label="切换主题"><span class="ticon">☀</span></button>
+  </div>
+</nav>
+
+<header class="compass-hero">
+  <div class="wrap">
+    <div class="needle">
+      <svg viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="46" stroke="var(--gold)" stroke-width="1.5" opacity=".5"/>
+        <circle cx="50" cy="50" r="38" stroke="var(--line)" stroke-width="1"/>
+        <path d="M50 12 L56 50 L50 88 L44 50 Z" fill="var(--gold)" opacity=".9"/>
+        <path d="M12 50 L50 44 L88 50 L50 56 Z" fill="var(--teal)" opacity=".35"/>
+        <circle cx="50" cy="50" r="4" fill="var(--gold2)"/>
+      </svg>
+    </div>
+    <div class="kicker" style="text-align:center">COMPASS NOTES</div>
+    <div class="big">拾起<em>工业时代的碎片</em>，<br>组成<em>AI时代的罗盘</em>。</div>
+    <p class="sub">工业时代把人培养成细分领域的螺丝钉，知识被切成碎片。但真实问题从不按学科边界发生——我把跨学科阅读中拾起的每一块碎片（模型、视角、方法），标注它对哪类问题有校准作用，慢慢拼成自己的罗盘。</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">FRAGMENTS</div>
+    <h2>碎片收纳中</h2>
+    <p class="lead">每一篇笔记不写书评，只回答一个问题：这本书/这门课，给罗盘贡献了哪一块碎片？它校准了我对哪类问题的理解？两种视图：按学科，或按「适合谁」。</p>
+
+    <div class="view-toggle">
+      <button class="vt-btn active" data-view="subject">学科视图</button>
+      <button class="vt-btn" data-view="audience">领域视图 · 适合谁</button>
+      <button class="vt-btn" data-view="problem">问题视图 · 读什么</button>
+      <button class="vt-btn" data-view="flow">流向视图 · 养分去哪</button>
+    </div>
+
+    <!-- 学科视图 -->
+    <div class="frag-view show" id="view-subject">
+      <div class="frag-slots">
+        <div class="frag"><span class="disc">心理学</span>碎片待收录</div>
+        <div class="frag"><span class="disc">经济学</span>碎片待收录</div>
+        <a class="frag sample" href="notes/sociological-imagination.html"><span class="disc">社会学｜《社会学的想象力》</span><span class="frag-eg">个人困扰与公共议题 · 结构 · 历史 · 人性<br>流向：三观构建 · L2 视野校准</span></a>
+        <div class="frag"><span class="disc">教育学</span>碎片待收录</div>
+        <div class="frag"><span class="disc">历史学</span>碎片待收录</div>
+        <div class="frag"><span class="disc">生物学</span>碎片待收录</div>
+        <div class="frag"><span class="disc">物理学</span>碎片待收录</div>
+        <div class="frag"><span class="disc">哲学</span>碎片待收录</div>
+        <div class="frag"><span class="disc">系统科学</span>碎片待收录</div>
+      </div>
+    </div>
+
+    <!-- 领域视图（使用-按读者） -->
+    <div class="frag-view" id="view-audience">
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g1">通用底层</span><span class="aud-desc">所有人都值得读 —— 滋养身心管理 · 三观构建 · 学习能力 · 认知体系 · 人际影响</span></div>
+        <div class="frag-slots">
+          <a class="frag sample" href="notes/sociological-imagination.html">
+            <span class="disc">《社会学的想象力》｜通用底层-三观构建</span>
+            <span class="frag-eg">碎片示例：个人困扰与公共议题的区分<br>流向：三观构建 · L2 视野校准</span>
+          </a>
+          <div class="frag sample">
+            <span class="disc">芒格（《穷查理宝典》等）｜通用底层-认知体系</span>
+            <span class="frag-eg">碎片示例：多元思维模型——重要学科的重要理论<br>流向：认知体系 L2 · 学习能力</span>
+          </div>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g2">应用导向</span><span class="aud-desc">有具体课题时读 —— 技术 · 职业 · 创业 · 投资</span></div>
+        <div class="frag-slots">
+          <div class="frag sample">
+            <span class="disc">《纳瓦尔宝典》｜应用导向-创业</span>
+            <span class="frag-eg">适合：有创业想法、对财富有更高追求的人<br>流向：价值实现 · 三观构建</span>
+          </div>
+          <div class="frag sample">
+            <span class="disc">巴菲特 等｜应用导向-投资</span>
+            <span class="frag-eg">适合：想理解投资与商业本质的人<br>流向：商业认知 · 认知体系 L2</span>
+          </div>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g3">拔高上限</span><span class="aud-desc">想象力与审美 —— 决定你能走多远、做出多有品味的东西</span></div>
+        <div class="frag-slots">
+          <div class="frag"><span class="disc">碎片待收录</span></div>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g3">代际传递</span><span class="aud-desc">儿童教育 —— 帮助下一代建立自己的系统</span></div>
+        <div class="frag-slots">
+          <div class="frag"><span class="disc">碎片待收录</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 问题视图 -->
+    <div class="frag-view" id="view-problem">
+      <p style="color:var(--ink3);font-size:14px;margin-bottom:28px">不从书出发，从你的处境出发：此刻的困扰是什么，就捡起哪块碎片。</p>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g1">说不清自己的困惑</span></div>
+        <div class="frag-slots">
+          <a class="frag sample" href="notes/sociological-imagination.html">
+            <span class="disc">《社会学的想象力》</span>
+            <span class="frag-eg">当你只知道自己很困惑，却说不出困惑是什么<br>流向：三观构建 · L2 视野校准</span>
+          </a>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g2">一直在努力，却没有现实结果</span></div>
+        <div class="frag-slots">
+          <div class="frag sample">
+            <span class="disc">《纳瓦尔宝典》</span>
+            <span class="frag-eg">努力为什么没有变成财富：杠杆、复利与专长<br>流向：价值创造 · 三观构建</span>
+          </div>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g3">想从底层重塑思维方式</span></div>
+        <div class="frag-slots">
+          <div class="frag sample">
+            <span class="disc">《穷查理宝典》</span>
+            <span class="frag-eg">重要学科的重要理论，如何拼成判断的格栅<br>流向：认知体系 L2 · 学习能力</span>
+          </div>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g3">学了很多，却用不出来</span></div>
+        <div class="frag-slots">
+          <div class="frag"><span class="disc">学习科学类</span>碎片待收录</div>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g3">想理解投资与商业本质</span></div>
+        <div class="frag-slots">
+          <div class="frag sample">
+            <span class="disc">巴菲特 等</span>
+            <span class="frag-eg">适合：想理解投资与商业本质的人<br>流向：商业认知 · 认知体系 L2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 流向视图 -->
+    <div class="frag-view" id="view-flow">
+      <p style="color:var(--ink3);font-size:14px;margin-bottom:28px">反过来问：系统的每个模块，正在被哪些书喂养？</p>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g1">身心管理</span><span class="aud-desc">精力 · 心理 · 状态</span></div>
+        <div class="frag-slots"><div class="frag"><span class="disc">睡眠 / 运动 / 营养类</span>碎片待收录</div></div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g2">三观构建</span><span class="aud-desc">结构 · 历史 · 人性</span></div>
+        <div class="frag-slots">
+          <a class="frag sample" href="notes/sociological-imagination.html"><span class="disc">《社会学的想象力》</span><span class="frag-eg">碎片：个人困扰与公共议题的区分</span></a>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g2">学习能力</span><span class="aud-desc">学什么 · 怎么学 · 学了什么 · 为什么学</span></div>
+        <div class="frag-slots"><div class="frag"><span class="disc">学习科学类</span>碎片待收录</div></div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g2">认知体系</span><span class="aud-desc">L1–L6 六层</span></div>
+        <div class="frag-slots">
+          <div class="frag sample"><span class="disc">《穷查理宝典》</span><span class="frag-eg">碎片：多元思维模型 → L2 视野校准</span></div>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g3">人际影响</span></div>
+        <div class="frag-slots"><div class="frag"><span class="disc">沟通 / 影响力类</span>碎片待收录</div></div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g3">应用支撑</span><span class="aud-desc">商业认知 · 技术赋能 · 想象力与审美</span></div>
+        <div class="frag-slots">
+          <div class="frag sample"><span class="disc">巴菲特 等</span><span class="frag-eg">碎片：投资与商业理解 → 商业认知</span></div>
+        </div>
+      </div>
+      <div class="aud-group">
+        <div class="aud-head"><span class="aud-badge g3">价值实现与代际传递</span></div>
+        <div class="frag-slots">
+          <div class="frag sample"><span class="disc">《纳瓦尔宝典》</span><span class="frag-eg">碎片：杠杆与复利 → 价值创造</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pnote">碎片持续拾起中。这些碎片会流向系统的各个角落——可能是身心管理、三观构建、学习能力、认知体系、人际影响，也可能是商业认知、技术赋能，或者价值创造与代际传递。每块碎片都会标注它最终落在了哪个模块。</div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">✿ 张小花 · AI时代以人为中心的终身能力发展系统</div>
+    <div class="foot-links">
+      <a href="index.html">首页</a>
+      <a href="system.html">能力地图</a>
+      <a href="problems.html">问题导航</a>
+      <a href="about.html">关于我</a>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script>
+  // 罗盘视图切换：学科视图 ⇄ 领域视图
+  document.querySelectorAll('.vt-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.vt-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.frag-view').forEach(v=>v.classList.remove('show'));
+      document.getElementById('view-'+btn.dataset.view).classList.add('show');
+    });
+  });
+</script>
+</body>
+</html>
