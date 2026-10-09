@@ -1,8 +1,130 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>问题导航</title><link rel="stylesheet" href="style.css"></head><body><nav class="nav"><div class="wrap navin"><a class="brand" href="index.html"><b>✿</b> 张小花</a><div class="links">
-  <a  href="index.html">首页</a><a  href="system.html">能力地图</a><a class="active" href="problems.html">问题导航</a><a  href="compass.html">罗盘笔记</a><a  href="about.html">关于我</a></div><button class="theme" aria-label="切换色调">☾</button></div></nav>
-<header class="hero page"><div class="wrap"><div class="eyebrow">PROBLEM NAVIGATOR</div><h1>问题导航</h1><p>用稳定的系统结构管理问题，用用户自己的语言进入问题。</p></div></header>
-<section><div class="wrap"><div class="tabs"><button class="tab active" data-tab="overview">01 总体推演</button><button class="tab" data-tab="modules">02 模块导航</button><button class="tab" data-tab="runtime">03 系统运行与调度</button></div>
-<div class="panel show" id="overview"><div class="module-grid"><div class="module"><b>1. 这套系统的总体目标是什么？</b><p>内容展开建设中</p></div><div class="module"><b>2. 这套系统到底在解决什么问题？</b><p>内容展开建设中</p></div><div class="module"><b>3. 为什么不能只靠若干单点工具？</b><p>内容展开建设中</p></div><div class="module"><b>4. 这套系统由哪些模块组成？</b><p>内容展开建设中</p></div><div class="module"><b>5. 为什么这样组成？</b><p>内容展开建设中</p></div><div class="module"><b>6. 这套系统在现实中如何运行？</b><p>内容展开建设中</p></div><div class="module"><b>7. 如何形成自己的个性化版本，并持续扩展、传递和升维？</b><p>内容展开建设中</p></div></div></div>
-<div class="panel" id="modules"><div class="module-grid"><div class="module"><b>M01 身心管理</b><p>所有能力运行的地基。后续按“问题模式 → 用户问题 → 方法工具”展开。</p></div><div class="module"><b>M02 三观构建</b><p>如何看世界、看自己、看选择。后续按“问题模式 → 用户问题 → 方法工具”展开。</p></div><div class="module"><b>M03 学习能力</b><p>如何进入陌生领域并形成迁移。后续按“问题模式 → 用户问题 → 方法工具”展开。</p></div><div class="module"><b>M04 认知体系</b><p>L1 信息安检 → L6 调度系统。后续按“问题模式 → 用户问题 → 方法工具”展开。</p></div><div class="module"><b>M05 领域知识与能力</b><p>通用领域 + 专用领域。后续按“问题模式 → 用户问题 → 方法工具”展开。</p></div><div class="module"><b>M06 价值创造</b><p>从发现问题到产品与反馈。后续按“问题模式 → 用户问题 → 方法工具”展开。</p></div><div class="module"><b>M07 人际影响</b><p>影响、协作、交付与共创。后续按“问题模式 → 用户问题 → 方法工具”展开。</p></div><div class="module"><b>M08 目标与代际传递</b><p>财富 · 幸福 · 家族传承。后续按“问题模式 → 用户问题 → 方法工具”展开。</p></div></div></div>
-<div class="panel" id="runtime"><div class="module-grid"><div class="module"><b>1. 模块之间是什么关系？</b><p>系统级运行逻辑，后续用案例展开。</p></div><div class="module"><b>2. 一个真实问题如何跨模块流动？</b><p>系统级运行逻辑，后续用案例展开。</p></div><div class="module"><b>3. 哪个模块应该优先？</b><p>系统级运行逻辑，后续用案例展开。</p></div><div class="module"><b>4. 三条进入路径如何决定优先级？</b><p>系统级运行逻辑，后续用案例展开。</p></div><div class="module"><b>5. 什么时候回退、切换或升级？</b><p>系统级运行逻辑，后续用案例展开。</p></div><div class="module"><b>6. 如何逐渐形成自己的个人系统？</b><p>系统级运行逻辑，后续用案例展开。</p></div></div></div>
-</div></section><footer class="footer"><div class="wrap">✿ 张小花 · AI时代以人为中心的终身能力发展系统</div></footer><script src="site.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>问题导航｜张小花</title><link rel="stylesheet" href="style.css">
+<style>
+.pnav-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 36px;position:sticky;top:76px;z-index:20;padding:10px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:18px}
+.pnav-tab{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:13px;padding:15px 14px;cursor:pointer;text-align:left;font-family:var(--sans);transition:.25s}
+.pnav-tab:hover{border-color:var(--gold);transform:translateY(-1px)}.pnav-tab.active{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,var(--card));color:var(--ink)}
+.pnav-tab b{display:block;font-family:var(--serif);font-size:15px;margin-bottom:3px}.pnav-tab span{font-size:11.5px;color:var(--ink3)}
+.pnav-panel{display:none}.pnav-panel.active{display:block}
+.layer-intro{display:grid;grid-template-columns:80px 1fr;gap:18px;align-items:start;margin-bottom:34px}.layer-num{font-family:var(--serif);font-size:38px;line-height:1;color:var(--gold);opacity:.9}.layer-intro h2{margin-bottom:8px}.layer-intro p{color:var(--ink2);max-width:680px}
+.reason-grid{display:grid;gap:12px;margin-top:28px}.reason-card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.25s}.reason-card.open{border-color:rgba(212,162,78,.55)}
+.reason-head{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:18px 20px;cursor:pointer}.reason-no{font-family:var(--serif);color:var(--gold);font-size:13px}.reason-head h3{font-family:var(--serif);font-size:17px;margin:0}.reason-plus{color:var(--gold);font-size:18px}
+.reason-body{display:none;padding:0 20px 20px 76px;color:var(--ink2);font-size:13.5px;line-height:1.85}.reason-card.open .reason-body{display:block}.reason-body strong{color:var(--ink)}
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:26px}.mod-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;cursor:pointer;transition:.25s;text-align:left;font-family:var(--sans);color:var(--ink)}.mod-card:hover{border-color:var(--gold);transform:translateY(-2px)}.mod-card .mno{font-family:var(--serif);color:var(--gold);font-size:12px;letter-spacing:.1em;margin-bottom:8px}.mod-card h3{font-family:var(--serif);font-size:19px;margin-bottom:8px}.mod-card .mwhy{color:var(--ink2);font-size:13.5px;line-height:1.7}.mod-card .mgo{display:block;color:var(--gold2);font-size:13px;margin-top:14px}.mod-detail{display:none}.mod-detail.show{display:block}.back-btn{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 18px;color:var(--ink2);cursor:pointer;font-family:var(--sans);margin-bottom:28px}.back-btn:hover{border-color:var(--gold)}.problem-pattern{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:12px}.problem-pattern h4{font-family:var(--serif);font-size:17px;margin-bottom:6px}.problem-pattern .desc{color:var(--ink3);font-size:13px;margin-bottom:12px}.q-list{display:grid;gap:7px}.q-item{padding:10px 12px;border-radius:9px;background:var(--bg2);color:var(--ink2);font-size:13.5px;border:1px solid transparent}.q-item:hover{border-color:var(--line);color:var(--ink)}.placeholder-note{margin-top:28px;padding:18px 20px;background:var(--bg2);border:1px dashed var(--line);border-radius:12px;color:var(--ink3);font-size:13px}
+.system-map{display:grid;gap:14px;margin-top:26px}.sys-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}.sys-card h3{font-family:var(--serif);font-size:18px;margin-bottom:8px}.sys-card p{color:var(--ink2);font-size:13.5px}.sys-card .mini{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.sys-card .mini span{border:1px solid var(--line);background:var(--bg2);border-radius:999px;padding:6px 10px;font-size:11.5px;color:var(--ink2)}
+.flowline{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:16px}.flowline .fnode{padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);font-size:12px}.flowline .arr{color:var(--gold)}
+.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.path-card{padding:16px;border:1px solid var(--line);border-radius:13px;background:var(--bg2)}.path-card b{font-family:var(--serif);display:block;color:var(--gold2);margin-bottom:6px}.path-card span{font-size:12.5px;color:var(--ink2);line-height:1.7}
+.note-strip{margin-top:28px;padding:17px 19px;border-left:2px solid var(--gold);background:color-mix(in srgb,var(--gold) 7%,var(--card));color:var(--ink2);font-size:13.5px}
+@media(max-width:720px){.pnav-tabs{grid-template-columns:1fr;position:static}.layer-intro{grid-template-columns:1fr}.reason-body{padding-left:20px}.path-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a class="brand" href="index.html"><span class="flower">✿</span>张小花</a><div class="nav-links"><a href="index.html">首页</a><a href="system.html">能力地图</a><a href="problems.html" class="active">问题导航</a><a href="compass.html">罗盘笔记</a><a href="about.html">关于我</a></div><button class="theme-toggle" aria-label="切换深浅色"><span class="ticon">☀</span></button></div></nav>
+<header class="page-hero"><div class="wrap"><div class="tag">PROBLEM NAVIGATOR</div><h1>问题导航</h1><p>不是把问题堆在一起，而是用三层结构理解整个系统：先推演它为什么成立，再进入具体模块，最后理解模块之间如何关联、如何排序与调度。</p></div></header>
+<section><div class="wrap">
+  <div class="pnav-tabs" role="tablist">
+    <button class="pnav-tab" data-panel="reason"><b>01｜总体推演</b><span>WHY · 为什么需要系统</span></button>
+    <button class="pnav-tab active" data-panel="module"><b>02｜模块导航</b><span>WHAT · 问题属于哪里</span></button>
+    <button class="pnav-tab" data-panel="system"><b>03｜系统运行与调度</b><span>HOW · 模块怎么一起工作</span></button>
+  </div>
+
+  <div class="pnav-panel" id="panel-reason">
+    <div class="layer-intro"><div class="layer-num">01</div><div><div class="kicker">SYSTEM REASONING</div><h2>总体推演</h2><p>这一层不解决某个单点问题，而是回答：为什么需要一套系统、为什么由这些部分组成，以及怎样从标准系统长成每个人自己的版本。</p></div></div>
+    <div class="reason-grid">
+      <div class="reason-card"><div class="reason-head"><div class="reason-no">01</div><h3>这套系统的总体目标是什么？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>成人端有两个长期目标：财富与幸福；向下一代延伸为家族传承。</strong><br>系统不是为了让人“懂得更多”，而是让一个人拥有更稳定的身心、更可靠的学习与判断能力、更强的现实创造能力，并把成果沉淀、复利和传递。</div></div>
+      <div class="reason-card"><div class="reason-head"><div class="reason-no">02</div><h3>这套系统到底在解决什么问题？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>解决“一个人如何长期发展并持续更新”的系统性问题。</strong><br>现实问题很少只属于一个模块：效率下降可能同时牵涉睡眠、情绪、目标、信息质量、判断、协作与反馈。单点工具能修局部，但无法解释跨模块问题如何发生。</div></div>
+      <div class="reason-card"><div class="reason-head"><div class="reason-no">03</div><h3>这套系统由哪些模块组成？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>五层进化结构 + 九类人际影响 + 能力形成引擎。</strong><br>五层分别是身心地基、操作系统、领域知识、价值创造、目标与传承；人际影响负责让认知与价值跨主体发生作用；能力形成引擎负责把“知道”推进到“资产化”。</div></div>
+      <div class="reason-card"><div class="reason-head"><div class="reason-no">04</div><h3>为什么这样组成？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>因为不同模块承担不同功能，而且存在依赖关系。</strong><br>身心提供算力；三观、学习与认知负责方向、获取和加工；领域知识提供真实世界的专业材料；价值创造把能力转成结果；目标系统决定“为什么做”；人际影响负责跨主体协同和价值传递。</div></div>
+      <div class="reason-card"><div class="reason-head"><div class="reason-no">05</div><h3>这套系统在现实中如何运行？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>不是按目录顺序使用，而是围绕真实问题跨模块调用。</strong><br>一个“产品卖不出去”的问题，可能要同时检查产品价值、领域判断、用户理解、人际影响、执行节奏甚至个人状态。系统的价值就在于能定位、调用、回退和迭代。</div></div>
+      <div class="reason-card"><div class="reason-head"><div class="reason-no">06</div><h3>如何在标准化基础上形成自己的个性化版本？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>标准系统提供公共骨架，个人系统记录自己的高频问题、优势、薄弱项、目标、方法和资产。</strong><br>最终每个人都应该形成自己的模块权重、调用顺序、工具组合、项目资产与AI协同方式，而不是永远照抄一套标准答案。</div></div>
+      <div class="reason-card"><div class="reason-head"><div class="reason-no">07</div><h3>系统未来如何扩展、传递和升维？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>从个人系统向家庭、组织与长期资产扩展。</strong><br>新的领域知识可以持续挂载；项目经验可以沉淀为方法和工具；成人能力可经过降维进入儿童发展；个人方法也可以产品化、组织化和AI化。</div></div>
+    </div>
+  </div>
+
+  <div class="pnav-panel active" id="panel-module">
+    <div id="overview"><div class="layer-intro"><div class="layer-num">02</div><div><div class="kicker">MODULE NAVIGATION</div><h2>模块导航</h2><p>模块是稳定骨架；问题模式负责诊断；用户语言只是入口。先找到问题属于哪里，再继续向下定位。</p></div></div>
+      <div class="mod-grid">
+        <button class="mod-card" data-mod="m01"><div class="mno">M01 · 地基层</div><h3>身心管理</h3><div class="mwhy">精力、睡眠、运动、饮食、情绪、压力恢复、专注与心流。</div><span class="mgo">进入模块 →</span></button>
+        <button class="mod-card" data-mod="m02"><div class="mno">M02 · 操作系统</div><h3>三观构建</h3><div class="mwhy">世界观、价值观、人生观，以及理解结构、历史、人性与自身处境。</div><span class="mgo">进入模块 →</span></button>
+        <button class="mod-card" data-mod="m03"><div class="mno">M03 · 操作系统</div><h3>学习能力</h3><div class="mwhy">学什么、怎么学、如何检验、如何迁移、如何形成知识资产。</div><span class="mgo">进入模块 →</span></button>
+        <button class="mod-card" data-mod="m04"><div class="mno">M04 · 操作系统</div><h3>认知体系</h3><div class="mwhy">L1信息安检 → L6调度系统，处理信息、理解、决策、协同、复盘与调度。</div><span class="mgo">进入模块 →</span></button>
+        <button class="mod-card" data-mod="m05"><div class="mno">M05 · 领域层</div><h3>领域知识与能力</h3><div class="mwhy">通用领域与专用领域，形成现实世界的专业壁垒。</div><span class="mgo">进入模块 →</span></button>
+        <button class="mod-card" data-mod="m06"><div class="mno">M06 · 价值层</div><h3>价值创造</h3><div class="mwhy">从发现问题到实现、产品化、反馈和迭代的完整闭环。</div><span class="mgo">进入模块 →</span></button>
+        <button class="mod-card" data-mod="m07"><div class="mno">M07 · 横向贯穿</div><h3>人际影响</h3><div class="mwhy">认知如何跨主体发生作用：建模、呈现、判断、行动与互动闭环。</div><span class="mgo">进入模块 →</span></button>
+        <button class="mod-card" data-mod="m08"><div class="mno">M08 · 目标层</div><h3>目标与代际传递</h3><div class="mwhy">财富、幸福与家族传承：系统最终服务什么，以及如何向下一代延伸。</div><span class="mgo">进入模块 →</span></button>
+      </div>
+    </div>
+  <div class="mod-detail" id="m01"><button class="back-btn">← 返回模块总览</button><div class="kicker">M01</div><h2>身心管理</h2><p class="lead">模块 → 子模块 → 问题模式 → 用户问题。</p>
+    <div class="problem-pattern"><h4>01 精力与恢复</h4><div class="desc">睡眠、运动、饮食与整体恢复能力。</div><div class="q-list"><div class="q-item">为什么明明睡够了还是很累？</div><div class="q-item">一忙起来，运动、饮食和作息为什么会一起崩？</div><div class="q-item">高强度用脑之后，怎样判断自己需要休息还是切换任务？</div></div></div>
+    <div class="problem-pattern"><h4>02 情绪与压力</h4><div class="desc">识别、接纳、调节与恢复。</div><div class="q-list"><div class="q-item">为什么一件小事会在脑子里反复回放？</div><div class="q-item">高压状态结束后，为什么身体和大脑还是停不下来？</div></div></div>
+    <div class="problem-pattern"><h4>03 专注与心流</h4><div class="desc">持续注意、深度工作和高质量状态。</div><div class="q-list"><div class="q-item">为什么我越来越难持续专注？</div><div class="q-item">什么情况下更容易进入心流？</div></div></div>
+  </div>
+
+  <div class="mod-detail" id="m02"><button class="back-btn">← 返回模块总览</button><div class="kicker">M02</div><h2>三观构建</h2><div class="problem-pattern"><h4>01 世界观与处境理解</h4><div class="desc">结构、历史、人性、制度与个人处境。</div><div class="q-list"><div class="q-item">为什么同一件事，不同人会得出完全不同的结论？</div><div class="q-item">我的困境是个人问题，还是结构性问题？</div></div></div><div class="problem-pattern"><h4>02 价值观与人生选择</h4><div class="desc">什么值得追求，什么愿意交换，什么不能让渡。</div><div class="q-list"><div class="q-item">当财富、自由、家庭、成就冲突时，我到底怎么选？</div></div></div></div>
+
+  <div class="mod-detail" id="m03"><button class="back-btn">← 返回模块总览</button><div class="kicker">M03</div><h2>学习能力</h2><div class="problem-pattern"><h4>01 学什么</h4><div class="desc">学习目标、边界与路径设计。</div><div class="q-list"><div class="q-item">进入陌生领域，第一步应该学什么？</div><div class="q-item">怎么判断一个知识点值得深入到什么程度？</div></div></div><div class="problem-pattern"><h4>02 怎么学</h4><div class="desc">理解、检验、联结、练习和迁移。</div><div class="q-list"><div class="q-item">为什么看懂了，但一到实际问题就不会用？</div><div class="q-item">怎么确认自己是真的懂了，而不是熟悉了？</div></div></div><div class="problem-pattern"><h4>03 知识资产</h4><div class="desc">沉淀、检索、更新与复用。</div><div class="q-list"><div class="q-item">笔记很多，为什么真正需要时还是找不到？</div></div></div></div>
+
+  <div class="mod-detail" id="m04"><button class="back-btn">← 返回模块总览</button><div class="kicker">M04</div><h2>认知体系</h2>
+    <div class="problem-pattern"><h4>L1 信息安检</h4><div class="desc">进入判断系统的信息是否可靠、充分、可用。</div><div class="q-list"><div class="q-item">AI说得很像真的，我怎么判断能不能信？</div><div class="q-item">信息太多时，哪些值得继续追？</div></div></div>
+    <div class="problem-pattern"><h4>L2 视野校准</h4><div class="desc">系统、演化、尺度、不确定性、边界与模型。</div><div class="q-list"><div class="q-item">为什么局部看起来正确，整体结果却越来越差？</div></div></div>
+    <div class="problem-pattern"><h4>L3 拆解引擎</h4><div class="desc">定义、拆解、生成、选择。</div><div class="q-list"><div class="q-item">问题一团乱麻时，到底从哪里开始拆？</div></div></div>
+    <div class="problem-pattern"><h4>L4 表达协同</h4><div class="desc">接收者建模与校准 → 结构与情境 → 依据与判断 → 行动与互动。</div><div class="q-list"><div class="q-item">为什么我明明说得很清楚，对方理解成了另一件事？</div><div class="q-item">对方自己都说不清关心什么时，怎么沟通？</div></div></div>
+    <div class="problem-pattern"><h4>L5 进化复盘</h4><div class="desc">让一次经验进入下一次调用。</div><div class="q-list"><div class="q-item">为什么复盘了很多次，下一次还是从头开始？</div></div></div>
+    <div class="problem-pattern"><h4>L6 调度系统</h4><div class="desc">暂停、定位、选择、监控、停止/切换/回退。</div><div class="q-list"><div class="q-item">什么时候应该继续研究，什么时候应该停下来行动？</div></div></div>
+  </div>
+
+  <div class="mod-detail" id="m05"><button class="back-btn">← 返回模块总览</button><div class="kicker">M05</div><h2>领域知识与能力</h2><div class="problem-pattern"><h4>01 通用领域</h4><div class="desc">商业、技术、AI、市场、战略等跨职业高复用领域。</div><div class="q-list"><div class="q-item">哪些通用知识值得每个人长期构建？</div></div></div><div class="problem-pattern"><h4>02 专用领域</h4><div class="desc">教育、财务、审计、咨询、行业专业能力等。</div><div class="q-list"><div class="q-item">如何快速搭建一个专业领域的知识地图？</div></div></div></div>
+
+  <div class="mod-detail" id="m06"><button class="back-btn">← 返回模块总览</button><div class="kicker">M06</div><h2>价值创造</h2><div class="problem-pattern"><h4>01 发现与理解问题</h4><div class="desc">找到真实问题，而不是自以为的问题。</div><div class="q-list"><div class="q-item">怎么判断一个问题真的有人愿意付费解决？</div></div></div><div class="problem-pattern"><h4>02 实现与产品化</h4><div class="desc">MVP、标准化、可复制。</div><div class="q-list"><div class="q-item">有一个想法，怎么尽快做成可验证的东西？</div></div></div><div class="problem-pattern"><h4>03 反馈与迭代</h4><div class="desc">用现实反馈修正，而不是只在脑内优化。</div><div class="q-list"><div class="q-item">用户反馈很多，哪些应该改，哪些不应该改？</div></div></div></div>
+
+  <div class="mod-detail" id="m07"><button class="back-btn">← 返回模块总览</button><div class="kicker">M07</div><h2>人际影响</h2><p class="lead">主树按问题模式管理；营销、教育、管理、协作、谈判、关系、专业服务、公共传播、人机协同作为后续筛选标签。</p>
+    <div class="problem-pattern"><h4>01 接收者建模与校准</h4><div class="desc">已知、未知、假设与共同基础。</div><div class="q-list"><div class="q-item">我不知道对方知道多少，该从哪里开始讲？</div><div class="q-item">对方自己都不知道自己真正关心什么，怎么办？</div></div></div>
+    <div class="problem-pattern"><h4>02 结构与情境化呈现</h4><div class="desc">注意、认知负荷、结构、场景、叙事。</div><div class="q-list"><div class="q-item">内容很完整，为什么别人还是抓不住重点？</div><div class="q-item">什么时候该直接给结论，什么时候应该先建立情境？</div></div></div>
+    <div class="problem-pattern"><h4>03 依据与判断支持</h4><div class="desc">事实、推断、假设、判断、证据、不确定性。</div><div class="q-list"><div class="q-item">怎么让别人不只是接受我的结论，而是有能力自己判断？</div></div></div>
+    <div class="problem-pattern"><h4>04 行动与互动闭环</h4><div class="desc">行动定义、动机、能力、触发、反馈与Grounding。</div><div class="q-list"><div class="q-item">为什么大家开会都说懂了，最后执行完全走样？</div><div class="q-item">与人共同创造时，没有固定“发送者”，怎么建立共同理解？</div></div></div>
+  </div>
+
+  <div class="mod-detail" id="m08"><button class="back-btn">← 返回模块总览</button><div class="kicker">M08</div><h2>目标与代际传递</h2><div class="problem-pattern"><h4>01 财富</h4><div class="desc">创造价值、捕获价值、复利与退出能力。</div><div class="q-list"><div class="q-item">我有专业能力，为什么一直无法稳定变现？</div></div></div><div class="problem-pattern"><h4>02 幸福</h4><div class="desc">精力、情绪、意义、关系与选择。</div><div class="q-list"><div class="q-item">收入不错但越来越焦虑，问题可能出在哪里？</div></div></div><div class="problem-pattern"><h4>03 家族传承</h4><div class="desc">成人端体系 × 儿童端降维 × 家庭资产化。</div><div class="q-list"><div class="q-item">我想把自己的优势传给孩子，但怎样避免变成灌输？</div></div></div>
+  </div>
+
+  <div class="placeholder-note">当前版本先完成导航骨架。下一步再为每个模块建立完整的“子模块 → 问题模式 → 用户问题 → 对应模型/方法/工具 → 内容/产品”的数据结构，并增加应用领域等筛选器。</div>
+</div>
+  </div>
+
+  <div class="pnav-panel" id="panel-system">
+    <div class="layer-intro"><div class="layer-num">03</div><div><div class="kicker">SYSTEM OPERATION</div><h2>系统运行与调度</h2><p>模块不是平铺清单。真正使用时，需要理解谁为谁提供输入、问题如何跨模块流动，以及在不同目标与状态下什么应该优先。</p></div></div>
+    <div class="system-map">
+      <div class="sys-card"><h3>01｜模块之间是什么关系？</h3><p>可以把它理解为“状态 → 操作系统 → 领域材料 → 价值实现 → 目标反馈”的主链，人际影响则横穿其中，负责跨主体传递、协同与价值捕获。</p><div class="flowline"><span class="fnode">身心管理</span><span class="arr">→</span><span class="fnode">三观 / 学习 / 认知</span><span class="arr">→</span><span class="fnode">领域知识</span><span class="arr">→</span><span class="fnode">价值创造</span><span class="arr">→</span><span class="fnode">财富 / 幸福 / 传承</span></div><div class="mini"><span>人际影响：贯穿</span><span>反馈：反向回流</span><span>AI：各层杠杆</span></div></div>
+      <div class="sys-card"><h3>02｜一个真实问题如何跨模块流动？</h3><p>例如“产品卖不出去”并不自动等于营销问题。可以依次检查：问题是否真实 → 产品是否有价值 → 判断是否可靠 → 用户是否理解 → 行动门槛是否过高 → 自己是否持续执行。真正瓶颈在哪一层，就回补哪一层。</p><div class="flowline"><span class="fnode">价值问题？</span><span class="arr">→</span><span class="fnode">领域判断？</span><span class="arr">→</span><span class="fnode">认知质量？</span><span class="arr">→</span><span class="fnode">人际影响？</span><span class="arr">→</span><span class="fnode">状态 / 执行？</span></div></div>
+      <div class="sys-card"><h3>03｜哪个模块应该优先？</h3><p><strong>没有固定优先级。</strong>优先级由当前目标、当前状态、瓶颈位置和依赖关系共同决定。系统构建时强调基础依赖；现实使用时强调“当前最限制结果的那一环”。</p><div class="mini"><span>目标函数</span><span>当前状态</span><span>关键瓶颈</span><span>依赖关系</span><span>机会窗口</span></div></div>
+      <div class="sys-card"><h3>04｜三条进入路径如何决定优先级？</h3><div class="path-grid"><div class="path-card"><b>A｜自下而上</b><span>适合从零搭系统。优先保证身心地基，再建设操作系统、领域能力和价值闭环。</span></div><div class="path-card"><b>B｜目标倒推</b><span>适合目标明确的人。从财富、幸福或家族传承向下反推最需要补的模块。</span></div><div class="path-card"><b>C｜问题驱动</b><span>适合已经在实践的人。从当前最痛的问题定位瓶颈，直接回补对应模块。</span></div></div></div>
+      <div class="sys-card"><h3>05｜什么时候应该回退、切换或升级？</h3><p>当继续投入不能显著增加确定性或结果时，应重新定位：信息不足就回L1；世界理解有问题回L2；问题定义不清回L3；协同走样进L4；经验无法复用进L5；不知道继续还是停止由L6调度。系统允许回退，不要求一直向上。</p></div>
+      <div class="sys-card"><h3>06｜如何逐渐形成自己的个人系统？</h3><p>记录自己的高频问题、优势模块、薄弱模块、当前目标、常用工具、典型决策流程、项目资产与AI协同方式。随着反馈积累，标准地图逐渐变成“我的版本”。</p><div class="mini"><span>高频问题</span><span>优势 / 短板</span><span>个人工具箱</span><span>项目资产</span><span>AI工作流</span><span>长期档案</span></div></div>
+    </div>
+    <div class="note-strip">第三层不是再增加一套知识，而是教你“如何调用前两层”。同一个人，在不同阶段、目标和约束下，最优路径可能完全不同。</div>
+  </div>
+</div></section>
+<footer><div class="foot-inner"><div class="foot-brand">✿ 张小花 · AI时代以人为中心的终身能力发展系统</div><div class="foot-links"><a href="system.html">能力地图</a><a href="problems.html">问题导航</a><a href="compass.html">罗盘笔记</a><a href="about.html">关于我</a></div></div></footer>
+<script src="site.js"></script>
+<script>
+(()=>{
+  const tabs=[...document.querySelectorAll('.pnav-tab')];
+  const panels=[...document.querySelectorAll('.pnav-panel')];
+  function showPanel(name){
+    tabs.forEach(t=>t.classList.toggle('active',t.dataset.panel===name));
+    panels.forEach(p=>p.classList.toggle('active',p.id==='panel-'+name));
+    if(name!=='module'){ document.querySelectorAll('.mod-detail').forEach(d=>d.classList.remove('show')); const ov=document.getElementById('overview'); if(ov) ov.style.display='block'; }
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>showPanel(t.dataset.panel)));
+  document.querySelectorAll('.reason-head').forEach(h=>h.addEventListener('click',()=>{ const c=h.closest('.reason-card'); c.classList.toggle('open'); h.querySelector('.reason-plus').textContent=c.classList.contains('open')?'−':'＋'; }));
+  const overview=document.getElementById('overview');
+  document.querySelectorAll('.mod-card').forEach(btn=>btn.addEventListener('click',()=>{
+    overview.style.display='none'; document.querySelectorAll('.mod-detail').forEach(d=>d.classList.remove('show')); const el=document.getElementById(btn.dataset.mod); if(el){el.classList.add('show'); el.scrollIntoView({behavior:'smooth',block:'start'});}
+  }));
+  document.querySelectorAll('.back-btn').forEach(btn=>btn.addEventListener('click',()=>{ document.querySelectorAll('.mod-detail').forEach(d=>d.classList.remove('show')); overview.style.display='block'; overview.scrollIntoView({behavior:'smooth',block:'start'}); }));
+})();
+</script>
+</body></html>
