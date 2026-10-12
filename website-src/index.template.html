@@ -974,6 +974,53 @@ body.dark #page-m01{
 
 
 /* ===== FORMAL SITE ENHANCEMENTS · Compass hierarchy / return nav / contact ===== */
+
+#page-compass-article .compass-article-shell{
+  grid-template-columns:200px minmax(0,1fr) 240px;
+  gap:42px;
+}
+#page-compass-article .article-related{
+  position:sticky;top:126px;align-self:start;
+  max-height:calc(100vh - 150px);overflow:auto;padding-right:3px;
+}
+#page-compass-article .article-related .related-head{margin-bottom:12px}
+#page-compass-article .article-related .related-head b{display:block;font:700 13px var(--serif);margin-bottom:4px}
+#page-compass-article .article-related .related-head span{display:block;font-size:10.5px;color:var(--ink3);line-height:1.6}
+#page-compass-article .related-group{
+  border:1px solid var(--line);background:var(--card);border-radius:13px;overflow:hidden;margin-bottom:9px;
+}
+#page-compass-article .related-group>button{
+  width:100%;border:0;background:transparent;display:flex;align-items:center;gap:8px;
+  padding:11px 12px;cursor:pointer;text-align:left;
+}
+#page-compass-article .related-group>button:hover{background:var(--bg2)}
+#page-compass-article .related-group .rg-title{font:700 12px var(--serif);flex:1}
+#page-compass-article .related-group .rg-count{font-size:9.5px;color:var(--ink3)}
+#page-compass-article .related-group .rg-plus{font-size:12px;color:var(--gold)}
+#page-compass-article .related-items{display:none;border-top:1px dashed var(--line);padding:6px 8px 8px}
+#page-compass-article .related-group.open .related-items{display:block}
+#page-compass-article .related-item{
+  width:100%;border:0;background:transparent;text-align:left;cursor:pointer;
+  padding:8px 8px;border-radius:8px;font-size:10.8px;line-height:1.6;color:var(--ink2);
+}
+#page-compass-article .related-item:hover{background:var(--bg2);color:var(--gold2)}
+#page-compass-article .related-item.active{
+  background:color-mix(in srgb,var(--gold) 8%,var(--card));
+  color:var(--gold2);font-weight:600;
+}
+#page-compass-article .related-empty{font-size:11px;color:var(--ink3);padding:10px 0}
+@media(max-width:1180px){
+  #page-compass-article .compass-article-shell{grid-template-columns:190px minmax(0,1fr)}
+  #page-compass-article .article-related{
+    position:static;grid-column:1/-1;max-height:none;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
+  }
+  #page-compass-article .article-related .related-head{grid-column:1/-1}
+}
+@media(max-width:800px){
+  #page-compass-article .article-related{display:block;margin-top:30px}
+}
+
 #page-compass-article .compass-returnbar{
   position:sticky;top:64px;z-index:74;
   display:flex;align-items:center;gap:9px;flex-wrap:wrap;
@@ -1977,6 +2024,10 @@ body.dark #page-m01{
 <div id="caBody"><div class="quote">内容将从 Obsidian Markdown 读取。</div></div>
 <button class="back-compass" id="backCompass">← 返回罗盘笔记</button>
 </article>
+<aside class="article-related" id="caRelated">
+<div class="related-head"><b>从这里继续生长</b><span id="caRelatedMeta">当前来源下的延伸文章</span></div>
+<div id="caRelatedGroups"></div>
+</aside>
 </div>
 </div>
 </main>
@@ -2253,6 +2304,58 @@ window.addEventListener('load',()=>{const h=(location.hash||'').slice(1);if(/^es
   const noteData=/* COMPASS_NOTE_DATA */{};
 
   let tocObserver=null;
+  const sectionLabels={
+    gain:'核心收获',
+    core:'核心内容',
+    module:'模块收获',
+    research:'衍生研究',
+    practice:'实践案例',
+    other:'其他展开'
+  };
+  const sectionOrder=['gain','core','module','research','practice','other'];
+
+  function renderRelatedMap(current){
+    const rootId=current.role==='child'&&current.parent?current.parent:current.id;
+    const root=noteData[rootId]||current;
+    const children=Object.values(noteData)
+      .filter(n=>n.role==='child'&&n.parent===rootId)
+      .sort((a,b)=>(Number(a.order)||999999)-(Number(b.order)||999999));
+
+    const meta=document.getElementById('caRelatedMeta');
+    const groups=document.getElementById('caRelatedGroups');
+    meta.textContent='《'+String(root.title||'').replace(/^《|》$/g,'')+'》目前已展开 '+children.length+' 篇文章';
+
+    if(!children.length){
+      groups.innerHTML='<div class="related-empty">当前还没有已发布的子文章。</div>';
+      return;
+    }
+
+    const grouped={};
+    children.forEach(n=>{
+      const key=sectionLabels[n.section]?n.section:'other';
+      (grouped[key]||(grouped[key]=[])).push(n);
+    });
+
+    const currentSection=current.role==='child'?(sectionLabels[current.section]?current.section:'other'):null;
+    groups.innerHTML=sectionOrder.filter(k=>grouped[k]?.length).map((k,i)=>{
+      const open=currentSection?currentSection===k:i===0;
+      const items=grouped[k].map(n=>
+        '<button class="related-item '+(n.id===current.id?'active':'')+'" data-note="'+n.id+'">'+n.title+'</button>'
+      ).join('');
+      return '<div class="related-group '+(open?'open':'')+'" data-section="'+k+'">'+
+        '<button class="related-toggle"><span class="rg-title">'+sectionLabels[k]+'</span>'+
+        '<span class="rg-count">'+grouped[k].length+'</span><span class="rg-plus">'+(open?'−':'＋')+'</span></button>'+
+        '<div class="related-items">'+items+'</div></div>';
+    }).join('');
+
+    groups.querySelectorAll('.related-toggle').forEach(btn=>btn.onclick=()=>{
+      const g=btn.closest('.related-group');
+      g.classList.toggle('open');
+      btn.querySelector('.rg-plus').textContent=g.classList.contains('open')?'−':'＋';
+    });
+    groups.querySelectorAll('.related-item').forEach(btn=>btn.onclick=()=>openCompassNote(btn.dataset.note));
+  }
+
   function openCompassNote(id){
     const d=noteData[id];if(!d)return;
     document.getElementById('caType').textContent=d.type||'—';
@@ -2270,6 +2373,7 @@ window.addEventListener('load',()=>{const h=(location.hash||'').slice(1);if(/^es
     parentBtn.textContent=parent?'← 返回上级：'+parent.title:'← 返回上级';
     parentBtn.onclick=()=>{if(parent)openCompassNote(parent.id);};
     context.textContent=parent?'罗盘笔记 / '+parent.title+' / '+d.title:'罗盘笔记 / '+d.title;
+    renderRelatedMap(d);
 
     const toc=document.getElementById('caToc');
     toc.innerHTML='<b>本篇目录</b>'+(d.toc||[]).map(x=>'<button class="toc-l'+(x.level||2)+'" data-target="'+x.id+'">'+x.text+'</button>').join('');
