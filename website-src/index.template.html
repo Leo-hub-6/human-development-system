@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>AI时代以人为中心的终身能力发展系统｜完整网站原型</title>
+<style>
+:root{
+  --bg:#faf8f4;--bg2:#f3efe8;--card:#fff;--card2:#f7f3ec;
+  --ink:#252932;--ink2:#5d6573;--ink3:#949ca8;
+  --gold:#b47a17;--gold2:#8a6424;--teal:#0e8f86;--purple:#74599a;--red:#a65f50;
+  --line:rgba(28,34,43,.10);--soft:rgba(180,122,23,.075);--shadow:0 18px 52px rgba(43,36,24,.06);
+  --serif:"Noto Serif SC","Songti SC","SimSun",serif;
+  --sans:"PingFang SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body.dark{
+  --bg:#0f1217;--bg2:#171c24;--card:#1c2430;--card2:#202936;
+  --ink:#edf0f5;--ink2:#b1b8c5;--ink3:#747d8b;
+  --gold:#d5a24c;--gold2:#eccb8d;--teal:#55cec6;--purple:#ad92d5;--red:#d58e7f;
+  --line:rgba(255,255,255,.085);--soft:rgba(213,162,76,.08);--shadow:0 20px 55px rgba(0,0,0,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.78 var(--sans);transition:.25s}
+a{text-decoration:none;color:inherit}
+button{font:inherit;color:inherit}
+.wrap{max-width:1040px;margin:auto;padding:0 30px}
+.wrap-wide{max-width:1180px;margin:auto;padding:0 28px}
+.kicker{font-size:12px;letter-spacing:.28em;color:var(--gold);margin-bottom:14px}
+h1,h2,h3,h4{font-family:var(--serif)}
+h2{font-size:clamp(28px,4vw,42px);line-height:1.42;margin-bottom:16px}
+.lead{max-width:800px;color:var(--ink2);margin-bottom:34px}
+.small{font-size:12px;color:var(--ink3)}
+.pill{display:inline-flex;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:12px;color:var(--ink2)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow)}
+section{padding:86px 0;border-bottom:1px solid var(--line)}
+
+/* NAV */
+.nav{position:fixed;z-index:100;inset:0 0 auto;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{height:64px;max-width:1220px;margin:auto;padding:0 24px;display:flex;align-items:center;gap:20px}
+.brand{font:700 17px var(--serif);white-space:nowrap}.brand b{color:var(--gold)}
+.nav-links{margin-left:auto;display:flex;gap:3px;align-items:center}
+.nav-links button{border:0;background:transparent;cursor:pointer;padding:8px 11px;border-radius:999px;color:var(--ink2);font-size:13.5px}
+.nav-links button:hover,.nav-links button.active{background:var(--card);color:var(--gold2)}
+.theme{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 11px;cursor:pointer}
+.page{display:none;padding-top:64px}.page.active{display:block}
+
+/* HOME */
+.hero{padding:105px 0 76px;background:radial-gradient(ellipse 75% 85% at 82% 0%,var(--soft),transparent 60%);border-bottom:1px solid var(--line)}
+.hero h1{font:700 clamp(46px,7vw,76px)/1.18 var(--serif);letter-spacing:-.035em;margin-bottom:34px}
+.hero h1 em{font-style:normal;color:var(--gold2)}
+.hero .def{max-width:950px;font-size:19px;color:var(--ink2);border-left:2px solid var(--gold);padding-left:26px;margin-bottom:38px}
+.goal-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.goal-pill{padding:9px 28px;border-radius:999px;border:1px solid color-mix(in srgb,var(--gold) 43%,var(--line));background:var(--card);font:700 18px var(--serif);color:var(--gold2)}
+.goal-x{color:var(--gold);opacity:.6}
+.stage{font-size:13.5px;color:var(--ink2);max-width:920px}.stage b{font-weight:600;margin-right:8px}
+.more{display:inline-flex;margin-top:9px;color:var(--gold2);font-size:13px;cursor:pointer}
+.quote{margin:30px 0 0;padding:20px 24px;border-left:2px solid var(--gold);background:var(--card);color:var(--ink2);border-radius:0 14px 14px 0}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px}
+.problem{border:1px solid var(--line);background:var(--card);border-radius:15px;padding:18px;cursor:pointer;transition:.2s}
+.problem:hover,.problem.open{border-color:var(--gold);transform:translateY(-1px)}
+.problem b{font:700 15px var(--serif);display:block;margin-bottom:4px}.problem p{font-size:12px;color:var(--ink3)}
+.problem .detail{display:none;border-top:1px dashed var(--line);padding-top:10px;margin-top:10px;font-size:12px;color:var(--ink2)}
+.problem.open .detail{display:block}
+.update-strip{margin-top:18px;padding:13px 15px;border-radius:12px;background:var(--bg2);border:1px solid var(--line);font-size:12px;color:var(--ink2)}
+.network{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-areas:"a center b" "c center d" "e center f";gap:11px;margin-top:30px}
+.node,.center-node{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:17px}
+.node{cursor:pointer}.node:hover,.node.active{border-color:var(--teal)}
+.node b{display:block;font:700 14px var(--serif)}.node span{font-size:11px;color:var(--ink3)}
+.center-node{grid-area:center;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:color-mix(in srgb,var(--gold) 8%,var(--card));border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.center-node b{font:700 20px var(--serif);color:var(--gold2)}
+.na{grid-area:a}.nb{grid-area:b}.nc{grid-area:c}.nd{grid-area:d}.ne{grid-area:e}.nf{grid-area:f}
+.network-detail{margin-top:14px;border-left:2px solid var(--gold);padding:13px 15px;background:var(--card);font-size:13px;color:var(--ink2);border-radius:0 12px 12px 0}
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.path{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:22px;cursor:pointer}
+.path:hover{border-color:var(--gold)}.path .pno{font-size:10px;letter-spacing:.15em;color:var(--gold);margin-bottom:8px}.path h3{font-size:18px;margin-bottom:7px}.path p{font-size:13px;color:var(--ink2)}
+.more-card{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px}.more-card h3{font-size:21px;margin-bottom:9px}.more-card p{color:var(--ink2);font-size:14px}
+.article-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.article-meta span{font-size:10px;padding:5px 9px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);color:var(--ink3)}
+.finale{text-align:center}.end{font:700 clamp(28px,4.5vw,48px)/1.45 var(--serif)}.end em{font-style:normal;color:var(--gold2)}
+.vision-grid{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:26px auto 18px;max-width:780px}.vision-grid span{padding:7px 12px;border:1px solid var(--line);background:var(--card);border-radius:999px;font-size:12px;color:var(--ink2)}
+.final-note{max-width:780px;margin:auto;color:var(--ink2)}
+
+/* SYSTEM MAP */
+.page-hero{padding:94px 0 64px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse 75% 80% at 82% 0%,var(--soft),transparent 62%)}
+.page-hero h1{font:700 clamp(38px,5.4vw,60px)/1.25 var(--serif);margin-bottom:16px}.page-hero p{max-width:820px;color:var(--ink2);font-size:17px}
+.map-shell{margin-top:36px;border:1px solid var(--line);border-radius:25px;background:var(--bg2);padding:27px;box-shadow:var(--shadow)}
+.map-goal{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}.map-goal .goal-pill{font-size:17px}
+.goal-caption{text-align:center;font-size:11.5px;color:var(--ink3);margin-bottom:20px}
+.map-grid{display:grid;grid-template-columns:172px 1fr 172px;gap:17px;align-items:start}
+.rail{align-self:start;border:1px solid var(--line);background:var(--card);border-radius:17px;padding:17px;display:flex;flex-direction:column}
+.rail .rtag{font-size:9px;letter-spacing:.14em;color:var(--gold);margin-bottom:7px}.rail h4{font-size:15px;margin-bottom:6px}.rail>p{font-size:11px;color:var(--ink3);margin-bottom:12px}
+.engine-mini{flex:1;display:grid;grid-template-rows:repeat(6,1fr);gap:6px}.em{display:flex;flex-direction:column;justify-content:center;text-align:center;border:1px solid var(--line);background:var(--bg2);border-radius:8px;padding:6px}.em b{font:700 11px var(--serif);color:var(--gold2)}.em span{font-size:8px;color:var(--ink3)}.em.value{border-color:color-mix(in srgb,var(--teal) 35%,var(--line))}
+.rail-right .mini-list{flex:1;display:grid;grid-template-rows:repeat(9,1fr);gap:5px}.rail-right .mini-list span{display:flex;align-items:center;justify-content:center;text-align:center;border:1px solid var(--line);background:var(--bg2);border-radius:8px;font-size:9px;color:var(--ink2);padding:5px}
+.layers{display:flex;flex-direction:column;gap:9px;align-self:start}
+.slayer{border:1px solid var(--line);background:var(--card);border-radius:15px;padding:16px 18px;cursor:pointer;transition:.2s}
+.slayer:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.slayer .toprow{display:flex;gap:10px;align-items:flex-start}.sno{min-width:34px;font:700 13px var(--serif);color:var(--gold)}.slayer h3{font-size:17px;margin-bottom:2px}.slayer p{font-size:11.5px;color:var(--ink3)}.slayer .badge{margin-left:auto;white-space:nowrap;font-size:9px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink3)}
+.slayer .detail{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px;color:var(--ink2)}.slayer.open .detail{display:block}
+.s1{border-color:color-mix(in srgb,var(--gold) 55%,var(--line));background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 8%,var(--card)),var(--card))}
+.s2{border:2px solid color-mix(in srgb,var(--teal) 70%,var(--line));background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 9%,var(--card)),var(--card))}
+.s3{opacity:.9}.s4{border-color:color-mix(in srgb,var(--purple) 42%,var(--line))}.s5{border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.map-note{margin-top:16px;border-left:2px solid var(--gold);padding:13px 15px;background:var(--card);font-size:12px;color:var(--ink2);border-radius:0 12px 12px 0}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.compare-card{padding:17px;border:1px solid var(--line);border-radius:14px;background:var(--card)}.compare-card .ctag{font-size:9px;letter-spacing:.13em;color:var(--gold);margin-bottom:6px}.compare-card h4{font-size:15px;margin-bottom:5px}.compare-card p{font-size:12px;color:var(--ink2)}.compare-card.ai{border-color:color-mix(in srgb,var(--teal) 40%,var(--line))}
+.engine-main{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:28px}.step{position:relative;text-align:center;border:1px solid var(--line);background:var(--card);border-radius:13px;padding:17px 8px}.step b{display:block;font:700 13px var(--serif);color:var(--gold2)}.step span{font-size:10px;color:var(--ink3)}.step:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--gold)}.step.value{border-color:color-mix(in srgb,var(--teal) 35%,var(--line))}
+.engine-groups{display:grid;grid-template-columns:4fr 2fr;gap:10px;margin-top:10px}.eg{text-align:center;font-size:10px;color:var(--ink3);padding-top:4px;border-top:1px dashed var(--line)}.eg b{color:var(--gold2)}.eg:last-child b{color:var(--teal)}
+.influence-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:26px}.influence{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:17px}.influence b{display:block;font:700 14px var(--serif);margin-bottom:3px}.influence span{font-size:11px;color:var(--ink3)}
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}.road{border:1px solid var(--line);background:var(--card);border-radius:15px;padding:22px}.road .rno{font-size:9px;letter-spacing:.15em;color:var(--gold);margin-bottom:8px}.road h3{font-size:17px;margin-bottom:7px}.road p{font-size:12px;color:var(--ink2)}
+
+/* PROBLEM NAV */
+.problem-intro{padding:90px 0 42px}
+.problem-intro h1{font:700 clamp(36px,5vw,56px)/1.3 var(--serif);margin-bottom:14px}.problem-intro p{max-width:840px;color:var(--ink2)}
+.nav-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start;padding-bottom:90px}
+.nav-col{min-width:0;border:1px solid var(--line);border-radius:20px;background:var(--card);overflow:hidden;box-shadow:var(--shadow)}
+.nav-col-head{padding:22px;border-bottom:1px solid var(--line);background:var(--bg2)}.nav-col-head .num{font-size:10px;letter-spacing:.16em;color:var(--gold);margin-bottom:6px}.nav-col-head h2{font-size:21px;margin-bottom:6px}.nav-col-head p{font-size:12px;color:var(--ink3)}
+.nav-col-body{padding:12px}
+.accord{border:1px solid var(--line);border-radius:12px;background:var(--bg);margin-bottom:8px;overflow:hidden}
+.accord button{width:100%;border:0;background:transparent;cursor:pointer;padding:13px 14px;text-align:left;display:flex;align-items:flex-start;gap:10px}.accord button:hover{background:var(--bg2)}
+.accord .code{font:700 10px var(--serif);color:var(--gold);min-width:34px;padding-top:2px}.accord .txt{min-width:0}.accord .txt b{display:block;font:700 13px var(--serif);margin-bottom:2px}.accord .txt span{display:block;font-size:10.5px;color:var(--ink3)}.accord .plus{margin-left:auto;color:var(--ink3)}
+.accord-panel{display:none;border-top:1px dashed var(--line);padding:12px 14px 14px;font-size:11.5px;color:var(--ink2);background:var(--card)}.accord.open .accord-panel{display:block}
+.group-title{font-size:9px;letter-spacing:.14em;color:var(--ink3);padding:8px 5px 5px;margin-top:4px}
+.module-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.module-meta span{font-size:9px;padding:3px 6px;border-radius:999px;border:1px solid var(--line);color:var(--ink3)}
+.board-note{grid-column:1/-1;margin-top:2px;font-size:11px;color:var(--ink3);text-align:center}
+
+/* COMPASS */
+.view-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:24px 0}.view-tabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;cursor:pointer;font-size:12px;color:var(--ink2)}.view-tabs button.active{border-color:var(--gold);color:var(--gold2)}
+.compass-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.note-card{border:1px solid var(--line);background:var(--card);border-radius:17px;padding:24px}.note-card h3{font-size:20px;margin-bottom:8px}.note-card p{font-size:13px;color:var(--ink2)}.flow{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}.flow span{padding:5px 8px;border:1px solid var(--line);border-radius:999px;font-size:10px;color:var(--ink3)}
+.compass-side{display:grid;gap:12px}.mini-card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:17px}.mini-card b{display:block;font:700 14px var(--serif);margin-bottom:5px}.mini-card p{font-size:11.5px;color:var(--ink3)}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:28px}.product{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:25px}.product .status{font-size:9px;letter-spacing:.14em;color:var(--gold);margin-bottom:8px}.product h3{font-size:20px;margin-bottom:8px}.product p{font-size:13px;color:var(--ink2)}.product .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}.product .tags span{font-size:9px;padding:4px 7px;border:1px solid var(--line);border-radius:999px;color:var(--ink3)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:30px}.about-card{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:26px}.about-card h3{font-size:20px;margin-bottom:10px}.about-card p{color:var(--ink2);font-size:13px}.channel{padding:11px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:12px}.channel:last-child{border-bottom:0}.channel span:last-child{color:var(--ink3)}
+
+footer{padding:32px 0;border-top:1px solid var(--line);font-size:12px;color:var(--ink3)}.foot{max-width:1180px;margin:auto;padding:0 28px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+/* MODAL */
+.modal{position:fixed;z-index:200;inset:0;background:rgba(0,0,0,.48);display:none;align-items:center;justify-content:center;padding:24px}.modal.open{display:flex}.modal-card{width:min(620px,100%);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;position:relative}.modal-card .x{position:absolute;right:16px;top:14px;border:0;background:transparent;cursor:pointer;font-size:22px;color:var(--ink3)}.modal-card h3{font-size:23px;margin-bottom:12px}.modal-card p{color:var(--ink2);font-size:13px}.modal-card code{display:block;margin-top:16px;padding:10px;background:var(--bg2);border-radius:10px;font-size:10px;color:var(--ink3);white-space:normal}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .map-grid{grid-template-columns:1fr}.rail{display:none}
+  .nav-board{grid-template-columns:1fr}
+  .compass-grid,.about-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .wrap,.wrap-wide{padding:0 20px}
+  .hero h1{font-size:clamp(38px,11vw,58px)}
+  .problem-grid,.paths,.compare,.products-grid,.roadmap,.influence-grid{grid-template-columns:1fr}
+  .network{grid-template-columns:1fr;grid-template-areas:"center" "a" "b" "c" "d" "e" "f"}
+  .engine-main{grid-template-columns:repeat(2,1fr)}.step:nth-child(2n)::after{display:none}.engine-groups{grid-template-columns:1fr}
+}
+
+/* ===== PROBLEM NAV V2 · 参考原版布局：顶部三标签 + 单面板切换 ===== */
+#page-problems .pnav-tabs{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:10px 0 36px;
+  position:sticky;
+  top:76px;
+  z-index:20;
+  padding:10px;
+  background:color-mix(in srgb,var(--bg) 90%,transparent);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--line);
+  border-radius:18px
+}
+#page-problems .pnav-tab{
+  appearance:none;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--ink2);
+  border-radius:13px;
+  padding:15px 14px;
+  cursor:pointer;
+  text-align:left;
+  font-family:var(--sans);
+  transition:.25s
+}
+#page-problems .pnav-tab:hover{border-color:var(--gold);transform:translateY(-1px)}
+#page-problems .pnav-tab.active{
+  border-color:var(--gold);
+  background:color-mix(in srgb,var(--gold) 10%,var(--card));
+  color:var(--ink)
+}
+#page-problems .pnav-tab b{
+  display:block;
+  font-family:var(--serif);
+  font-size:15px;
+  margin-bottom:3px
+}
+#page-problems .pnav-tab span{font-size:11.5px;color:var(--ink3)}
+#page-problems .pnav-panel{display:none}
+#page-problems .pnav-panel.active{display:block}
+#page-problems .layer-intro{
+  display:grid;
+  grid-template-columns:80px 1fr;
+  gap:18px;
+  align-items:start;
+  margin-bottom:34px
+}
+#page-problems .layer-num{
+  font-family:var(--serif);
+  font-size:38px;
+  line-height:1;
+  color:var(--gold);
+  opacity:.9
+}
+#page-problems .layer-intro h2{margin-bottom:8px}
+#page-problems .layer-intro p{color:var(--ink2);max-width:760px}
+#page-problems .reason-grid{display:grid;gap:12px;margin-top:28px}
+#page-problems .reason-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+  transition:.25s
+}
+#page-problems .reason-card.open{border-color:color-mix(in srgb,var(--gold) 55%,var(--line))}
+#page-problems .reason-head{
+  display:grid;
+  grid-template-columns:44px 1fr auto;
+  gap:12px;
+  align-items:center;
+  padding:18px 20px;
+  cursor:pointer
+}
+#page-problems .reason-no{font-family:var(--serif);color:var(--gold);font-size:13px}
+#page-problems .reason-head h3{font-family:var(--serif);font-size:17px;margin:0}
+#page-problems .reason-plus{color:var(--gold);font-size:18px}
+#page-problems .reason-body{
+  display:none;
+  padding:0 20px 20px 76px;
+  color:var(--ink2);
+  font-size:13.5px;
+  line-height:1.85
+}
+#page-problems .reason-card.open .reason-body{display:block}
+#page-problems .reason-body strong{color:var(--ink)}
+
+#page-problems .module-group{margin-top:28px}
+#page-problems .module-group-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:28px 0 12px;
+  font-size:11px;
+  letter-spacing:.12em;
+  color:var(--ink3)
+}
+#page-problems .module-group-title::after{
+  content:"";
+  height:1px;
+  background:var(--line);
+  flex:1
+}
+#page-problems .mod-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:14px;
+  margin-top:14px
+}
+#page-problems .mod-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:24px;
+  cursor:pointer;
+  transition:.25s;
+  text-align:left;
+  font-family:var(--sans);
+  color:var(--ink)
+}
+#page-problems .mod-card:hover{
+  border-color:var(--gold);
+  transform:translateY(-2px)
+}
+#page-problems .mod-card .mno{
+  font-family:var(--serif);
+  color:var(--gold);
+  font-size:12px;
+  letter-spacing:.1em;
+  margin-bottom:8px
+}
+#page-problems .mod-card h3{
+  font-family:var(--serif);
+  font-size:19px;
+  margin-bottom:8px
+}
+#page-problems .mod-card .mwhy{
+  color:var(--ink2);
+  font-size:13.5px;
+  line-height:1.7
+}
+#page-problems .mod-card .mgo{
+  display:block;
+  color:var(--gold2);
+  font-size:13px;
+  margin-top:14px
+}
+#page-problems .mod-card.m10{
+  border-color:color-mix(in srgb,var(--gold) 42%,var(--line));
+  background:linear-gradient(135deg,color-mix(in srgb,var(--gold) 7%,var(--card)),var(--card))
+}
+#page-problems .mod-detail{display:none}
+#page-problems .mod-detail.show{display:block}
+#page-problems .back-btn{
+  display:inline-flex;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:8px 18px;
+  color:var(--ink2);
+  cursor:pointer;
+  font-family:var(--sans);
+  margin-bottom:28px
+}
+#page-problems .back-btn:hover{border-color:var(--gold)}
+#page-problems .moc-skeleton{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:24px;
+  margin-top:22px
+}
+#page-problems .moc-skeleton h4{
+  font-family:var(--serif);
+  font-size:17px;
+  margin-bottom:8px
+}
+#page-problems .moc-skeleton p{font-size:13px;color:var(--ink2)}
+#page-problems .moc-tags{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:14px
+}
+#page-problems .moc-tags span{
+  border:1px solid var(--line);
+  background:var(--bg2);
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:10px;
+  color:var(--ink3)
+}
+#page-problems .placeholder-note{
+  margin-top:28px;
+  padding:18px 20px;
+  background:var(--bg2);
+  border:1px dashed var(--line);
+  border-radius:12px;
+  color:var(--ink3);
+  font-size:13px
+}
+
+#page-problems .system-map{display:grid;gap:14px;margin-top:26px}
+#page-problems .sys-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px
+}
+#page-problems .sys-card h3{font-family:var(--serif);font-size:18px;margin-bottom:8px}
+#page-problems .sys-card p{color:var(--ink2);font-size:13.5px}
+#page-problems .sys-card .mini{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px
+}
+#page-problems .sys-card .mini span{
+  border:1px solid var(--line);
+  background:var(--bg2);
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:11.5px;
+  color:var(--ink2)
+}
+#page-problems .flowline{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:16px
+}
+#page-problems .flowline .fnode{
+  padding:9px 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:var(--bg2);
+  font-size:12px
+}
+#page-problems .flowline .arr{color:var(--gold)}
+#page-problems .path-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:16px
+}
+#page-problems .path-card{
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:var(--bg2)
+}
+#page-problems .path-card b{
+  font-family:var(--serif);
+  display:block;
+  color:var(--gold2);
+  margin-bottom:6px
+}
+#page-problems .path-card span{
+  font-size:12.5px;
+  color:var(--ink2);
+  line-height:1.7
+}
+#page-problems .note-strip{
+  margin-top:28px;
+  padding:17px 19px;
+  border-left:2px solid var(--gold);
+  background:color-mix(in srgb,var(--gold) 7%,var(--card));
+  color:var(--ink2);
+  font-size:13.5px
+}
+@media(max-width:720px){
+  #page-problems .pnav-tabs{grid-template-columns:1fr;position:static}
+  #page-problems .layer-intro{grid-template-columns:1fr}
+  #page-problems .reason-body{padding-left:20px}
+  #page-problems .path-grid{grid-template-columns:1fr}
+}
+
+
+/* ===== PROBLEM NAV V3 · 9模块3×3 + 代际传递汇流 ===== */
+#page-problems .module-group{margin-top:0}
+#page-problems .module-group-title{display:none !important}
+
+#page-problems .module-matrix{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-top:26px;
+}
+#page-problems .module-matrix .mod-card{
+  min-height:184px;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+}
+#page-problems .module-matrix .mod-card .mgo{
+  margin-top:auto;
+  padding-top:14px;
+}
+#page-problems .mod-topline{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:10px;
+}
+#page-problems .mod-topline .mno{
+  margin:0;
+}
+#page-problems .mod-type{
+  display:inline-flex;
+  align-items:center;
+  padding:3px 7px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:var(--bg2);
+  color:var(--ink3);
+  font-size:9px;
+  line-height:1.3;
+  white-space:nowrap;
+}
+#page-problems .mod-card[data-type="foundation"] .mod-type{
+  color:var(--gold2);
+  border-color:color-mix(in srgb,var(--gold) 30%,var(--line));
+}
+#page-problems .mod-card[data-type="application"] .mod-type{
+  color:var(--teal);
+  border-color:color-mix(in srgb,var(--teal) 30%,var(--line));
+}
+#page-problems .mod-card[data-type="upper"] .mod-type{
+  color:var(--purple);
+  border-color:color-mix(in srgb,var(--purple) 30%,var(--line));
+}
+#page-problems .mod-card[data-type="cross"] .mod-type{
+  color:var(--red);
+  border-color:color-mix(in srgb,var(--red) 30%,var(--line));
+}
+
+/* 9模块 -> M10：不用九条长箭头，改为九点汇流 */
+#page-problems .transfer-zone{
+  margin:24px 0 0;
+  padding-top:4px;
+}
+#page-problems .transfer-dots{
+  display:grid;
+  grid-template-columns:repeat(9,1fr);
+  gap:0;
+  max-width:88%;
+  margin:0 auto;
+}
+#page-problems .transfer-dot{
+  height:24px;
+  position:relative;
+}
+#page-problems .transfer-dot::before{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--gold);
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  opacity:.75;
+}
+#page-problems .transfer-dot::after{
+  content:"";
+  position:absolute;
+  width:1px;
+  height:18px;
+  background:color-mix(in srgb,var(--gold) 45%,var(--line));
+  left:50%;
+  top:5px;
+}
+#page-problems .transfer-bus{
+  position:relative;
+  height:44px;
+  max-width:88%;
+  margin:0 auto;
+  border-top:1px solid color-mix(in srgb,var(--gold) 45%,var(--line));
+}
+#page-problems .transfer-bus::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  width:1px;
+  height:28px;
+  background:color-mix(in srgb,var(--gold) 58%,var(--line));
+}
+#page-problems .transfer-bus::after{
+  content:"↓";
+  position:absolute;
+  left:50%;
+  top:21px;
+  transform:translateX(-50%);
+  color:var(--gold);
+  font-size:18px;
+  line-height:1;
+}
+#page-problems .transfer-label{
+  text-align:center;
+  color:var(--ink3);
+  font-size:11px;
+  margin:-7px 0 12px;
+}
+#page-problems .transfer-label b{
+  color:var(--gold2);
+  font-weight:600;
+}
+#page-problems .m10-wrap{
+  max-width:760px;
+  margin:0 auto;
+}
+#page-problems .mod-card.m10{
+  width:100%;
+  min-height:0;
+  display:grid;
+  grid-template-columns:110px 1fr auto;
+  align-items:center;
+  gap:18px;
+  padding:22px 24px;
+  border-color:color-mix(in srgb,var(--gold) 50%,var(--line));
+  background:linear-gradient(135deg,color-mix(in srgb,var(--gold) 8%,var(--card)),var(--card));
+}
+#page-problems .mod-card.m10 .m10-id{
+  text-align:center;
+  border-right:1px solid var(--line);
+  padding-right:18px;
+}
+#page-problems .mod-card.m10 .m10-id .mno{
+  margin-bottom:5px;
+}
+#page-problems .mod-card.m10 .m10-id b{
+  font:700 17px var(--serif);
+  color:var(--gold2);
+}
+#page-problems .mod-card.m10 h3{
+  margin-bottom:5px;
+}
+#page-problems .mod-card.m10 .mgo{
+  margin:0;
+  padding:0;
+  white-space:nowrap;
+}
+#page-problems .matrix-legend{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px 14px;
+  flex-wrap:wrap;
+  margin-top:18px;
+  color:var(--ink3);
+  font-size:10px;
+}
+#page-problems .matrix-legend span{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+}
+#page-problems .matrix-legend i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:var(--bg2);
+}
+#page-problems .matrix-legend .f i{background:color-mix(in srgb,var(--gold) 30%,var(--bg2))}
+#page-problems .matrix-legend .a i{background:color-mix(in srgb,var(--teal) 30%,var(--bg2))}
+#page-problems .matrix-legend .u i{background:color-mix(in srgb,var(--purple) 30%,var(--bg2))}
+#page-problems .matrix-legend .c i{background:color-mix(in srgb,var(--red) 30%,var(--bg2))}
+
+@media(max-width:820px){
+  #page-problems .module-matrix{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #page-problems .transfer-dots{grid-template-columns:repeat(9,1fr);max-width:96%}
+  #page-problems .transfer-bus{max-width:96%}
+}
+@media(max-width:560px){
+  #page-problems .module-matrix{grid-template-columns:1fr}
+  #page-problems .transfer-dots{display:none}
+  #page-problems .transfer-bus{
+    border-top:0;
+    height:34px;
+  }
+  #page-problems .mod-card.m10{
+    grid-template-columns:1fr;
+    text-align:left;
+  }
+  #page-problems .mod-card.m10 .m10-id{
+    text-align:left;
+    border-right:0;
+    border-bottom:1px solid var(--line);
+    padding:0 0 10px;
+  }
+}
+
+
+/* ===== V4：首页目标命题 + Thesis Hub ===== */
+.goal-thesis{margin-top:26px;max-width:880px;padding:20px 22px;border:1px solid var(--line);background:var(--card);border-radius:16px}
+.goal-thesis .q{font:700 17px var(--serif);margin-bottom:10px;color:var(--ink)}
+.goal-thesis p{color:var(--ink2);font-size:13.5px;line-height:1.85}
+.goal-thesis .three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
+.goal-thesis .g{border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:13px 14px}
+.goal-thesis .g b{display:block;font:700 13px var(--serif);color:var(--gold2);margin-bottom:4px}
+.goal-thesis .g span{font-size:10.5px;color:var(--ink3);line-height:1.6}
+.goal-thesis .more{margin-top:14px}
+.road-link{display:inline-flex;margin-top:10px;color:var(--gold2);font-size:12px;cursor:pointer}
+.thesis-hero{padding:102px 0 64px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse 70% 82% at 82% 0%,var(--soft),transparent 62%)}
+.thesis-hero h1{font:700 clamp(40px,5.5vw,64px)/1.2 var(--serif);margin-bottom:18px}
+.thesis-hero .subtitle{max-width:840px;color:var(--ink2);font-size:18px}
+.thesis-core{margin-top:28px;border-left:2px solid var(--gold);padding:18px 22px;background:var(--card);border-radius:0 14px 14px 0;max-width:900px}
+.thesis-core b{font:700 15px var(--serif);color:var(--gold2)}
+.thesis-core p{margin-top:5px;color:var(--ink2);font-size:13.5px}
+.thesis-rel{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-top:26px}
+.thesis-rel .box{border:1px solid var(--line);background:var(--card);border-radius:13px;padding:18px 12px;text-align:center}
+.thesis-rel .box b{display:block;font:700 14px var(--serif);margin-bottom:4px}
+.thesis-rel .box span{font-size:10px;color:var(--ink3)}
+.thesis-rel .op{color:var(--gold);font:700 18px var(--serif);text-align:center}
+.thesis-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
+.thesis-card{border:1px solid var(--line);background:var(--card);border-radius:17px;padding:24px;cursor:pointer;transition:.2s}
+.thesis-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.thesis-card .no{font-size:9px;letter-spacing:.16em;color:var(--gold);margin-bottom:8px}
+.thesis-card h3{font-size:20px;margin-bottom:8px}
+.thesis-card p{font-size:12.5px;color:var(--ink2);line-height:1.75}
+.thesis-card .go{display:inline-block;margin-top:13px;font-size:12px;color:var(--gold2)}
+.thesis-bottom{margin-top:26px;border:1px solid var(--line);background:var(--bg2);border-radius:16px;padding:20px}
+.thesis-bottom h3{font-size:18px;margin-bottom:8px}
+.thesis-bottom p{font-size:12.5px;color:var(--ink2)}
+.thesis-back{display:inline-flex;margin-top:12px;color:var(--gold2);font-size:12px;cursor:pointer}
+@media(max-width:700px){.goal-thesis .three,.thesis-grid{grid-template-columns:1fr}.thesis-rel{grid-template-columns:1fr}.thesis-rel .op{transform:rotate(90deg)}}
+
+
+/* ===== Thesis Hub ===== */
+#page-thesis .thesis-ref-hero{padding:100px 0 72px;display:grid;grid-template-columns:1.2fr .8fr;gap:70px;align-items:center;border-bottom:1px solid var(--line);background:radial-gradient(ellipse 70% 85% at 82% 0%,var(--soft),transparent 62%)}
+#page-thesis .thesis-ref-hero h1{font:700 clamp(44px,6vw,72px)/1.2 var(--serif);letter-spacing:-.045em;margin:16px 0 24px}
+#page-thesis .thesis-ref-lead{font-size:17px;line-height:2;color:var(--ink2);max-width:650px}
+#page-thesis .thesis-ref-action{display:inline-flex;margin-top:20px;padding:10px 17px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:12px;cursor:pointer}
+#page-thesis .thesis-aside{border-left:1px solid color-mix(in srgb,var(--gold) 38%,var(--line));padding:15px 0 15px 28px}
+#page-thesis .thesis-aside .num{font-size:10px;letter-spacing:.16em;color:var(--gold)}
+#page-thesis .thesis-aside p{font:700 19px/1.85 var(--serif);margin:14px 0}
+#page-thesis .thesis-aside small{font-size:11px;color:var(--ink3)}
+#page-thesis .thesis-statement{background:var(--ink);color:var(--bg);padding:40px 46px;display:grid;grid-template-columns:1fr 1fr;gap:34px;border-radius:18px}
+#page-thesis .thesis-statement h3{font:700 23px/1.7 var(--serif);margin-top:7px}
+#page-thesis .thesis-statement p{font-size:13px;line-height:2.05;color:color-mix(in srgb,var(--bg) 75%,transparent)}
+#page-thesis .thesis-question{padding:26px 30px;margin-top:18px;border:1px solid var(--line);background:color-mix(in srgb,var(--gold) 7%,var(--card));border-radius:14px;font:700 17px/1.8 var(--serif);color:var(--gold2)}
+#page-thesis .arg-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+#page-thesis .arg-step{background:var(--card);border:1px solid var(--line);padding:24px;border-radius:15px;min-height:180px}
+#page-thesis .arg-step .digit{font-size:10px;color:var(--gold);letter-spacing:.08em}
+#page-thesis .arg-step h3{font-size:18px;margin:13px 0 6px}
+#page-thesis .arg-step p{font-size:12.5px;color:var(--ink2)}
+#page-thesis .essay-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+#page-thesis .essay-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:25px;cursor:pointer;transition:.2s;display:flex;flex-direction:column;min-height:224px}
+#page-thesis .essay-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+#page-thesis .essay-card.wide{grid-column:1/-1;min-height:170px}
+#page-thesis .essay-top{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--ink3)}
+#page-thesis .essay-top em{font-style:normal;border:1px solid var(--line);background:var(--bg2);border-radius:999px;padding:3px 10px;color:var(--gold2)}
+#page-thesis .essay-card h3{font-size:20px;line-height:1.55;margin:15px 0 8px}
+#page-thesis .essay-card p{font-size:12.5px;color:var(--ink2);line-height:1.85;flex:1}
+#page-thesis .essay-card .more{font-size:11.5px;color:var(--gold2);margin-top:13px}
+#page-thesis .obs-note{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:10px;color:var(--ink3)}
+#page-thesis .obs-note i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+#page-thesis .direction-end{padding:34px 0 12px}
+#page-thesis .direction-end p{max-width:760px;color:var(--ink2);font-size:15px}
+
+/* ===== Obsidian article route ===== */
+#page-article .obs-article-head{padding:96px 0 46px;max-width:860px}
+#page-article .obs-breadcrumb{font-size:11px;color:var(--ink3);margin-bottom:18px}
+#page-article .obs-article-head h1{font:700 clamp(34px,4.6vw,54px)/1.38 var(--serif);margin-bottom:14px}
+#page-article .obs-deck{font-size:16px;line-height:2;color:var(--ink2)}
+#page-article .obs-source{display:inline-flex;margin-top:16px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:9.5px;color:var(--ink3)}
+#page-article .obs-shell{display:grid;grid-template-columns:220px minmax(0,1fr);gap:70px;border-top:1px solid var(--line);padding-top:42px;padding-bottom:90px}
+#page-article .obs-toc{position:sticky;top:94px;align-self:start}
+#page-article .obs-toc p{font-size:10px;letter-spacing:.12em;color:var(--ink3);margin-bottom:6px}
+#page-article .obs-toc button{display:block;width:100%;border:0;background:none;text-align:left;cursor:pointer;padding:7px 0;font-size:12px;color:var(--ink2)}
+#page-article .obs-toc button:hover{color:var(--gold2)}
+#page-article .obs-prose{max-width:760px}
+#page-article .obs-pull{padding:26px 30px;border-left:3px solid var(--gold);background:var(--bg2);border-radius:0 12px 12px 0;font:700 18px/1.8 var(--serif);margin-bottom:30px}
+#page-article .obs-prose section{padding:0 0 18px;border-bottom:0}
+#page-article .obs-prose h2{font-size:23px;margin:30px 0 12px}
+#page-article .obs-prose p{font-size:15px;line-height:2.08;color:var(--ink2)}
+#page-article .obs-prevnext{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:24px;margin-top:40px}
+#page-article .obs-prevnext button{border:0;background:none;color:var(--gold2);cursor:pointer;font-size:12px}
+@media(max-width:800px){
+  #page-thesis .thesis-ref-hero{grid-template-columns:1fr;gap:32px;padding-top:70px}
+  #page-thesis .thesis-statement,#page-thesis .arg-steps,#page-thesis .essay-grid{grid-template-columns:1fr}
+  #page-thesis .essay-card.wide{grid-column:auto}
+  #page-article .obs-shell{display:block}
+  #page-article .obs-toc{display:none}
+}
+body.dark #page-m01{
+  --bg:#0f1217;--bg2:#171d25;--card:#1c2430;--ink:#edf0f5;--ink2:#b2bac8;--ink3:#747d8a;
+  --gold:#d5a34e;--gold2:#eccb8e;--teal:#56cec6;--purple:#ad93d5;--red:#d18b7d;
+  --line:rgba(255,255,255,.085);--soft:rgba(213,163,78,.08);--shadow:0 18px 52px rgba(0,0,0,.22);
+}#page-m01 *{box-sizing:border-box;margin:0;padding:0}#page-m01 a{text-decoration:none;color:inherit}#page-m01 button,#page-m01 input{font:inherit;color:inherit}#page-m01 .wrap{max-width:1240px;margin:auto;padding:0 28px}#page-m01 .kicker{font-size:11px;letter-spacing:.22em;color:var(--gold);margin-bottom:10px}#page-m01 h1,#page-m01 h2,#page-m01 h3,#page-m01 h4{font-family:var(--serif)}#page-m01 h2{font-size:clamp(27px,3vw,38px);line-height:1.42;margin-bottom:12px}#page-m01 .lead{color:var(--ink2);max-width:820px}#page-m01 .small{font-size:12px;color:var(--ink3)}#page-m01 .nav{position:fixed;z-index:100;inset:0 0 auto;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}#page-m01 .nav-in{height:62px;max-width:1280px;margin:auto;padding:0 24px;display:flex;align-items:center;gap:16px}#page-m01 .back-top{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 12px;cursor:pointer;color:var(--ink2);font-size:12px}#page-m01 .brand{font:700 16px var(--serif);margin-left:2px}#page-m01 .brand b{color:var(--gold)}#page-m01 .crumbs{margin-left:auto;display:flex;align-items:center;gap:7px;color:var(--ink3);font-size:11px;min-width:0}#page-m01 .crumbs strong{color:var(--ink2);font-weight:500}#page-m01 .crumbs span{white-space:nowrap}#page-m01 .theme{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 10px;cursor:pointer}#page-m01 .hero{padding:118px 0 62px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse 70% 80% at 83% 0%,var(--soft),transparent 60%)}#page-m01 .hero h1{font:700 clamp(40px,5vw,58px)/1.2 var(--serif);margin-bottom:18px}#page-m01 .hero .def{max-width:900px;color:var(--ink2);font-size:17px;border-left:2px solid var(--gold);padding-left:24px}#page-m01 .hero-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}#page-m01 .hero-meta span{padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:10px;color:var(--ink3)}#page-m01 .content-shell{
+  max-width:1528px;
+  margin:0 auto;
+  padding:56px 0 90px;
+}#page-m01 .layout{
+  display:grid;
+  grid-template-columns:220px 1040px 220px;
+  gap:24px;
+  justify-content:center;
+  align-items:start;
+}#page-m01 .main{
+  min-width:0;
+  width:1040px;
+  padding:0 28px;
+}#page-m01 .left,#page-m01 .right{
+  position:sticky;
+  top:88px;
+  width:220px;
+  align-self:start;
+}#page-m01 .side-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  height:510px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}#page-m01 .side-card h3{font-size:16px;margin-bottom:8px}#page-m01 .side-card p{font-size:11.5px;color:var(--ink3)}#page-m01 .toc{display:grid;gap:3px;margin-top:8px;overflow:auto;padding-right:3px}#page-m01 .toc button{border:0;background:transparent;text-align:left;padding:7px 3px;cursor:pointer;color:var(--ink2);font-size:11.5px}#page-m01 .toc button:hover,#page-m01 .toc button.active{color:var(--gold2)}#page-m01 .quick-search{margin-top:12px}#page-m01 .quick-search input{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:11px;padding:10px 12px;font-size:12px;outline:none}#page-m01 .quick-search input:focus{border-color:var(--gold)}#page-m01 .quick-list{display:grid;gap:7px;margin-top:12px;overflow:auto;padding-right:3px}#page-m01 .quick-btn{border:1px solid var(--line);background:var(--bg2);border-radius:10px;padding:9px 10px;text-align:left;cursor:pointer;font-size:11.5px;color:var(--ink2);transition:.18s}#page-m01 .quick-btn:hover,#page-m01 .quick-btn.active{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 7%,var(--card));color:var(--ink)}#page-m01 .section{padding:0 0 58px;margin-bottom:58px;border-bottom:1px solid var(--line)}#page-m01 .section:last-child{border-bottom:0}#page-m01 .section-no{font-size:10px;letter-spacing:.18em;color:var(--gold);margin-bottom:9px}#page-m01 .overview-card{margin-top:24px;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:24px}#page-m01 .module-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}#page-m01 .module-chip{border:1px solid var(--line);background:var(--bg2);border-radius:13px;padding:14px 10px;text-align:center;cursor:pointer;transition:.2s}#page-m01 .module-chip:hover{transform:translateY(-2px);border-color:var(--gold)}#page-m01 .module-chip b{display:block;font:700 14px var(--serif);margin-bottom:4px;white-space:nowrap}#page-m01 .module-chip span{display:block;font-size:9px;color:var(--ink3);white-space:nowrap}#page-m01 .logic-flow{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  width:100%;
+  align-items:center;
+}#page-m01 .logic-cell{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  font:600 12px var(--serif);
+  color:var(--ink2);
+  white-space:nowrap;
+  text-align:center;
+}#page-m01 .logic-cell:not(:last-child)::after{
+  content:"→";
+  position:absolute;
+  right:-9px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--gold);
+  font-size:13px;
+  z-index:2;
+}#page-m01 .logic-cell:nth-child(4)::after{
+  content:"＋";
+}#page-m01 .module-list{display:grid;gap:16px;margin-top:24px}#page-m01 .mod{border:1px solid var(--line);background:var(--card);border-radius:18px;overflow:hidden;transition:.2s}#page-m01 .mod.highlight{border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 10%,transparent)}#page-m01 .mod-head{display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;padding:20px 22px;cursor:pointer}#page-m01 .mod-no{font:700 14px var(--serif);color:var(--gold)}#page-m01 .mod-head h3{font-size:20px;margin-bottom:3px}#page-m01 .mod-head p{font-size:12px;color:var(--ink3)}#page-m01 .mod-toggle{color:var(--gold);font-size:18px}#page-m01 .mod-body{display:none;padding:0 22px 22px}#page-m01 .mod.open .mod-body{display:block}#page-m01 .intro-block,#page-m01 .integrate-block,#page-m01 .product-block{padding:15px 16px;border-radius:12px;margin-bottom:14px}#page-m01 .intro-block{background:var(--bg2);border:1px solid var(--line)}#page-m01 .integrate-block{background:color-mix(in srgb,var(--teal) 5%,var(--card));border:1px dashed color-mix(in srgb,var(--teal) 35%,var(--line));margin-top:14px;margin-bottom:0}#page-m01 .product-block{background:color-mix(in srgb,var(--gold) 6%,var(--card));border:1px dashed color-mix(in srgb,var(--gold) 38%,var(--line));margin-top:14px;margin-bottom:0}#page-m01 .intro-block b,#page-m01 .integrate-block b,#page-m01 .product-block b{display:block;font:700 13px var(--serif);margin-bottom:5px}#page-m01 .intro-block p,#page-m01 .integrate-block p,#page-m01 .product-block p{font-size:12px;color:var(--ink2)}#page-m01 .subgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#page-m01 .subnode{border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:16px;transition:.2s}#page-m01 .subnode.highlight{border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 9%,transparent)}#page-m01 .subnode h4{font-size:16px;margin-bottom:5px}#page-m01 .subnode .desc{font-size:11.5px;color:var(--ink3);margin-bottom:10px}#page-m01 .q-list{display:grid;gap:6px;margin-top:8px}#page-m01 .q{padding:9px 10px;border-radius:9px;background:var(--card);border:1px solid transparent;color:var(--ink2);font-size:11.5px;cursor:pointer;transition:.18s}#page-m01 .q:hover,#page-m01 .q.highlight{border-color:var(--gold);color:var(--ink);background:color-mix(in srgb,var(--gold) 5%,var(--card))}#page-m01 .assets{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}#page-m01 .assets span{font-size:9px;padding:4px 7px;border:1px solid var(--line);border-radius:999px;color:var(--ink3);background:var(--card)}#page-m01 .relation-block{margin-top:24px;border:1px solid var(--line);background:var(--card);border-radius:18px;padding:24px}#page-m01 .influence-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}#page-m01 .influence{border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:14px}#page-m01 .influence b{display:block;font:700 12px var(--serif);margin-bottom:4px}#page-m01 .influence span{font-size:10px;color:var(--ink3)}#page-m01 .direction-title{display:flex;align-items:center;gap:10px;margin-top:22px;margin-bottom:8px;font:700 14px var(--serif)}#page-m01 .direction-title::after{content:"";height:1px;background:var(--line);flex:1}#page-m01 .arrow-badge{display:inline-flex;padding:3px 7px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);font:500 9px var(--sans);color:var(--gold2)}#page-m01 .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}#page-m01 .detail-card{border:1px solid var(--line);background:var(--card);border-radius:15px;padding:18px}#page-m01 .detail-card h4{font-size:16px;margin-bottom:7px}#page-m01 .detail-card p{font-size:11.5px;color:var(--ink2)}#page-m01 .detail-card ul{margin:9px 0 0 18px;color:var(--ink2);font-size:11.5px}#page-m01 .detail-card li{margin:4px 0}#page-m01 .summary-card{border:1px solid color-mix(in srgb,var(--gold) 35%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,var(--gold) 7%,var(--card)),var(--card));border-radius:20px;padding:26px}#page-m01 .summary-card h3{font-size:21px;margin-bottom:10px}#page-m01 .summary-card p{font-size:13px;color:var(--ink2)}#page-m01 .summary-actions{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin-top:18px}#page-m01 .summary-action{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:17px}#page-m01 .summary-action b{display:block;font:700 14px var(--serif);margin-bottom:5px}#page-m01 .summary-action p{font-size:11.5px;color:var(--ink2)}#page-m01 .summary-action a{display:inline-block;margin-top:9px;color:var(--gold2);font-size:11.5px}#page-m01 .othermods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}#page-m01 .othermod{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:13px;cursor:pointer}#page-m01 .othermod:hover{border-color:var(--gold)}#page-m01 .othermod b{display:block;font:700 12px var(--serif)}#page-m01 .othermod span{font-size:9.5px;color:var(--ink3)}#page-m01 .mobile-finder{display:none;position:sticky;top:62px;z-index:60;padding:10px 20px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}#page-m01 .mobile-finder button{width:100%;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 13px;cursor:pointer;font-size:12px;color:var(--ink2)}#page-m01 .drawer{position:fixed;z-index:150;inset:auto 0 0;background:var(--card);border-top:1px solid var(--line);border-radius:20px 20px 0 0;box-shadow:0 -20px 60px rgba(0,0,0,.18);padding:20px;transform:translateY(110%);transition:.25s;max-height:72vh;overflow:auto}#page-m01 .drawer.open{transform:translateY(0)}#page-m01 .drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}#page-m01 .drawer-head h3{font-size:16px}#page-m01 .drawer-head button{border:0;background:none;font-size:20px;cursor:pointer;color:var(--ink3)}#page-m01 footer{padding:30px 0;border-top:1px solid var(--line);font-size:11px;color:var(--ink3)}@media (max-width:1540px){#page-m01 .content-shell{max-width:1040px;padding-left:0;padding-right:0}#page-m01 .layout{display:block}#page-m01 .main{width:1040px;max-width:100%;margin:0 auto}#page-m01 .left,#page-m01 .right{display:none}#page-m01 .mobile-finder{display:block}}@media (max-width:940px){#page-m01 .module-row{grid-template-columns:repeat(2,1fr)}}@media (max-width:700px){#page-m01 .wrap{padding:0 20px}#page-m01 .crumbs{display:none}#page-m01 .subgrid,#page-m01 .detail-grid,#page-m01 .influence-grid,#page-m01 .othermods,#page-m01 .summary-actions{grid-template-columns:1fr}#page-m01 .logic-flow{grid-template-columns:repeat(5,minmax(92px,1fr));gap:8px;overflow-x:auto;padding-bottom:4px}}
+#page-m01{padding-top:64px}
+#page-m01 .m01-subnav{position:sticky;top:64px;z-index:75;height:50px;display:flex;align-items:center;gap:12px;padding:0 max(20px,calc((100vw - 1240px)/2 + 28px));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+#page-m01 .m01-subnav button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 11px;cursor:pointer;color:var(--ink2);font-size:11.5px}
+#page-m01 .m01-subnav span{font-size:11px;color:var(--ink3)}
+#page-m01 .hero{padding-top:76px}
+@media(max-width:700px){#page-m01 .m01-subnav{padding:0 20px}}
+
+
+/* ===== COMPASS V2 · 两层筛选：输入类型 → 去向模块 ===== */
+#page-compass .compass-intro{
+  display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:26px;
+}
+#page-compass .compass-principle,
+#page-compass .compass-stat{
+  border:1px solid var(--line);background:var(--card);border-radius:17px;padding:22px;
+}
+#page-compass .compass-principle h3,
+#page-compass .compass-stat h3{font-size:18px;margin-bottom:8px}
+#page-compass .compass-principle p,
+#page-compass .compass-stat p{font-size:12.5px;color:var(--ink2)}
+#page-compass .compass-stat strong{display:block;font:700 30px var(--serif);color:var(--gold2);margin:4px 0 2px}
+#page-compass .filter-panel{
+  margin-top:26px;border:1px solid var(--line);background:var(--card);border-radius:18px;padding:22px;
+}
+#page-compass .filter-row{
+  display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;align-items:start;
+}
+#page-compass .filter-row + .filter-row{
+  margin-top:17px;padding-top:17px;border-top:1px dashed var(--line);
+}
+#page-compass .filter-label .n{
+  display:block;font-size:9px;letter-spacing:.14em;color:var(--gold);margin-bottom:3px;
+}
+#page-compass .filter-label b{font:700 13px var(--serif)}
+#page-compass .filter-options{display:flex;gap:7px;flex-wrap:wrap}
+#page-compass .filter-btn{
+  border:1px solid var(--line);background:var(--bg2);border-radius:999px;
+  padding:7px 11px;cursor:pointer;font-size:11px;color:var(--ink2);transition:.18s;
+}
+#page-compass .filter-btn:hover,
+#page-compass .filter-btn.active{
+  border-color:var(--gold);color:var(--gold2);
+  background:color-mix(in srgb,var(--gold) 7%,var(--card));
+}
+#page-compass .notes-toolbar{
+  display:flex;justify-content:space-between;gap:12px;align-items:center;margin:24px 0 12px;
+}
+#page-compass .notes-toolbar p{font-size:11.5px;color:var(--ink3)}
+#page-compass .notes-toolbar strong{color:var(--gold2)}
+#page-compass .compass-notes{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;
+}
+#page-compass .compass-note{
+  border:1px solid var(--line);background:var(--card);border-radius:16px;padding:21px;
+  cursor:pointer;transition:.18s;display:flex;flex-direction:column;min-height:205px;
+}
+#page-compass .compass-note:hover{border-color:var(--gold);transform:translateY(-2px)}
+#page-compass .note-meta{
+  display:flex;justify-content:space-between;gap:10px;align-items:center;
+  font-size:9.5px;color:var(--ink3);margin-bottom:10px;
+}
+#page-compass .note-type{
+  padding:3px 8px;border-radius:999px;border:1px solid var(--line);background:var(--bg2);
+  color:var(--gold2);
+}
+#page-compass .compass-note h3{font-size:19px;line-height:1.55;margin-bottom:8px}
+#page-compass .compass-note p{font-size:12px;color:var(--ink2);line-height:1.8;flex:1}
+#page-compass .module-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:13px}
+#page-compass .module-tags span{
+  font-size:9px;padding:4px 7px;border:1px solid var(--line);border-radius:999px;color:var(--ink3);
+}
+#page-compass .read-note{display:inline-block;margin-top:12px;font-size:11px;color:var(--gold2)}
+#page-compass .empty-notes{
+  display:none;border:1px dashed var(--line);background:var(--card);border-radius:16px;
+  padding:32px;text-align:center;color:var(--ink3);font-size:12px;grid-column:1/-1;
+}
+
+/* Compass article generated from Obsidian Markdown */
+#page-compass-article .compass-article-head{padding:96px 0 48px;max-width:860px}
+#page-compass-article .compass-breadcrumb{font-size:11px;color:var(--ink3);margin-bottom:17px}
+#page-compass-article .compass-article-head h1{
+  font:700 clamp(34px,4.5vw,52px)/1.4 var(--serif);margin-bottom:14px;
+}
+#page-compass-article .compass-deck{font-size:16px;line-height:2;color:var(--ink2)}
+#page-compass-article .article-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
+#page-compass-article .article-meta span{
+  border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 9px;
+  font-size:9.5px;color:var(--ink3);
+}
+#page-compass-article .md-source{
+  margin-top:12px;font-size:10px;color:var(--ink3);
+}
+#page-compass-article .compass-article-shell{
+  display:grid;grid-template-columns:200px minmax(0,1fr);gap:68px;
+  border-top:1px solid var(--line);padding-top:42px;padding-bottom:90px;
+}
+#page-compass-article .article-toc{position:sticky;top:94px;align-self:start}
+#page-compass-article .article-toc b{display:block;font:700 12px var(--serif);margin-bottom:8px}
+#page-compass-article .article-toc button{
+  display:block;width:100%;border:0;background:none;text-align:left;cursor:pointer;
+  padding:6px 0;font-size:11.5px;color:var(--ink2);
+}
+#page-compass-article .article-toc button:hover{color:var(--gold2)}
+#page-compass-article .article-body{max-width:760px}
+#page-compass-article .article-body h2{font-size:23px;margin:32px 0 12px}
+#page-compass-article .article-body p{font-size:15px;line-height:2.08;color:var(--ink2)}
+#page-compass-article .article-body .quote{
+  border-left:3px solid var(--gold);background:var(--bg2);padding:22px 26px;
+  border-radius:0 12px 12px 0;font:700 17px/1.8 var(--serif);margin-bottom:28px;
+}
+#page-compass-article .back-compass{
+  margin-top:28px;border-top:1px solid var(--line);padding-top:22px;
+  border-left:0;background:none;border-right:0;border-bottom:0;color:var(--gold2);
+  cursor:pointer;font-size:12px;
+}
+@media(max-width:800px){
+  #page-compass .compass-intro,#page-compass .compass-notes{grid-template-columns:1fr}
+  #page-compass .filter-row{grid-template-columns:1fr;gap:8px}
+  #page-compass-article .compass-article-shell{display:block}
+  #page-compass-article .article-toc{display:none}
+}
+
+
+/* ===== COMPASS V3 · restore compass hero ===== */
+#page-compass .compass-hero{
+  text-align:center;
+  padding:150px 0 78px;
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(ellipse 48% 55% at 50% 18%,color-mix(in srgb,var(--gold) 8%,transparent),transparent 68%);
+}
+#page-compass .compass-hero .needle{
+  width:120px;height:120px;margin:0 auto 12px;position:relative;
+  animation:compassSpin 24s linear infinite;
+}
+@keyframes compassSpin{to{transform:rotate(360deg)}}
+#page-compass .compass-hero .needle svg{width:100%;height:100%}
+#page-compass .compass-hero .big{
+  font:700 clamp(28px,4.4vw,44px)/1.6 var(--serif);
+  margin:24px 0 14px;
+}
+#page-compass .compass-hero .big em{
+  font-style:normal;color:var(--gold2);
+}
+#page-compass .compass-hero .sub{
+  color:var(--ink2);max-width:720px;margin:0 auto;font-size:15px;line-height:2;
+}
+#page-compass .compass-hero .micro{
+  margin-top:15px;font-size:10.5px;color:var(--ink3);letter-spacing:.04em;
+}
+@media(max-width:700px){
+  #page-compass .compass-hero{padding:105px 0 58px}
+  #page-compass .compass-hero .needle{width:100px;height:100px}
+  #page-compass .compass-hero .sub{font-size:14px}
+}
+
+#page-compass-article .article-body h1{font:700 28px/1.5 var(--serif);margin:42px 0 14px}
+#page-compass-article .article-body h3{font:700 18px/1.65 var(--serif);margin:28px 0 10px}
+#page-compass-article .article-body h4{font:700 15px/1.65 var(--serif);margin:22px 0 8px}
+#page-compass-article .article-body ul,#page-compass-article .article-body ol{margin:10px 0 20px 24px;color:var(--ink2)}
+#page-compass-article .article-body li{margin:6px 0;line-height:1.95}
+#page-compass-article .article-body blockquote{border-left:3px solid var(--gold);background:var(--bg2);padding:16px 20px;border-radius:0 10px 10px 0;margin:18px 0;color:var(--ink2)}
+#page-compass-article .article-body mark{background:color-mix(in srgb,var(--gold) 22%,transparent);color:var(--ink);padding:0 3px;border-radius:3px}
+#page-compass-article .article-body a{color:var(--gold2);border-bottom:1px dashed color-mix(in srgb,var(--gold) 45%,transparent)}
+#page-compass-article .article-body .wiki{color:var(--ink2);border-bottom:1px dashed var(--line)}
+#page-compass-article .article-body code{background:var(--bg2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:.9em}
+
+</style>
+</head>
+<body>
+<nav class="nav">
+<div class="nav-in">
+<button class="brand nav-page" data-page="home" style="border:0;background:none;cursor:pointer"><b>✿</b> 张小花</button>
+<div class="nav-links">
+<button class="nav-page active" data-page="home">首页</button>
+<button class="nav-page" data-page="system">能力地图</button>
+<button class="nav-page" data-page="problems">问题导航</button>
+<button class="nav-page" data-page="compass">罗盘笔记</button>
+<button class="nav-page" data-page="about">关于我</button>
+</div>
+<button class="theme" id="themeBtn">☾</button>
+</div>
+</nav>
+<!-- ================= HOME ================= -->
+<main class="page active" id="page-home">
+<header class="hero">
+<div class="wrap">
+<div class="kicker">HUMAN-CENTERED · LIFELONG CAPABILITY · AI ERA</div>
+<h1>AI时代以人为中心的<br/><em>终身能力发展系统</em></h1>
+<p class="def">站在信息时代与AI时代的交接口，以人的发展为目标，以科技为工具，重新组织成人成长、企业人才发展、家庭共学与儿童能力培养。</p>
+<div class="goal-row"><span class="goal-pill">财富</span><span class="goal-x">×</span><span class="goal-pill">幸福</span><span class="goal-x">×</span><span class="goal-pill">代际传递</span></div>
+<div class="goal-thesis">
+<div class="q">我们终其一生，究竟在追求什么？</div>
+<p>如果把职业、学习、关系、家庭、创造与健康这些具体目标继续向上归纳，最终大致都会回到三个长期命题：能否持续创造并积累价值，能否过一种自己认为值得的生活，以及能否把有价值的能力、经验与资产传递下去。</p>
+<div class="three">
+<div class="g"><b>财富</b><span>持续创造价值，并获得足够的资源、选择权与长期复利。</span></div>
+<div class="g"><b>幸福</b><span>拥有值得长期生活的体验、关系、自主、成长与意义。</span></div>
+<div class="g"><b>代际传递</b><span>把有价值的能力、经验、方法与资产转译并传递给下一代。</span></div>
+</div>
+<a class="more article-link" data-article="goals">为什么是财富、幸福与代际传递？ →</a>
+</div>
+</div>
+</header>
+<section>
+<div class="wrap">
+<div class="kicker">PART 02 · WHY NOW</div>
+<h2>用 AI 发展人，而不是用 AI 替代人。</h2>
+<p class="lead">信息时代强调获取信息、掌握知识、熟练执行；AI时代则越来越要求人定义问题、判断信息、人机协同、跨学科创造。工具能力越来越强，反而更需要重新回答：人应该发展什么？</p>
+<a class="more article-link" data-article="02">当机器越来越聪明，人还需要发展什么？ →</a>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="kicker">PART 03 · WHY A SYSTEM</div>
+<h2>为什么需要一套系统，<br/>而不是若干单点工具？</h2>
+<p class="lead">因为人的真实问题，并不会按照工具的边界发生。你可能同时拥有睡眠 App、待办工具、笔记软件和 AI 助手——每个都解决一个局部问题，但一个真实问题，往往横跨多个模块。</p>
+<div class="quote">「最近效率特别低」——表面是执行问题，往下追问，往往同时涉及睡眠、情绪、优先级、信息质量和反馈机制。</div>
+<div style="height:1px;background:var(--line);margin:56px 0"></div>
+<h2 style="font-size:clamp(24px,3.2vw,34px)">大多数人的困惑，可以压缩成八类。</h2>
+<p class="lead">这些不是八个系统模块，而是用户最先感受到的八类表层困扰。点击每一类，看它背后涉及哪些能力。</p>
+<div class="problem-grid">
+<div class="problem"><b>① 状态问题</b><p>没精力 · 睡不好 · 情绪反复</p><div class="detail">涉及：身心管理、节奏、压力恢复、专注状态等。</div></div>
+<div class="problem"><b>② 信息问题</b><p>信息太多 · 不知信谁 · AI说得都像真的</p><div class="detail">涉及：信息安检、证据判断、来源结构、认知边界等。</div></div>
+<div class="problem"><b>③ 学习问题</b><p>看书不会用 · 换领域从头开始</p><div class="detail">涉及：学习能力、知识结构、迁移、能力形成引擎等。</div></div>
+<div class="problem"><b>④ 判断问题</b><p>不知从何开始 · 方案很多无法选择</p><div class="detail">涉及：认知体系、问题定义、拆解、选择与调度。</div></div>
+<div class="problem"><b>⑤ 执行问题</b><p>知道做不到 · 事项长期悬置</p><div class="detail">涉及：状态、优先级、任务设计、反馈与调度。</div></div>
+<div class="problem"><b>⑥ 协同问题</b><p>工具越来越多 · 没有稳定工作流</p><div class="detail">涉及：人际影响、人机协同、任务交接、工具系统。</div></div>
+<div class="problem"><b>⑦ 价值转化问题</b><p>一直学习 · 没有现实结果</p><div class="detail">涉及：领域能力、价值创造、产品化、资产化。</div></div>
+<div class="problem"><b>⑧ 子女教育问题</b><p>不知道该教什么 · 不想复制自己的答案</p><div class="detail">涉及：儿童发展、家庭环境、共同实践、能力降维与代际传递。</div></div>
+</div>
+<div class="update-strip"><b>内容会持续生长：</b>首页固定“八类困扰”的导航框架；具体问题与文章会持续补充。</div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="kicker">PART 04 · HOW IT WORKS</div>
+<h2>一个真实问题，是怎样在系统中发生的？</h2>
+<p class="lead">它通常不是一条单向因果链，而是多个模块相互影响、形成反馈回路。下面只做一个首页级别的抽象展示。</p>
+<div class="network">
+<div class="node na" data-text="睡眠、情绪、精力和专注会直接改变一个人可调用的认知资源。"><b>身心状态</b><span>精力 · 情绪 · 专注</span></div>
+<div class="node nb" data-text="如何获取信息、理解问题、形成判断和进行调度，会改变后续行动质量。"><b>认知判断</b><span>信息 · 理解 · 决策</span></div>
+<div class="node nc" data-text="学习能力决定你是否能快速补齐陌生领域的知识缺口。"><b>学习能力</b><span>获取 · 迁移 · 更新</span></div>
+<div class="center-node"><div class="kicker" style="margin-bottom:4px">REAL PROBLEM</div><b>一个真实问题</b><span class="small">往往同时跨越多个模块</span></div>
+<div class="node nd" data-text="元能力无法替代专业知识，领域知识决定对具体世界的理解深度。"><b>领域知识</b><span>通用 × 专用</span></div>
+<div class="node ne" data-text="价值需要被理解、协作、购买、传播，并在人与AI之间正确传递意图。"><b>人际影响</b><span>理解 · 信任 · 协作</span></div>
+<div class="node nf" data-text="现实结果与反馈会重新进入系统，影响下一轮判断、学习和行动。"><b>价值创造</b><span>实现 · 产品 · 反馈</span></div>
+</div>
+<div class="network-detail" id="networkDetail"><b style="color:var(--gold2)">例如：</b>睡眠下降 → 判断质量下降 → 项目决策受影响 → 心理压力增加 → 再次影响睡眠。</div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="kicker">PART 05 · START HERE</div>
+<h2>系统只有一套，但进入方式不必相同。</h2>
+<p class="lead">你不需要先理解整张地图。根据你现在所处的位置，从最合适的入口进入。</p>
+<div class="paths">
+<div class="path go-system"><div class="pno">路径 A · 自下而上</div><h3>我要系统构建 →</h3><p>从底层能力开始，逐步搭建长期系统。</p></div>
+<div class="path go-system"><div class="pno">路径 B · 目标倒推</div><h3>我有明确目标 →</h3><p>从财富、幸福或代际传递反推关键短板。</p></div>
+<div class="path go-problems"><div class="pno">路径 C · 问题驱动</div><h3>我现在有一个问题 →</h3><p>从真实困惑进入问题导航，再定位相关模块。</p></div>
+</div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="kicker">PART 06 · LEARN MORE</div>
+<h2>如果你想完整理解这套系统。</h2>
+<p class="lead">首页只负责让你看到地图。完整总纲会进一步展开：这套体系如何形成、为什么采用现在的结构、各模块如何协同、产品如何建设，以及未来会走向哪里。</p>
+<div class="more-card">
+<div class="kicker">ARTICLE 03 · PRODUCT MASTER PLAN</div>
+<h3>《AI时代以人为中心的终身能力发展系统｜产品总纲》</h3>
+<p>作为整个项目的长期白皮书，承载系统论证、产品架构、建设路线与持续演进。</p>
+<div class="article-meta"><span>完整总纲</span><span>自动目录</span><span>持续更新</span></div>
+<a class="more article-link" data-article="03">阅读完整总纲 →</a>
+</div>
+<p class="small" style="margin-top:12px">长文内容将持续更新；网站保留稳定入口，具体文章与目录按发布状态逐步补充。</p>
+</div>
+</section>
+<section class="finale">
+<div class="wrap">
+<div class="kicker">PART 07 · ULTIMATE VISION</div>
+<div class="end">最终不是培养更会答题的人，<br/>而是培养<em>能够面向未来的人</em>。</div>
+<div class="vision-grid"><span>重新学习</span><span>理解世界</span><span>独立判断</span><span>与人和AI协同</span><span>创造价值</span><span>获得幸福</span><span>保有选择</span><span>传递有价值的东西</span></div>
+<p class="final-note">能够在陌生、复杂和不确定的世界中，重新学习、理解问题、形成判断、与AI协同、创造价值，并对自己的选择负责。</p>
+</div>
+</section>
+</main>
+<!-- ================= SYSTEM ================= -->
+<main class="page" id="page-system">
+<header class="page-hero">
+<div class="wrap">
+<div class="kicker">SYSTEM MAP</div>
+<h1>AI时代终身能力地图</h1>
+<p>这不是知识分类，而是一套可以从地基向上构建、也可以根据目标和问题反向定位短板的终身能力系统。</p>
+</div>
+</header>
+<section>
+<div class="wrap">
+<div class="kicker">01 · THE WHOLE MAP</div>
+<h2>一张图看清：目标、层级、贯穿机制与时代变化。</h2>
+<p class="lead">终身能力地图重点不是“从第一层学到第五层”，而是理解每一层的角色、依赖关系，以及 AI 时代能力重心发生了什么变化。</p>
+<div class="map-shell">
+<div class="map-goal"><span class="goal-pill">财富</span><span class="goal-x">×</span><span class="goal-pill">幸福</span><span class="goal-x">×</span><span class="goal-pill">代际传递</span></div>
+<div class="goal-caption">总体目标持续牵引整个系统：为什么学、为什么判断、为什么创造，最终都要回到人的生活与长期发展。</div>
+<div class="map-grid">
+<aside class="rail map-rail">
+<div class="rtag">VERTICAL ENGINE</div><h4>能力形成引擎</h4><p>贯穿每一层。每一种能力，都要经过形成与调用。</p>
+<div class="engine-mini"><div class="em"><b>了解</b><span>知道</span></div><div class="em"><b>理解</b><span>解释</span></div><div class="em"><b>内化</b><span>进入自身模型</span></div><div class="em"><b>应用</b><span>稳定调用</span></div><div class="em value"><b>创造</b><span>产生新价值</span></div><div class="em value"><b>资产化</b><span>沉淀复利</span></div></div>
+</aside>
+<main class="layers">
+<div class="slayer s5"><div class="toprow"><div class="sno">S5</div><div><h3>目标与延伸</h3><p>财富 · 幸福 · 代际传递</p></div><span class="badge">目标牵引</span></div><div class="detail">目标持续反向决定当前最值得补哪一层、做什么、不做什么。M10 儿童教育位于代际传递维度，并承接 M01–M09 的能力传递。</div></div>
+<div class="slayer s4"><div class="toprow"><div class="sno">S4</div><div><h3>价值创造闭环</h3><p>问题 → 判断 → 实现 → 产品 → 反馈 → 迭代</p></div><span class="badge">现实检验</span></div><div class="detail">把能力放进真实世界，通过结果和反馈验证。M05 技术赋能、M06 职业发展、M07 创业投资会大量在这一层进入真实应用。</div></div>
+<div class="slayer s3"><div class="toprow"><div class="sno">S3</div><div><h3>领域知识</h3><p>通用领域 × 专用领域</p></div><span class="badge">过去最常被重视</span></div><div class="detail">传统教育和职业训练主要投入“知道什么、专业懂什么”。领域知识仍然重要，但不再足以单独构成竞争力。M08 想象力与审美会进一步拉高创造上限。</div></div>
+<div class="slayer s2"><div class="toprow"><div class="sno">S2</div><div><h3>操作系统</h3><p>三观构建 × 学习能力 × 六层认知体系</p></div><span class="badge">AI时代核心</span></div><div class="detail"><b>M02 三观构建 + M03 学习能力 + M04 认知体系。</b>认知体系内部仍使用 L1–L6，这里的系统层级统一改用 S1–S5，避免编号冲突。</div></div>
+<div class="slayer s1"><div class="toprow"><div class="sno">S1</div><div><h3>身心管理</h3><p>睡眠 · 运动 · 饮食 · 情绪 · 恢复 · 专注 · 心流</p></div><span class="badge">根基地基</span></div><div class="detail"><b>M01 身心管理。</b>所有学习、判断、创造和协同最终都运行在人的身体与心理状态之上。</div></div>
+</main>
+<aside class="rail rail-right map-rail">
+<div class="rtag">CROSS-CUTTING</div><h4>M09 · 九类人际影响</h4><p>横向贯穿各层，让价值在人、组织与 AI 之间发生作用。</p>
+<div class="mini-list"><span>A 营销与销售</span><span>B 教育与传递</span><span>C 管理与任务</span><span>D 协作与共创</span><span>E 谈判与协调</span><span>F 人际与关系</span><span>G 专业服务</span><span>H 公共传播</span><span>I 人机协同</span></div>
+</aside>
+</div>
+<div class="map-note"><b style="color:var(--gold2)">重要：</b>这张图表示“结构与依赖”，不是决定性的线性顺序。现实问题可以从任意一层进入，并跨层调用、回退和补课。</div>
+<div class="compare"><div class="compare-card"><div class="ctag">PAST · 过去更常见</div><h4>主要投入 S3｜领域知识</h4><p>读书、考试、专业训练、职业资格，大量成长路径围绕“掌握更多领域知识”展开。</p></div><div class="compare-card ai"><div class="ctag">AI ERA · 能力重心变化</div><h4>S1 + S2 的重要性显著上升</h4><p>S1 是根基；S2 决定一个人能否在知识快速变化、AI 大幅放大的环境里持续学习、判断、调度和更新自己。</p></div></div>
+</div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="kicker">02 · CAPABILITY ENGINE</div>
+<h2>知道，不等于拥有能力。</h2>
+<p class="lead">任何一项能力都要经历从了解、理解、内化到应用的形成过程，直到它能够在真实问题中被稳定调用，才真正成为能力。如果还希望进一步创造价值，就需要继续走向创造与资产化。</p>
+<div class="engine-main"><div class="step"><b>01 了解</b><span>知道是什么</span></div><div class="step"><b>02 理解</b><span>形成解释</span></div><div class="step"><b>03 内化</b><span>进入自己的模型</span></div><div class="step"><b>04 应用</b><span>真实问题中稳定调用</span></div><div class="step value"><b>05 创造</b><span>产生新方案与价值</span></div><div class="step value"><b>06 资产化</b><span>沉淀、复用与复利</span></div></div>
+<div class="engine-groups"><div class="eg"><b>能力形成</b>｜前四步解决“真正会不会”</div><div class="eg"><b>价值放大</b>｜后两步解决“能否创造与复利”</div></div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="kicker">03 · CROSS-CUTTING CAPABILITY</div><h2>M09 · 九类人际影响</h2>
+<p class="lead">价值不是“做出来”就结束，还需要被别人理解、采纳、协作、购买、应用和传递；AI 时代还增加了人与智能体之间的意图转换与任务协同。</p>
+<div class="influence-grid">
+<div class="influence"><b>A 商业营销与销售</b><span>注意 → 理解价值 → 选择 → 购买</span></div><div class="influence"><b>B 教育与知识传递</b><span>理解 → 能力形成 → 迁移</span></div><div class="influence"><b>C 管理与任务协同</b><span>管理意图 → 团队执行</span></div>
+<div class="influence"><b>D 协作与共同创造</b><span>信息 → 共识 → 分工 → 共创</span></div><div class="influence"><b>E 谈判与利益协调</b><span>差异目标 → 可接受方案</span></div><div class="influence"><b>F 人际与关系沟通</b><span>理解 → 边界 → 信任</span></div>
+<div class="influence"><b>G 专业服务与决策支持</b><span>专业判断 → 非专业决策</span></div><div class="influence"><b>H 公共传播与内容影响</b><span>不确定受众 → 认知影响</span></div><div class="influence"><b>I 人机协同与智能体管理</b><span>意图 → 任务 → 执行 → 反馈</span></div>
+</div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="kicker">04 · THREE ENTRY PATHS</div><h2>同一张地图，可以从不同位置进入。</h2><p class="lead">完整地图用于定位，不意味着每个人都必须按同一顺序学习。</p>
+<div class="paths"><div class="path"><div class="pno">路径 A · 自下而上</div><h3>我要系统构建</h3><p>身心管理 → 操作系统 → 领域知识 → 价值创造 → 财富 / 幸福 / 代际传递。这是一条主要参考路线，不是决定性的线性关系。</p></div><div class="path"><div class="pno">路径 B · 目标倒推</div><h3>我有明确目标</h3><p>从目标反推当前最关键的短板，必要时跨层补课。</p></div><div class="path go-problems"><div class="pno">路径 C · 问题驱动</div><h3>我现在有一个问题</h3><p>从真实困惑进入问题导航，再定位和调用相关模块。</p></div></div>
+</div>
+</section>
+<section>
+<div class="wrap">
+<div class="kicker">05 · ROADMAP</div>
+<h2>为什么当前阶段，先构建基座？</h2>
+<p class="lead">大模型正在快速压缩“从想法到结果”的技术门槛，但它并没有取消人的能力差异。相反，问题定义、信息判断、学习、认知、身心状态与价值创造能力，都会被 AI 进一步放大。</p>
+<div class="roadmap">
+<div class="road"><div class="rno">当前阶段</div><h3>构建基座</h3><p>先把人的底层能力、能力地图、问题导航与内容系统打牢。不是为了延迟使用 AI，而是为了让后续放大有可靠基础。</p><a class="road-link go-thesis">为什么我认为“基座不牢，放大无效”？ →</a></div>
+<div class="road"><div class="rno">下一阶段</div><h3>人机协同人生系统</h3><p>在基座之上叠加 AI 功能、个人执行系统与监控大盘——AI 从外部工具成为长期协同者。</p></div>
+<div class="road"><div class="rno">长期方向</div><h3>价值创造与代际传递</h3><p>稳定方法升维为产品与服务。</p></div>
+</div>
+</div>
+</section>
+</main>
+<!-- ================= PROBLEMS ================= -->
+<main class="page" id="page-problems">
+<header class="page-hero">
+<div class="wrap">
+<div class="kicker">PROBLEM NAVIGATOR</div>
+<h1>问题导航</h1>
+<p>不是把问题堆在一起，而是用三层结构理解整个系统：先推演它为什么成立，再进入具体模块，最后理解模块之间如何关联、如何排序与调度。</p>
+</div>
+</header>
+<section>
+<div class="wrap">
+<div class="pnav-tabs" role="tablist">
+<button class="pnav-tab" data-panel="reason"><b>01｜总体推演</b><span>WHY · 为什么需要系统</span></button>
+<button class="pnav-tab active" data-panel="module"><b>02｜模块导航</b><span>WHAT · 问题属于哪里</span></button>
+<button class="pnav-tab" data-panel="system"><b>03｜系统运行与调度</b><span>HOW · 模块怎么一起工作</span></button>
+</div>
+<!-- 01 总体推演 -->
+<div class="pnav-panel" id="panel-reason">
+<div class="layer-intro">
+<div class="layer-num">01</div>
+<div>
+<div class="kicker">SYSTEM REASONING</div>
+<h2>总体推演</h2>
+<p>这一层不解决某个单点问题，而是回答：为什么需要一套系统、为什么由这些部分组成，以及怎样从标准系统长成每个人自己的版本。</p>
+</div>
+</div>
+<div class="reason-grid">
+<div class="reason-card"><div class="reason-head"><div class="reason-no">01</div><h3>这套系统的总体目标是什么？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>财富 × 幸福 × 代际传递。</strong><br/>系统不是为了让人“懂得更多”，而是让能力真正服务于人的长期发展、现实创造与下一代传递。</div></div>
+<div class="reason-card"><div class="reason-head"><div class="reason-no">02</div><h3>这套系统到底在解决什么问题？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>解决“一个人如何长期发展并持续更新”的系统性问题。</strong><br/>现实问题很少只属于一个模块：状态、信息、判断、知识、协作、反馈经常同时发生作用。</div></div>
+<div class="reason-card"><div class="reason-head"><div class="reason-no">03</div><h3>这套系统由哪些部分组成？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>S1–S5 终身能力地图 + M01–M10 问题模块 + 能力形成引擎 + 九类人际影响。</strong><br/>能力地图描述结构关系；模块导航组织问题与内容；能力形成引擎描述“知道”如何真正变成能力。</div></div>
+<div class="reason-card"><div class="reason-head"><div class="reason-no">04</div><h3>为什么这样组成？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>因为不同部分承担不同功能，而且存在依赖与反馈关系。</strong><br/>身心提供真实算力；操作系统负责学习和判断；领域与应用提供真实材料；价值创造接受现实检验；目标持续牵引系统。</div></div>
+<div class="reason-card"><div class="reason-head"><div class="reason-no">05</div><h3>这套系统在现实中如何运行？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>不是按目录顺序使用，而是围绕真实问题跨模块调用。</strong><br/>一个问题可能从任何模块进入，再根据反馈回退、切换、补课或调用其他模块。</div></div>
+<div class="reason-card"><div class="reason-head"><div class="reason-no">06</div><h3>如何在标准化基础上形成自己的个性化版本？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>标准系统提供公共骨架，个人系统形成自己的权重、顺序和资产。</strong><br/>长期记录高频问题、优势、薄弱项、目标、方法、工具、项目经验与 AI 协同方式。</div></div>
+<div class="reason-card"><div class="reason-head"><div class="reason-no">07</div><h3>系统未来如何扩展、传递和升维？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>从个人系统向产品、家庭与下一代延伸。</strong><br/>稳定方法可以产品化；成人能力可以根据儿童发展阶段进行降维、转译、共同实践与传递。</div></div>
+</div>
+</div>
+<!-- 02 模块导航 -->
+<div class="pnav-panel active" id="panel-module">
+<div id="module-overview">
+<div class="layer-intro">
+<div class="layer-num">02</div>
+<div>
+<div class="kicker">MODULE NAVIGATION</div>
+<h2>模块导航</h2>
+<p>9 个通用模块构成成人端的核心能力与应用体系；M10 儿童教育作为“9+1”的代际传递模块，承接前九个模块的降维、转译与共同实践。</p>
+</div>
+</div>
+<div class="module-matrix">
+<button class="mod-card go-m01" data-mod="m01" data-type="foundation">
+<div class="mod-topline"><div class="mno">M01 · S1</div><span class="mod-type">通用底层</span></div>
+<h3>身心管理</h3>
+<div class="mwhy">睡眠、运动、饮食、情绪、压力恢复、专注、心流与整体状态。</div>
+<span class="mgo">进入模块 →</span>
+</button>
+<button class="mod-card" data-mod="m02" data-type="foundation">
+<div class="mod-topline"><div class="mno">M02 · S2</div><span class="mod-type">通用底层</span></div>
+<h3>三观构建</h3>
+<div class="mwhy">理解自己、世界与社会，形成价值判断与长期选择的底层框架。</div>
+<span class="mgo">进入模块 →</span>
+</button>
+<button class="mod-card" data-mod="m03" data-type="foundation">
+<div class="mod-topline"><div class="mno">M03 · S2</div><span class="mod-type">通用底层</span></div>
+<h3>学习能力</h3>
+<div class="mwhy">进入陌生领域、形成理解、迁移知识、建立能力与知识资产。</div>
+<span class="mgo">进入模块 →</span>
+</button>
+<button class="mod-card" data-mod="m04" data-type="foundation">
+<div class="mod-topline"><div class="mno">M04 · S2</div><span class="mod-type">通用底层</span></div>
+<h3>认知体系</h3>
+<div class="mwhy">L1 信息安检 → L6 调度系统，处理信息、理解、拆解、协同、复盘与调度。</div>
+<span class="mgo">进入模块 →</span>
+</button>
+<button class="mod-card" data-mod="m05" data-type="application">
+<div class="mod-topline"><div class="mno">M05</div><span class="mod-type">应用导向</span></div>
+<h3>技术赋能</h3>
+<div class="mwhy">技术与 AI 如何成为人的放大器，并进入真实任务、工作流与产品。</div>
+<span class="mgo">进入模块 →</span>
+</button>
+<button class="mod-card" data-mod="m06" data-type="application">
+<div class="mod-topline"><div class="mno">M06</div><span class="mod-type">应用导向</span></div>
+<h3>职业发展</h3>
+<div class="mwhy">能力如何进入职业路径、专业壁垒、长期选择与价值创造。</div>
+<span class="mgo">进入模块 →</span>
+</button>
+<button class="mod-card" data-mod="m07" data-type="application">
+<div class="mod-topline"><div class="mno">M07</div><span class="mod-type">应用导向</span></div>
+<h3>创业投资</h3>
+<div class="mwhy">机会识别、判断、资源配置、价值创造、反馈与财富形成。</div>
+<span class="mgo">进入模块 →</span>
+</button>
+<button class="mod-card" data-mod="m08" data-type="upper">
+<div class="mod-topline"><div class="mno">M08</div><span class="mod-type">拔高上限</span></div>
+<h3>想象力与审美</h3>
+<div class="mwhy">从“正确和有效”进一步走向创造、表达、组合与更高质量的可能性。</div>
+<span class="mgo">进入模块 →</span>
+</button>
+<button class="mod-card" data-mod="m09" data-type="cross">
+<div class="mod-topline"><div class="mno">M09</div><span class="mod-type">横向贯穿</span></div>
+<h3>人际影响</h3>
+<div class="mwhy">营销、教育、管理、协作、谈判、关系、专业服务、公共传播与人机协同。</div>
+<span class="mgo">进入模块 →</span>
+</button>
+</div>
+<div aria-label="模块类型" class="matrix-legend">
+<span class="f"><i></i>通用底层 M01–M04</span>
+<span class="a"><i></i>应用导向 M05–M07</span>
+<span class="u"><i></i>拔高上限 M08</span>
+<span class="c"><i></i>横向贯穿 M09</span>
+</div>
+<div aria-label="九个模块向代际传递汇流" class="transfer-zone">
+<div class="transfer-dots">
+<div class="transfer-dot"></div><div class="transfer-dot"></div><div class="transfer-dot"></div>
+<div class="transfer-dot"></div><div class="transfer-dot"></div><div class="transfer-dot"></div>
+<div class="transfer-dot"></div><div class="transfer-dot"></div><div class="transfer-dot"></div>
+</div>
+<div class="transfer-bus"></div>
+<div class="transfer-label"><b>M01–M09</b> 的能力均可经过降维、转译与共同实践，传递给下一代</div>
+<div class="m10-wrap">
+<button class="mod-card m10" data-mod="m10">
+<div class="m10-id">
+<div class="mno">M10</div>
+<b>9 + 1</b>
+</div>
+<div>
+<h3>儿童教育 · 代际传递</h3>
+<div class="mwhy">不是第十个普通并列模块，而是承接 M01–M09，并根据儿童发展阶段重新组织成人端能力。</div>
+</div>
+<span class="mgo">进入模块 →</span>
+</button>
+</div>
+</div>
+<div class="placeholder-note">当前先冻结一级模块关系。下一步再分别设计 MOC：M01 验证层级型结构；M04 验证“问题模式 × 应用领域”多视图结构。</div>
+</div>
+<!-- 模块详情：先只展示 MOC 设计原则，不展开二级问题结构 -->
+<div class="mod-detail" id="m01"><button class="back-btn">← 返回模块总览</button><div class="kicker">M01 · STRUCTURAL MOC</div><h2>身心管理</h2><p class="lead">适合“整体架构 + 子模块层级 + 问题自动填充”的结构型 MOC。</p><div class="moc-skeleton"><h4>建议视图｜按整体结构</h4><p>模块定位 → 精力管理 / 心理管理 / 状态管理 → 更细子模块 → 具体问题文章。</p><div class="moc-tags"><span>整体架构人工定义</span><span>问题自动填充</span><span>按 path 分组</span></div></div></div>
+<div class="mod-detail" id="m02"><button class="back-btn">← 返回模块总览</button><div class="kicker">M02</div><h2>三观构建</h2><div class="moc-skeleton"><h4>MOC 二级结构待定</h4><p>当前只冻结一级模块，不在这一版提前替你决定二级问题模式。</p></div></div>
+<div class="mod-detail" id="m03"><button class="back-btn">← 返回模块总览</button><div class="kicker">M03</div><h2>学习能力</h2><div class="moc-skeleton"><h4>MOC 二级结构待定</h4><p>当前只冻结一级模块，不在这一版提前替你决定二级问题模式。</p></div></div>
+<div class="mod-detail" id="m04"><button class="back-btn">← 返回模块总览</button><div class="kicker">M04 · MULTI-VIEW MOC</div><h2>认知体系</h2><p class="lead">适合同一份内容通过不同元数据维度生成多个导航视图。</p><div class="moc-skeleton"><h4>建议视图 01｜按问题模式</h4><p>L1–L6 → 各层问题模式 → 具体问题文章。</p><div class="moc-tags"><span>L1–L6</span><span>problem_pattern</span></div></div><div class="moc-skeleton"><h4>建议视图 02｜按应用领域</h4><p>自我发展与学习 / 事业与价值创造 / 人际与关系 / 技术与创造 / 代际传递 → 具体问题文章。</p><div class="moc-tags"><span>application_domain</span><span>同一文章多视图出现</span></div></div></div>
+<div class="mod-detail" id="m05"><button class="back-btn">← 返回模块总览</button><div class="kicker">M05</div><h2>技术赋能</h2><div class="moc-skeleton"><h4>MOC 二级结构待定</h4><p>当前只冻结一级模块。</p></div></div>
+<div class="mod-detail" id="m06"><button class="back-btn">← 返回模块总览</button><div class="kicker">M06</div><h2>职业发展</h2><div class="moc-skeleton"><h4>MOC 二级结构待定</h4><p>当前只冻结一级模块。</p></div></div>
+<div class="mod-detail" id="m07"><button class="back-btn">← 返回模块总览</button><div class="kicker">M07</div><h2>创业投资</h2><div class="moc-skeleton"><h4>MOC 二级结构待定</h4><p>当前只冻结一级模块。</p></div></div>
+<div class="mod-detail" id="m08"><button class="back-btn">← 返回模块总览</button><div class="kicker">M08</div><h2>想象力与审美</h2><div class="moc-skeleton"><h4>MOC 二级结构待定</h4><p>当前只冻结一级模块。</p></div></div>
+<div class="mod-detail" id="m09"><button class="back-btn">← 返回模块总览</button><div class="kicker">M09</div><h2>人际影响</h2><div class="moc-skeleton"><h4>MOC 二级结构待定</h4><p>后续需要同时考虑“问题模式”和九类应用场景之间的关系。</p></div></div>
+<div class="mod-detail" id="m10"><button class="back-btn">← 返回模块总览</button><div class="kicker">M10 · 9 + 1</div><h2>儿童教育</h2><div class="moc-skeleton"><h4>代际传递型 MOC</h4><p>后续重点研究：M01–M09 如何根据年龄阶段与儿童发展规律进行降维、转译、共同实践与传递。</p><div class="moc-tags"><span>9+1</span><span>能力转译</span><span>发展阶段</span></div></div></div>
+</div>
+<!-- 03 系统运行与调度 -->
+<div class="pnav-panel" id="panel-system">
+<div class="layer-intro">
+<div class="layer-num">03</div>
+<div>
+<div class="kicker">SYSTEM OPERATION</div>
+<h2>系统运行与调度</h2>
+<p>模块不是平铺清单。真正使用时，需要理解谁为谁提供输入、问题如何跨模块流动，以及在不同目标与状态下什么应该优先。</p>
+</div>
+</div>
+<div class="system-map">
+<div class="sys-card"><h3>01｜模块之间是什么关系？</h3><p>能力地图描述结构与依赖；问题导航负责定位；模块之间还会通过反馈、跨模块调用与人际影响持续发生作用。</p><div class="flowline"><span class="fnode">S1 根基地基</span><span class="arr">→</span><span class="fnode">S2 操作系统</span><span class="arr">→</span><span class="fnode">领域 / 应用</span><span class="arr">→</span><span class="fnode">价值创造</span><span class="arr">→</span><span class="fnode">财富 × 幸福 × 代际传递</span></div><div class="mini"><span>M09 人际影响：横向贯穿</span><span>反馈：反向回流</span><span>AI：各层杠杆</span></div></div>
+<div class="sys-card"><h3>02｜一个真实问题如何跨模块流动？</h3><p>一个表层问题未必属于一个模块。需要沿着状态、判断、知识、协同、价值与反馈逐步定位真正的瓶颈。</p><div class="flowline"><span class="fnode">表层困扰</span><span class="arr">→</span><span class="fnode">定位模块</span><span class="arr">→</span><span class="fnode">检查依赖</span><span class="arr">→</span><span class="fnode">调用相关模块</span><span class="arr">→</span><span class="fnode">现实反馈</span></div></div>
+<div class="sys-card"><h3>03｜哪个模块应该优先？</h3><p><strong>没有固定优先级。</strong>优先级由当前目标、当前状态、瓶颈位置和依赖关系共同决定。</p><div class="mini"><span>目标函数</span><span>当前状态</span><span>关键瓶颈</span><span>依赖关系</span><span>机会窗口</span></div></div>
+<div class="sys-card"><h3>04｜三条进入路径如何决定优先级？</h3><div class="path-grid"><div class="path-card"><b>A｜自下而上</b><span>主要参考路线，不是决定性的线性关系。适合希望长期系统构建的人。</span></div><div class="path-card"><b>B｜目标倒推</b><span>从财富、幸福或代际传递向下反推最需要补的模块。</span></div><div class="path-card"><b>C｜问题驱动</b><span>从当前最痛的问题定位瓶颈，直接进入对应模块。</span></div></div></div>
+<div class="sys-card"><h3>05｜什么时候应该回退、切换或升级？</h3><p>当继续投入不能显著增加确定性或结果时，应重新定位。认知体系内部可以调用 L1–L6 调度；系统层则可能跨模块回退或补课。</p></div>
+<div class="sys-card"><h3>06｜如何逐渐形成自己的个人系统？</h3><p>长期记录自己的高频问题、优势模块、薄弱模块、目标、工具、项目资产与 AI 协同方式。标准地图逐渐变成“我的版本”。</p><div class="mini"><span>高频问题</span><span>优势 / 短板</span><span>个人工具箱</span><span>项目资产</span><span>AI工作流</span><span>长期档案</span></div></div>
+</div>
+<div class="note-strip">第三层不是再增加一套知识，而是解释“前面的模块如何在真实问题中被调用、组合、排序与调整”。</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ================= THESIS HUB ================= -->
+<main class="page" id="page-thesis">
+<div class="wrap thesis-ref-hero">
+<div>
+<div class="kicker">A THESIS ON HUMAN CAPABILITY · 2026</div>
+<h1>基座不牢，<br/>放大无效。</h1>
+<p class="thesis-ref-lead">AI正在大幅降低实现事情的门槛。<br/>但工具越强大，一个问题反而越清晰：<br/><strong>决定我们最终能创造多少价值的，究竟是什么？</strong></p>
+<a class="thesis-ref-action" href="#thesis-argument">从核心论证开始 ↓</a>
+</div>
+<aside class="thesis-aside">
+<div class="num">THE CENTRAL QUESTION / 00</div>
+<p>当智能可以像电力一样被调用，<br/>我们应该构建怎样的个人基座？</p>
+<small>从个人实践出发，通向认知、协作、价值与选择。</small>
+</aside>
+</div>
+<section id="thesis-argument"><div class="wrap">
+<div class="kicker">01 · CENTRAL ARGUMENT</div>
+<h2>这里所说的“基座”，究竟是什么？</h2>
+<div class="thesis-statement" style="margin-top:26px">
+<div><div class="kicker" style="color:color-mix(in srgb,var(--bg) 70%,transparent)">THE THESIS</div><h3>AI放大执行能力，<br/>但不自动保证价值创造。</h3></div>
+<p>从问题定义、信息与知识，到判断、洞察、有效影响，再到人与智能体的协同，真正决定结果的不是单独某一项工具技能，而是整套价值创造能力。<br/><br/>“放大无效”并非指AI不能完成任务，而是：效率的增长，未必转化为有效价值。</p>
+</div>
+<div class="thesis-question">所以，我真正想追问的不是“如何更熟练地使用AI”，而是“怎样构建一套能持续利用智能、创造价值，同时保留自主选择的个人能力系统？”</div>
+</div></section>
+<section id="thesis-map"><div class="wrap">
+<div class="kicker">02 · ARGUMENT MAP</div>
+<h2>三个层次，串起整套论证</h2>
+<p class="lead">每一个层次都来自一段具体的学习或实践，而不是先有结论、再找材料。</p>
+<div class="arg-steps">
+<div class="arg-step"><span class="digit">I · 亲身发现</span><h3>工具改变了什么？</h3><p>AI压缩了实现成本，让产品价值与底层能力的差异变得清楚。</p></div>
+<div class="arg-step"><span class="digit">II · 价值重估</span><h3>价值从哪里来？</h3><p>信息、知识、洞察、影响与协同，构成比“会用工具”更完整的解释。</p></div>
+<div class="arg-step"><span class="digit">III · 未来追问</span><h3>人最终追求什么？</h3><p>当智能随处可得，除了创造更多价值，我们还要思考幸福与选择。</p></div>
+</div>
+</div></section>
+<section id="thesis-articles"><div class="wrap">
+<div class="kicker">03 · ESSAY SERIES</div>
+<h2>分篇阅读：从实践到未来</h2>
+<p class="lead">总论只建立观点；每篇文章只深入一个问题，既能独立阅读，也能顺着路径连续阅读。正式网站中，这些页面全部由 Obsidian Markdown 自动生成。</p>
+<div class="essay-grid">
+<article class="essay-card obsidian-essay" data-essay="01"><div class="essay-top"><span>ESSAY / 01</span><em>个人实践</em></div><h3>从会用AI，到重新认识自己的能力 ↗</h3><p>2025年初，我进入AI科技公司，几乎每天使用AI超过四小时。从最初的震惊，到独立跑通AI原生产品开发，我发现产品能跑起来，与产品真正好用之间，还隔着一整套原有的基础能力。</p><span class="more">阅读分篇 →</span><span class="obs-note"><i></i>OBSIDIAN ARTICLE</span></article>
+<article class="essay-card obsidian-essay" data-essay="02"><div class="essay-top"><span>ESSAY / 02</span><em>认知突破</em></div><h3>一个公式，拆开AI时代的价值创造 ↗</h3><p>西南财经大学的一场讲座，让我模糊的感受有了结构。信息与知识是起点，模型是放大器，洞察与有效影响决定价值能否真正发生，Agent进一步改变行动效能。</p><span class="more">阅读分篇 →</span><span class="obs-note"><i></i>OBSIDIAN ARTICLE</span></article>
+<article class="essay-card obsidian-essay" data-essay="03"><div class="essay-top"><span>ESSAY / 03</span><em>元技能与协作</em></div><h3>AI改变任务，元技能为什么更重要 ↗</h3><p>任务会变化，但批判性思维、学习如何学习、建立关系、妥协与团队协作依然关键。这也把目光从个人认知，进一步推向人与人的有效协作。</p><span class="more">阅读分篇 →</span><span class="obs-note"><i></i>OBSIDIAN ARTICLE</span></article>
+<article class="essay-card obsidian-essay" data-essay="04"><div class="essay-top"><span>ESSAY / 04</span><em>智能服务化</em></div><h3>当智能像电力一样被调用 ↗</h3><p>越来越多智能能力正在以可计量、可调用的服务形态出现。智能供给越普及，越需要知道自己为什么调用、如何组织、怎样评价。</p><span class="more">阅读分篇 →</span><span class="obs-note"><i></i>OBSIDIAN ARTICLE</span></article>
+<article class="essay-card wide obsidian-essay" data-essay="05"><div class="essay-top"><span>ESSAY / 05</span><em>未来与选择</em></div><h3>脑力劳动被接管之后，我们需要健脑房吗？ ↗</h3><p>工业革命之后，人们不必每天依靠繁重体力劳动维持生产，却主动走进健身房。那么，当越来越多脑力工作交给机器，我们会不会需要自己的“健脑房”？</p><span class="more">阅读分篇 →</span><span class="obs-note"><i></i>OBSIDIAN ARTICLE</span></article>
+</div>
+</div></section>
+<section><div class="wrap direction-end">
+<div class="kicker">04 · NOT AN ANSWER, BUT A DIRECTION</div>
+<h2>建基座，不是为了永远赢过机器。</h2>
+<p>而是为了在越来越多事情都能交给机器完成的时代，仍然有能力理解、判断、创造，并选择自己想过的生活。</p>
+<a class="road-link thesis-back" data-page="system">← 返回能力地图 · 05 ROADMAP</a>
+</div></section>
+</main>
+<!-- ================= OBSIDIAN ARTICLE ROUTE ================= -->
+<main class="page" id="page-article">
+<div class="wrap">
+<header class="obs-article-head">
+<div class="obs-breadcrumb">基座不牢，放大无效 / <span id="obsArticleLabel">ESSAY</span></div>
+<h1 id="obsArticleTitle"></h1>
+<p class="obs-deck" id="obsArticleDeck"></p>
+<span class="obs-source">内容源：Obsidian Markdown · 正式站由 Astro 自动生成</span>
+</header>
+<div class="obs-shell">
+<aside class="obs-toc"><p>本篇目录</p><div id="obsArticleToc"></div><button id="obsBackToThesis" style="margin-top:24px">← 返回全部文章</button></aside>
+<article class="obs-prose"><div class="obs-pull" id="obsArticlePull"></div><div id="obsArticleBody"></div><div class="obs-prevnext"><button id="obsPrev"></button><button id="obsNext"></button></div></article>
+</div>
+</div>
+</main>
+<!-- ================= M01 BODY & MIND ================= -->
+<main class="page" id="page-m01">
+<div class="m01-subnav">
+<button data-page="problems" type="button">← 返回问题导航</button>
+<span>问题导航 › M01 身心管理</span>
+</div>
+<div class="mobile-finder"><button id="openDrawer">⌕ 快速找我的问题</button></div>
+<header class="hero">
+<div class="wrap">
+<div class="kicker">M01 · BODY &amp; MIND MANAGEMENT</div>
+<h1>身心管理</h1>
+<p class="def">身心管理不是单纯追求“身体健康”，而是让自己的身体、心理和状态长期处于能够支持生活、学习、工作与创造的水平，同时获得更好的生活体验，并控制重要的健康风险。</p>
+<div class="hero-meta"><span>S1 · 根基地基</span><span>5 个核心模块</span><span>问题内嵌导航</span><span>持续更新</span></div>
+</div>
+</header>
+<div class="content-shell">
+<div class="layout">
+<!-- 左侧目录：主版心之外 -->
+<aside class="left">
+<div class="side-card">
+<div class="kicker">ON THIS PAGE</div>
+<h3>页面结构</h3>
+<div class="toc">
+<button data-scroll="overview">01 模块定位</button>
+<button data-scroll="modules">02 五大模块</button>
+<button data-scroll="internal">03 模块内部关系</button>
+<button data-scroll="external">04 跨模块关系</button>
+<button data-scroll="theory">05 理论根据</button>
+<button data-scroll="evolution">06 评估与演进</button>
+<button data-scroll="ai">07 AI变量与协作落地</button>
+<button data-scroll="references">08 参考资料</button>
+<button data-scroll="summary">09 总结</button>
+<button data-scroll="others">其他模块</button>
+</div>
+</div>
+</aside>
+<main class="main">
+<!-- 01 -->
+<section class="section" id="overview">
+<div class="section-no">01 · MODULE OVERVIEW</div>
+<h2>身心管理到底在管理什么？</h2>
+<p class="lead">五个模块共同回答：我有没有足够资源、能不能保持内在稳定、能不能进入高质量行动、是否在过值得的生活，以及有没有守住长期健康底线。</p>
+<div class="overview-card">
+<div class="module-row">
+<button class="module-chip" data-target="mod-energy"><b>精力底座</b><span>我有没有足够资源？</span></button>
+<button class="module-chip" data-target="mod-psy"><b>心理底座</b><span>我能否看见并回应自己？</span></button>
+<button class="module-chip" data-target="mod-state"><b>状态模块</b><span>我现在能不能更好行动？</span></button>
+<button class="module-chip" data-target="mod-happy"><b>幸福模块</b><span>我是否在过值得的生活？</span></button>
+<button class="module-chip" data-target="mod-health"><b>健康管理</b><span>我是否守住长期底线？</span></button>
+</div>
+<div aria-label="身心管理总体逻辑" class="logic-flow">
+<div class="logic-cell">资源</div>
+<div class="logic-cell">稳定</div>
+<div class="logic-cell">行动</div>
+<div class="logic-cell">生活体验</div>
+<div class="logic-cell">长期健康底线</div>
+</div>
+</div>
+</section>
+<!-- 02 -->
+<section class="section" id="modules">
+<div class="section-no">02 · FIVE MODULES</div>
+<h2>五大模块，就是 M01 的问题导航骨架。</h2>
+<p class="lead">每个模块先给总体介绍，再进入下级子模块和具体问题；最下方再给整合方案或产品引导。问题不单独再设一层。</p>
+<div class="module-list">
+<article class="mod open" id="mod-energy">
+<div class="mod-head"><div class="mod-no">01</div><div><h3>精力底座</h3><p>睡眠 · 运动 · 饮食 · 恢复</p></div><div class="mod-toggle">−</div></div>
+<div class="mod-body">
+<div class="intro-block"><b>总体介绍</b><p>精力底座解决的是“我有没有足够的身体资源”。睡眠、运动、饮食和恢复不是四个孤立习惯，而是共同决定可用精力、恢复速度和长期稳定性的资源基础。</p></div>
+<div class="subgrid">
+<div class="subnode" id="node-sleep"><h4>睡眠</h4><div class="desc">时长、规律、入睡、连续性、恢复感。</div><div class="q-list"><div class="q" data-q="tired">为什么我明明睡够了还是很累？</div><div class="q" data-q="sleep">为什么很困但就是睡不着？</div><div class="q">为什么半夜总是醒？</div><div class="q">怎样判断自己的睡眠质量？</div></div><div class="assets"><span>方法</span><span>工具</span><span>相关文章</span></div></div>
+<div class="subnode" id="node-exercise"><h4>运动</h4><div class="desc">运动量、强度、恢复与长期可持续。</div><div class="q-list"><div class="q">为什么运动之后反而更疲惫？</div><div class="q">工作很忙时最低运动量是多少？</div><div class="q">如何判断今天适合训练还是恢复？</div></div><div class="assets"><span>方法</span><span>工具</span></div></div>
+<div class="subnode" id="node-food"><h4>饮食</h4><div class="desc">稳定能量、基础营养与个人反应。</div><div class="q-list"><div class="q">为什么下午特别容易困？</div><div class="q">忙起来就乱吃，怎么建立最低饮食底线？</div></div><div class="assets"><span>方法</span><span>记录</span></div></div>
+<div class="subnode" id="node-recovery"><h4>恢复</h4><div class="desc">从消耗回到可用状态。</div><div class="q-list"><div class="q" data-q="recovery">高强度用脑后，怎样判断自己需要休息还是切换任务？</div><div class="q">熬夜之后应该怎么恢复？</div></div><div class="assets"><span>恢复方案</span><span>状态记录</span></div></div>
+</div>
+<div class="integrate-block"><b>整合方案｜精力底座</b><p>先判断主要瓶颈来自睡眠、运动、饮食还是恢复，再设计最低可持续方案。不是四项同时做到完美，而是优先解决当前最限制精力的那一环。</p></div>
+</div>
+</article>
+<article class="mod" id="mod-psy">
+<div class="mod-head"><div class="mod-no">02</div><div><h3>心理底座</h3><p>觉察 · 理解 · 应对 · 验证</p></div><div class="mod-toggle">＋</div></div>
+<div class="mod-body">
+<div class="intro-block"><b>总体介绍</b><p>心理底座不是追求“没有负面情绪”，而是建立一个从看见变化、理解来源、选择应对方式到验证效果的闭环。</p></div>
+<div class="subgrid">
+<div class="subnode" id="node-awareness"><h4>觉察</h4><div class="desc">先看见身体、情绪、念头与行为变化。</div><div class="q-list"><div class="q" data-q="anxiety">为什么我明明知道没事，身体还是很紧张？</div><div class="q">怎么判断自己是真的生气，还是只是太累？</div></div></div>
+<div class="subnode"><h4>理解</h4><div class="desc">理解触发、需要、历史经验与现实处境。</div><div class="q-list"><div class="q">为什么一件小事会在脑子里反复回放？</div><div class="q">我的焦虑到底来自哪里？</div></div></div>
+<div class="subnode"><h4>应对</h4><div class="desc">选择调节、表达、行动、等待或寻求支持。</div><div class="q-list"><div class="q" data-q="cantstop">高压状态结束后，为什么大脑还是停不下来？</div><div class="q">情绪很强时，先处理情绪还是先解决问题？</div></div></div>
+<div class="subnode"><h4>验证</h4><div class="desc">检查当前应对到底有没有帮助。</div><div class="q-list"><div class="q">我以为自己在放松，为什么休息后还是更累？</div><div class="q">一种情绪方法到底适不适合我？</div></div></div>
+</div>
+<div class="integrate-block"><b>整合方案｜心理底座</b><p>形成“觉察 → 理解 → 应对 → 验证”的循环，不把情绪等同于问题本身，也不把所有心理波动都立即转化成行动。</p></div>
+</div>
+</article>
+<article class="mod" id="mod-state">
+<div class="mod-head"><div class="mod-no">03</div><div><h3>状态模块</h3><p>专注｜心流</p></div><div class="mod-toggle">＋</div></div>
+<div class="mod-body">
+<div class="intro-block"><b>总体介绍</b><p>状态模块解决的是“我现在能不能更好地行动”。它建立在精力和心理状态之上，关注注意力、任务匹配、挑战难度与反馈。</p></div>
+<div class="subgrid">
+<div class="subnode" id="node-focus"><h4>专注｜心流</h4><div class="desc">注意力、任务匹配、挑战难度、反馈与沉浸。</div><div class="q-list"><div class="q" data-q="focus">为什么我越来越难持续专注？</div><div class="q">什么情况下更容易进入心流？</div><div class="q">为什么一边工作一边想别的事？</div></div><div class="assets"><span>专注设计</span><span>任务匹配</span><span>状态记录</span></div></div>
+</div>
+</div>
+</article>
+<article class="mod" id="mod-happy">
+<div class="mod-head"><div class="mod-no">04</div><div><h3>幸福模块</h3><p>兴趣｜专长 · 关系｜对话 · 自由｜自主 · 成长｜胜任 · 价值｜意义 · 积极｜体验</p></div><div class="mod-toggle">＋</div></div>
+<div class="mod-body">
+<div class="intro-block"><b>总体介绍</b><p>幸福不是单一情绪，而是长期生活结构是否允许一个人拥有兴趣、连接、选择、成长、意义和积极体验。</p></div>
+<div class="subgrid">
+<div class="subnode"><h4>兴趣｜专长</h4><div class="q-list"><div class="q">我到底是真的喜欢，还是只是擅长？</div><div class="q">兴趣如何逐渐变成专长？</div></div></div>
+<div class="subnode"><h4>关系｜对话</h4><div class="q-list"><div class="q">为什么关系很多，却还是觉得孤独？</div><div class="q">什么样的对话会让关系真正变深？</div></div></div>
+<div class="subnode"><h4>自由｜自主</h4><div class="q-list"><div class="q" data-q="freedom">为什么生活看起来不错，我还是总觉得没有自由？</div></div></div>
+<div class="subnode"><h4>成长｜胜任</h4><div class="q-list"><div class="q">为什么长期没有进步感会让人很消耗？</div></div></div>
+<div class="subnode"><h4>价值｜意义</h4><div class="q-list"><div class="q" data-q="meaning">我做的事情到底有没有意义？</div></div></div>
+<div class="subnode"><h4>积极｜体验</h4><div class="q-list"><div class="q">如何增加日常生活中的积极体验，而不是等“大事发生”？</div></div></div>
+</div>
+<div class="integrate-block"><b>整合说明｜幸福模块</b><p>幸福不需要六个方面同时高分。更重要的是识别当前最缺失的体验、长期结构中的系统性失衡，以及哪些部分能够彼此支持。</p></div>
+</div>
+</article>
+<article class="mod" id="mod-health">
+<div class="mod-head"><div class="mod-no">05</div><div><h3>健康管理</h3><p>规避事项 · 健康筛查</p></div><div class="mod-toggle">＋</div></div>
+<div class="mod-body">
+<div class="intro-block"><b>总体介绍</b><p>健康管理不是制造日常焦虑，而是识别重要长期风险，明确最低规避底线，并建立必要的筛查机制。</p></div>
+<div class="subgrid">
+<div class="subnode"><h4>规避事项</h4><div class="q-list"><div class="q">哪些高风险习惯应该优先避免？</div><div class="q">哪些看似小的问题值得尽早干预？</div></div></div>
+<div class="subnode" id="node-screen"><h4>健康筛查</h4><div class="q-list"><div class="q" data-q="health">我担心健康，但不知道该查什么？</div><div class="q">健康筛查应该按什么逻辑安排？</div></div></div>
+</div>
+<div class="integrate-block"><b>整合说明｜健康管理</b><p>把“风险规避”和“必要筛查”放在长期视角下统一管理，避免因为短期状态良好而忽略长期风险，也避免因为不确定性而过度筛查。</p></div>
+</div>
+</article>
+</div>
+</section>
+<!-- 03 -->
+<section class="section" id="internal">
+<div class="section-no">03 · INTERNAL RELATIONSHIPS</div>
+<h2>五个模块如何相互影响？</h2>
+<p class="lead">身心管理真正需要建立的不是五套独立技巧，而是一套能够持续观察、调整和保护自己的运行结构。</p>
+<div class="relation-block">
+<div class="influence-grid">
+<div class="influence"><b>精力底座 → 心理底座</b><span>睡眠不足、恢复不足会增加情绪波动与压力敏感性。</span></div>
+<div class="influence"><b>心理底座 → 精力底座</b><span>长期压力和持续警觉会反向影响睡眠、恢复与身体负荷。</span></div>
+<div class="influence"><b>精力 / 心理 → 状态</b><span>资源不足或内在波动过大时，专注和心流更难出现。</span></div>
+<div class="influence"><b>状态 → 幸福</b><span>长期无法投入和形成胜任感，会影响成长感与生活体验。</span></div>
+<div class="influence"><b>幸福 → 心理 / 精力</b><span>关系、意义、自主与积极体验可以提供重要的恢复与心理支持。</span></div>
+<div class="influence"><b>健康管理 → 全局</b><span>长期健康风险决定了其他状态优化是否真正可持续。</span></div>
+</div>
+</div>
+</section>
+<!-- 04 -->
+<section class="section" id="external">
+<div class="section-no">04 · CROSS-MODULE RELATIONSHIPS</div>
+<h2>M01 与其他模块如何相互影响？</h2>
+<div class="direction-title"><span>M01 → 其他模块</span><span class="arrow-badge">底座影响</span></div>
+<p class="lead">先看身心管理如何影响其他模块。它不是“附加项”，而是学习、判断、工作、创造和关系的真实运行条件。</p>
+<div class="influence-grid">
+<div class="influence"><b>→ M02 三观构建</b><span>长期疲劳、焦虑和压力会改变一个人对世界、自己和未来的解释方式。</span></div>
+<div class="influence"><b>→ M03 学习能力</b><span>睡眠、精力和专注直接影响理解、记忆、迁移与学习速度。</span></div>
+<div class="influence"><b>→ M04 认知体系</b><span>身心状态影响信息筛选、风险判断、问题拆解和实时调度质量。</span></div>
+<div class="influence"><b>→ M05 技术赋能</b><span>当状态失衡时，更多工具和 AI 可能增加负荷，而不是产生放大效果。</span></div>
+<div class="influence"><b>→ M06 职业发展</b><span>长期精力、心理稳定和幸福感决定职业路径是否具有可持续性。</span></div>
+<div class="influence"><b>→ M07 创业投资</b><span>高压、睡眠不足和持续不确定性会直接影响风险判断和长期决策。</span></div>
+<div class="influence"><b>→ M08 想象力与审美</b><span>安全感、精力与高质量状态为发散、创造与审美体验提供条件。</span></div>
+<div class="influence"><b>→ M09 人际影响</b><span>情绪、压力、精力和幸福状态会改变沟通、耐心、关系与协同质量。</span></div>
+<div class="influence"><b>→ M10 儿童教育</b><span>成人自身的身心状态会成为家庭环境和儿童学习的重要隐性输入。</span></div>
+</div>
+<div class="direction-title"><span>其他模块 → M01</span><span class="arrow-badge">反向塑造</span></div>
+<p class="lead">再看其他模块如何反向保护或损害身心管理。M01 是地基，但不是封闭的地基。</p>
+<div class="influence-grid">
+<div class="influence"><b>M02 三观构建 →</b><span>长期主义、价值判断与世界理解会影响焦虑、稳定感和生活节奏。</span></div>
+<div class="influence"><b>M03 学习能力 →</b><span>更好的学习能力有助于理解健康知识、识别错误信息并持续调整方案。</span></div>
+<div class="influence"><b>M04 认知体系 →</b><span>信息安检、问题拆解和调度能力能帮助人避免错误归因和无效折腾。</span></div>
+<div class="influence"><b>M05 技术赋能 →</b><span>合适的工具、记录和 AI 可以降低管理成本，辅助观察长期模式。</span></div>
+<div class="influence"><b>M06 职业发展 →</b><span>工作结构、自主性、节奏和意义会长期影响精力、压力与幸福。</span></div>
+<div class="influence"><b>M07 创业投资 →</b><span>风险暴露、现金流压力和不确定性会直接反映到身体和心理状态。</span></div>
+<div class="influence"><b>M08 想象力与审美 →</b><span>创造与审美体验可以丰富积极体验，提供恢复与意义来源。</span></div>
+<div class="influence"><b>M09 人际影响 →</b><span>关系质量、沟通方式与支持网络会直接影响心理稳定与幸福水平。</span></div>
+<div class="influence"><b>M10 儿童教育 →</b><span>家庭责任、亲子互动与共同实践也会反向改变成人的时间、压力和生活结构。</span></div>
+</div>
+</section>
+<!-- 05 -->
+<section class="section" id="theory">
+<div class="section-no">05 · THEORETICAL BASIS</div>
+<h2>理论根据</h2>
+<p class="lead">这一部分解释：为什么采用当前五模块结构，各模块背后的核心理论、研究证据和适用边界是什么。</p>
+<div class="detail-grid">
+<div class="detail-card"><h4>精力与恢复</h4><p>睡眠、运动、饮食、恢复及其与认知表现、情绪和长期健康之间的关系。</p></div>
+<div class="detail-card"><h4>心理与情绪</h4><p>觉察、解释、调节、压力反应、恢复机制及不同方法的适用边界。</p></div>
+<div class="detail-card"><h4>状态与心流</h4><p>注意力、挑战—能力匹配、即时反馈与高质量行动状态。</p></div>
+<div class="detail-card"><h4>幸福与健康</h4><p>自主、胜任、关系、意义、积极体验及长期健康风险管理。</p></div>
+</div>
+</section>
+<!-- 06 -->
+<section class="section" id="evolution">
+<div class="section-no">06 · ASSESSMENT &amp; EVOLUTION</div>
+<h2>评估与演进</h2>
+<p class="lead">身心管理不是“做了多少健康行为”，而是这些能力能否长期支持生活、学习、工作与创造。评估既看当前状态，也看恢复能力、稳定性，以及是否逐渐形成自己的管理能力。</p>
+<div class="detail-grid">
+<div class="detail-card">
+<h4>01｜评估什么？</h4>
+<p>不追求一个总分，而是从几个关键维度持续观察。</p>
+<ul>
+<li>精力水平：一天中可稳定调用的身体与认知资源</li>
+<li>睡眠质量：规律性、连续性与恢复感</li>
+<li>情绪稳定：能否及时觉察、理解并恢复</li>
+<li>专注状态：持续注意与进入深度工作的能力</li>
+<li>恢复速度：消耗之后回到可用状态需要多久</li>
+<li>长期体验：自主、关系、成长、意义与积极体验</li>
+</ul>
+</div>
+<div class="detail-card">
+<h4>02｜怎么知道自己真的变强了？</h4>
+<p>不是“永远状态很好”，而是面对波动时越来越有识别和调整能力。</p>
+<ul>
+<li>更早发现自己的异常信号</li>
+<li>更快判断问题来自哪里</li>
+<li>知道什么方法对自己有效、什么无效</li>
+<li>遇到高压和意外时恢复速度更快</li>
+<li>减少反复踩同一个身心管理的坑</li>
+</ul>
+</div>
+<div class="detail-card">
+<h4>03｜成熟度如何演进？</h4>
+<p>可以从“被动应对”逐渐走向“主动调度”和“长期资产化”。</p>
+<ul>
+<li>被动：出问题以后才处理</li>
+<li>觉察：开始识别自己的状态与触发因素</li>
+<li>管理：拥有稳定可调用的方法与最低底线</li>
+<li>调度：能根据任务、阶段和环境主动调整</li>
+<li>资产化：形成自己的身心运行说明书与长期方案</li>
+</ul>
+</div>
+<div class="detail-card">
+<h4>04｜未来 3—5 年会怎么变化？</h4>
+<p>身心管理会越来越嵌入个人执行系统，而不是作为独立的“健康任务”存在。</p>
+<ul>
+<li>状态数据与日程、任务、工作负荷逐渐关联</li>
+<li>AI与智能体承担更多记录、提醒和模式分析</li>
+<li>个人方案从通用建议转向长期个性化</li>
+<li>真正不可替代的仍是人的感受、选择、行动与体验</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- 07 -->
+<section class="section" id="ai">
+<div class="section-no">07 · AI VARIABLE &amp; COLLABORATIVE PRACTICE</div>
+<h2>AI变量与协作落地</h2>
+<p class="lead">AI真正改变的不是“人还需不需要管理身心”，而是观察、整理、分析和调用的成本大幅下降。它可以成为辅助教练和长期协作者，但不能代替人的身体、感受和行动。</p>
+<div class="detail-grid">
+<div class="detail-card">
+<h4>01｜AI可以帮什么？</h4>
+<ul>
+<li>辅助整理睡眠、运动、饮食、情绪和专注记录</li>
+<li>从长期日记与数据中发现反复出现的状态模式</li>
+<li>结合日程和任务负荷提醒休息、运动或恢复</li>
+<li>帮助生成和比较不同恢复方案</li>
+<li>把已经验证的方法转成可执行的清单与流程</li>
+</ul>
+</div>
+<div class="detail-card">
+<h4>02｜AI不能替代什么？</h4>
+<p><strong>核心判断：</strong>AI可以追踪数据、提醒行动、辅助分析，但不能替你完成最核心的身心活动。</p>
+<ul>
+<li>不能替你睡觉、运动和真正恢复</li>
+<li>不能替你感受自己的身体与情绪</li>
+<li>不能替你进入专注和心流</li>
+<li>不能替代专业医疗诊断与治疗</li>
+<li>不能替你决定怎样的生活值得过</li>
+</ul>
+</div>
+<div class="detail-card">
+<h4>03｜人机协作流程</h4>
+<p>更适合的关系不是“AI管理我”，而是“我定义目标与边界，AI降低管理成本”。</p>
+<ul>
+<li>人：定义目标、边界与当前真实感受</li>
+<li>AI：整理记录、识别模式、提出候选方案</li>
+<li>人：执行、体验并判断方案是否真的有效</li>
+<li>AI：帮助复盘和更新个人方案</li>
+<li>长期形成个人身心管理档案与调用规则</li>
+</ul>
+</div>
+<div class="detail-card">
+<h4>04｜AI带来的新风险</h4>
+<ul>
+<li>过度量化，把生活变成持续监控</li>
+<li>信息过载，反而增加健康焦虑</li>
+<li>频繁提醒和交互进一步碎片化注意力</li>
+<li>把模型建议误认为专业诊断</li>
+<li>让智能体替代自我觉察，而不是增强觉察</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- 08 -->
+<section class="section" id="references">
+<div class="section-no">08 · REFERENCES</div>
+<h2>参考资料</h2>
+<p class="lead">参考资料不仅用于“推荐阅读”，更重要的是记录这套模块的知识来源、证据边界和个人实践依据，便于未来持续验证与更新。</p>
+<div class="detail-grid">
+<div class="detail-card">
+<h4>课程</h4>
+<ul>
+<li>睡眠科学相关课程</li>
+<li>正念与情绪调节课程</li>
+<li>运动与大脑相关课程</li>
+<li>幸福、心理韧性与行为改变相关课程</li>
+</ul>
+</div>
+<div class="detail-card">
+<h4>书籍</h4>
+<ul>
+<li>《我们为什么要睡觉》</li>
+<li>《运动改造大脑》</li>
+<li>《情绪急救》</li>
+<li>《心流》</li>
+<li>《深度工作》</li>
+</ul>
+</div>
+<div class="detail-card">
+<h4>专业证据与指南</h4>
+<p>后续持续补充能够支撑具体判断的高质量来源。</p>
+<ul>
+<li>系统综述与重要研究</li>
+<li>专业医学与公共健康机构指南</li>
+<li>运动、睡眠和心理健康领域的专业建议</li>
+<li>明确区分研究结论、专家观点与个人经验</li>
+</ul>
+</div>
+<div class="detail-card">
+<h4>自己的长期实践</h4>
+<ul>
+<li>7年审计与咨询工作中的高压恢复经验</li>
+<li>AI产品规划阶段的专注与高强度用脑管理</li>
+<li>CPA备考过程中的精力分配与恢复实践</li>
+<li>持续输入与学习与长期学习中的身心调节实践</li>
+<li>日记、身体扫描、运动和个人执行系统中的持续记录</li>
+</ul>
+</div>
+</div>
+<div class="intro-block" style="margin-top:14px;margin-bottom:0">
+<b>资料使用原则</b>
+<p>理论、研究、专家意见和个人经验的证据等级不同。后续正式内容中需要明确标注来源、适用范围和不确定性，避免把“对自己有效”直接写成“对所有人有效”。</p>
+</div>
+</section>
+<!-- 09 -->
+<section class="section" id="summary">
+<div class="section-no">09 · SUMMARY</div>
+<h2>最后，回到身心管理真正要解决的问题。</h2>
+<div class="summary-card">
+<h3>不是始终保持“最佳状态”，而是逐渐建立自己的身心运行说明书。</h3>
+<p>更了解自己的身体、心理和状态如何运行；知道什么时候需要补资源、处理心理波动、调整行动状态、重新校准生活结构，以及什么时候必须回到长期健康底线。最终让自己长期有精力、有韧性、能行动，也能好好生活。</p>
+<div class="summary-actions" style="grid-template-columns:1fr">
+<div class="summary-action"><b>继续从问题进入</b><p>回到上方五大模块，找到当前最真实的问题，再进入对应问题文章。</p><a href="#modules">返回五大模块 ↑</a></div>
+</div>
+</div>
+</section>
+<!-- Bottom modules -->
+<section class="section" id="others">
+<div class="section-no">OTHER MODULES</div>
+<h2>这个问题可能不只属于身心管理。</h2>
+<p class="lead">如果当前问题持续存在，也可以从其他模块重新定位。</p>
+<div class="othermods">
+<div class="othermod"><b>M02 三观构建</b><span>价值与世界理解</span></div>
+<div class="othermod"><b>M03 学习能力</b><span>理解与迁移</span></div>
+<div class="othermod"><b>M04 认知体系</b><span>判断与调度</span></div>
+<div class="othermod"><b>M05 技术赋能</b><span>工具与 AI</span></div>
+<div class="othermod"><b>M06 职业发展</b><span>工作结构</span></div>
+<div class="othermod"><b>M07 创业投资</b><span>高压与风险</span></div>
+<div class="othermod"><b>M08 想象力与审美</b><span>体验与创造</span></div>
+<div class="othermod"><b>M09 人际影响</b><span>关系与协同</span></div>
+<div class="othermod"><b>M10 儿童教育</b><span>代际传递</span></div>
+</div>
+</section>
+</main>
+<!-- 右侧快速找问题：与左侧目录同宽同高，位于主版心之外 -->
+<aside class="right">
+<div class="side-card">
+<div class="kicker">QUICK FINDER</div>
+<h3>快速找我的问题</h3>
+<p>点击后，页面会自动展开、滚动并高亮对应位置。</p>
+<div class="quick-search"><input id="searchInput" placeholder="搜索：睡不好 / 很累 / 焦虑…"/></div>
+<div class="quick-list" id="quickList">
+<button class="quick-btn" data-key="tired">总是很累</button>
+<button class="quick-btn" data-key="sleep">睡不好 / 睡不着</button>
+<button class="quick-btn" data-key="cantstop">脑子停不下来</button>
+<button class="quick-btn" data-key="anxiety">很容易焦虑</button>
+<button class="quick-btn" data-key="focus">很难专注</button>
+<button class="quick-btn" data-key="freedom">总觉得没有自由感</button>
+<button class="quick-btn" data-key="meaning">不知道自己做的事有没有意义</button>
+<button class="quick-btn" data-key="health">担心健康但不知道查什么</button>
+<button class="quick-btn" data-key="recovery">高强度用脑后不知道怎么恢复</button>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<div class="drawer" id="drawer">
+<div class="drawer-head"><h3>快速找我的问题</h3><button id="closeDrawer">×</button></div>
+<div class="quick-list">
+<button class="quick-btn" data-key="tired">总是很累</button>
+<button class="quick-btn" data-key="sleep">睡不好 / 睡不着</button>
+<button class="quick-btn" data-key="cantstop">脑子停不下来</button>
+<button class="quick-btn" data-key="anxiety">很容易焦虑</button>
+<button class="quick-btn" data-key="focus">很难专注</button>
+<button class="quick-btn" data-key="freedom">总觉得没有自由感</button>
+<button class="quick-btn" data-key="meaning">不知道自己做的事有没有意义</button>
+<button class="quick-btn" data-key="health">担心健康但不知道查什么</button>
+<button class="quick-btn" data-key="recovery">高强度用脑后不知道怎么恢复</button>
+</div>
+</div>
+</main>
+<!-- ================= COMPASS ================= -->
+<main class="page" id="page-compass">
+<header class="compass-hero">
+<div class="wrap">
+<div aria-hidden="true" class="needle">
+<svg fill="none" viewbox="0 0 100 100">
+<circle cx="50" cy="50" opacity=".5" r="46" stroke="var(--gold)" stroke-width="1.5"></circle>
+<circle cx="50" cy="50" r="38" stroke="var(--line)" stroke-width="1"></circle>
+<path d="M50 12 L56 50 L50 88 L44 50 Z" fill="var(--gold)" opacity=".9"></path>
+<path d="M12 50 L50 44 L88 50 L50 56 Z" fill="var(--teal)" opacity=".35"></path>
+<circle cx="50" cy="50" fill="var(--gold2)" r="4"></circle>
+</svg>
+</div>
+<div class="kicker" style="text-align:center">COMPASS NOTES</div>
+<div class="big">
+      持续接收<em>世界的输入</em>，<br/>
+      慢慢形成<em>自己的罗盘</em>。
+    </div>
+<p class="sub">
+      书籍、课程、文章、论文、讲座，以及日常经验与个人感悟，都可能改变我们理解问题的方式。
+      我把值得留下的输入整理成一篇篇可独立阅读的文章，再标记它可能流向哪个能力模块。
+      它们此刻不一定已经进入正式体系，但会持续参与我对世界、自己与真实问题的理解。
+    </p>
+<div class="micro">输入不是为了收藏更多内容，而是为了逐步形成更稳定的理解、判断与行动依据。</div>
+</div>
+</header>
+<section><div class="wrap">
+<div class="compass-intro">
+<div class="compass-principle">
+<div class="kicker">CURRENT PRINCIPLE</div>
+<h3>先让输入沉淀下来，再逐步长出结构。</h3>
+<p>书籍、课程、文章、论文、讲座、感悟与其他输入，都统一沉淀为一篇可独立阅读的“罗盘文章”。模块只是它当前可能流向的方向，不要求罗盘内部预先建立固定知识层级。</p>
+</div>
+<div class="compass-stat">
+<div class="kicker">TWO LAYERS ONLY</div>
+<strong>2</strong>
+<p>输入类型 → 去向模块。先把 Obsidian Markdown 到网站文章的链路跑通。</p>
+</div>
+</div>
+<div class="filter-panel">
+<div class="filter-row">
+<div class="filter-label"><span class="n">01 · INPUT TYPE</span><b>输入类型</b></div>
+<div class="filter-options" id="typeFilters">
+<button class="filter-btn active" data-type="all">全部</button>
+<button class="filter-btn" data-type="书籍">书籍</button>
+<button class="filter-btn" data-type="课程">课程</button>
+<button class="filter-btn" data-type="文章">文章</button>
+<button class="filter-btn" data-type="论文">论文</button>
+<button class="filter-btn" data-type="讲座">讲座</button>
+<button class="filter-btn" data-type="感悟">感悟</button>
+<button class="filter-btn" data-type="其他">其他</button>
+</div>
+</div>
+<div class="filter-row">
+<div class="filter-label"><span class="n">02 · DESTINATION</span><b>去向模块</b></div>
+<div class="filter-options" id="moduleFilters">
+<button class="filter-btn active" data-module="all">全部</button>
+<button class="filter-btn" data-module="M01">M01 身心管理</button>
+<button class="filter-btn" data-module="M02">M02 三观构建</button>
+<button class="filter-btn" data-module="M03">M03 学习能力</button>
+<button class="filter-btn" data-module="M04">M04 认知体系</button>
+<button class="filter-btn" data-module="M05">M05 技术赋能</button>
+<button class="filter-btn" data-module="M06">M06 职业发展</button>
+<button class="filter-btn" data-module="M07">M07 创业投资</button>
+<button class="filter-btn" data-module="M08">M08 想象力与审美</button>
+<button class="filter-btn" data-module="M09">M09 人际影响</button>
+<button class="filter-btn" data-module="M10">M10 儿童教育</button>
+</div>
+</div>
+</div>
+<div class="notes-toolbar">
+<p>当前结果：<strong id="compassCount">0</strong> 篇</p>
+<p>每张卡片 = 1 个 Obsidian Markdown 文件</p>
+</div>
+<div class="compass-notes" id="compassNotes">
+<!-- COMPASS_CARDS_START -->
+<!-- COMPASS_CARDS_END -->
+<div class="empty-notes" id="emptyNotes" style="display:block">当前还没有已发布的罗盘笔记。等 Obsidian 内容发布后，这里会自动出现文章。</div>
+</div>
+</div></section>
+</main>
+<!-- ================= COMPASS ARTICLE ================= -->
+<main class="page" id="page-compass-article">
+<div class="wrap">
+<header class="compass-article-head">
+<div class="compass-breadcrumb">罗盘笔记 / <span id="caType">—</span></div>
+<h1 id="caTitle">罗盘笔记文章</h1>
+<p class="compass-deck" id="caSummary">文章内容将在 Obsidian 笔记发布后自动生成。</p>
+<div class="article-meta" id="caModules"></div>
+<div class="md-source">内容源：Obsidian Markdown · 网站页由发布流程自动生成</div>
+</header>
+<div class="compass-article-shell">
+<aside class="article-toc" id="caToc">
+<b>本篇目录</b>
+</aside>
+<article class="article-body">
+<div id="caBody"><div class="quote">内容将从 Obsidian Markdown 读取。</div></div>
+<button class="back-compass" id="backCompass">← 返回罗盘笔记</button>
+</article>
+</div>
+</div>
+</main>
+<!-- ================= ABOUT ================= -->
+<main class="page" id="page-about">
+<header class="page-hero"><div class="wrap"><div class="kicker">ABOUT</div><h1>关于我</h1><p>我在做的事情，是把长期学习、判断、工作、创造和使用 AI 的经验重新组织成一套可以理解、调用、验证并持续进化的个人能力系统。</p></div></header>
+<section><div class="wrap">
+<div class="about-grid">
+<div class="about-card"><div class="kicker">ZHANG XIAOHUA</div><h3>张小花</h3><p>关注 AI 时代人的长期发展：如何建立底层能力、进入陌生领域、形成判断、与人和 AI 协同，并把经验转成可复用、可创造价值的资产。</p><a class="more article-link" data-article="about">了解更多 →</a></div>
+<div class="about-card"><div class="kicker">FOLLOW</div><h3>找到我</h3><div class="channel"><span>微信公众号</span><span>是花花噢</span></div><div class="channel"><span>小红书</span><span>内容持续更新</span></div><div class="channel"><span>知乎</span><span>长文与回答</span></div><div class="channel"><span>其他平台</span><span>陆续接入</span></div></div>
+</div>
+</div></section>
+</main>
+<footer><div class="foot"><div>✿ 张小花 · AI时代以人为中心的终身能力发展系统</div><div>完整网站交互原型 · V8罗盘空数据版</div></div></footer>
+<div class="modal" id="modal">
+<div class="modal-card"><button class="x" id="modalClose">×</button><div class="kicker">LONG-FORM ARTICLE</div><h3 id="modalTitle"></h3><p id="modalText"></p><code id="modalPath"></code></div>
+</div>
+<script>
+const pageButtons=[...document.querySelectorAll('.nav-page')];
+const pages=[...document.querySelectorAll('.page')];
+
+function showPage(name,scroll=true){
+  pages.forEach(p=>p.classList.toggle('active',p.id==='page-'+name));
+  pageButtons.forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+  if(scroll) window.scrollTo({top:0,behavior:'smooth'});
+  location.hash=name;
+  if(name==='system') requestAnimationFrame(()=>requestAnimationFrame(lockMapRails));
+}
+pageButtons.forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+document.querySelectorAll('[data-page]:not(.nav-page)').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+document.querySelectorAll('.go-system').forEach(x=>x.onclick=()=>showPage('system'));
+document.querySelectorAll('.go-problems').forEach(x=>x.onclick=()=>showPage('problems'));
+
+document.getElementById('themeBtn').onclick=()=>{
+  document.body.classList.toggle('dark');
+  document.getElementById('themeBtn').textContent=document.body.classList.contains('dark')?'☀':'☾';
+};
+
+document.querySelectorAll('.problem').forEach(x=>x.onclick=()=>x.classList.toggle('open'));
+document.querySelectorAll('.accord>button').forEach(btn=>btn.onclick=()=>{
+  const a=btn.parentElement;a.classList.toggle('open');
+  btn.querySelector('.plus').textContent=a.classList.contains('open')?'−':'＋';
+});
+document.querySelectorAll('.slayer').forEach(x=>x.onclick=()=>x.classList.toggle('open'));
+
+const nd=document.getElementById('networkDetail');
+document.querySelectorAll('.node').forEach(x=>x.onclick=()=>{
+  document.querySelectorAll('.node').forEach(n=>n.classList.remove('active'));x.classList.add('active');
+  nd.innerHTML='<b style="color:var(--gold2)">'+x.querySelector('b').textContent+'：</b>'+x.dataset.text;
+});
+
+function lockMapRails(){
+  if(window.innerWidth<=900) return;
+  const layers=document.querySelector('#page-system .layers');
+  const rails=document.querySelectorAll('#page-system .map-rail');
+  if(!layers||!rails.length) return;
+  const anyOpen=document.querySelector('#page-system .slayer.open');
+  if(anyOpen) return;
+  rails.forEach(r=>r.style.height='auto');
+  const h=Math.ceil(layers.getBoundingClientRect().height);
+  rails.forEach(r=>r.style.height=h+'px');
+}
+window.addEventListener('load',()=>{
+  const initial=(location.hash||'#home').slice(1);
+  if(['home','system','problems','compass','about','thesis','article','m01','compass-article'].includes(initial)) showPage(initial,false);
+  requestAnimationFrame(()=>requestAnimationFrame(lockMapRails));
+});
+window.addEventListener('resize',()=>{
+  document.querySelectorAll('#page-system .map-rail').forEach(r=>{if(window.innerWidth<=900)r.style.height='auto'});
+  if(!document.querySelector('#page-system .slayer.open')) lockMapRails();
+});
+
+document.querySelectorAll('.go-thesis').forEach(x=>x.onclick=()=>showPage('thesis'));
+document.querySelectorAll('.thesis-back').forEach(x=>x.onclick=()=>showPage(x.dataset.page||'system'));
+
+
+const articleData={
+ '01':['《基座不牢，放大无效》','未来由专题总览页承载，不再直接从首页进入。','content/thesis/base-first/index.md'],
+ '02':['《当机器越来越聪明，人还需要发展什么？》','展开工具服务于人、AI能力提升之后人的价值、幸福、意义与选择等论证。','content/home/A0002-当机器越来越聪明，人还需要发展什么.md'],
+ '03':['《AI时代以人为中心的终身能力发展系统｜产品总纲》','整个项目的长期白皮书：系统结构、建设路线、产品、边界和持续演进。','content/home/A0003-产品总纲.md'],
+ 'about':['关于张小花｜完整介绍','后续由 Obsidian 独立长文承载完整经历、项目与长期研究方向。','content/about/A0004-关于我.md'],
+ 'goals':['《为什么是财富、幸福与代际传递？》','从人的终身发展出发，讨论为什么职业、学习、关系、家庭、创造与健康等具体目标，最终会持续回到价值创造、值得生活与代际传递这三个长期命题。','content/thesis/goals/A0005-为什么是财富幸福与代际传递.md'],
+ 'thesis-practice':['个人实践线｜从“AI太强了”到重新重视人的底座','从高频使用 AI、AI 产品实践和 AI 原生产品开发出发，复盘真正决定结果质量的基础能力。','content/thesis/base-first/A0101-个人实践线.md'],
+ 'thesis-mechanism':['放大机制线｜为什么 AI 不会自动把所有人拉平','讨论问题定义、输入质量、判断能力、领域理解与 AI 能力之间的放大关系。','content/thesis/base-first/A0102-放大机制线.md'],
+ 'thesis-breakthrough':['认知突破线｜把模糊感受说清楚的那个时刻','从具体触发出发，说明为什么长期实践最终被组织为“基座不牢，放大无效”的判断。','content/thesis/base-first/A0103-认知突破线.md'],
+ 'thesis-future':['面向未来线｜如果知识越来越便宜，人应该长期构建什么？','连接未来的人、学习、认知、人机协同与价值创造，进一步引出完整能力地图。','content/thesis/base-first/A0104-面向未来线.md']
+};
+const modal=document.getElementById('modal');
+document.querySelectorAll('.article-link').forEach(a=>a.onclick=()=>{
+  const d=articleData[a.dataset.article];if(!d)return;
+  document.getElementById('modalTitle').textContent=d[0];document.getElementById('modalText').textContent=d[1];document.getElementById('modalPath').textContent=d[2];modal.classList.add('open');
+});
+document.getElementById('modalClose').onclick=()=>modal.classList.remove('open');
+modal.onclick=e=>{if(e.target===modal)modal.classList.remove('open')};
+
+
+/* ===== 问题导航 V2 ===== */
+function initProblemNavigator(){
+  const root=document.getElementById('page-problems');
+  if(!root) return;
+
+  const tabs=[...root.querySelectorAll('.pnav-tab')];
+  const panels=[...root.querySelectorAll('.pnav-panel')];
+
+  function showPanel(name){
+    tabs.forEach(t=>t.classList.toggle('active',t.dataset.panel===name));
+    panels.forEach(p=>p.classList.toggle('active',p.id==='panel-'+name));
+
+    if(name!=='module'){
+      root.querySelectorAll('.mod-detail').forEach(d=>d.classList.remove('show'));
+      const ov=root.querySelector('#module-overview');
+      if(ov) ov.style.display='block';
+    }
+  }
+
+  tabs.forEach(t=>t.onclick=()=>showPanel(t.dataset.panel));
+
+  root.querySelectorAll('.reason-head').forEach(h=>h.onclick=()=>{
+    const c=h.closest('.reason-card');
+    c.classList.toggle('open');
+    h.querySelector('.reason-plus').textContent=c.classList.contains('open')?'−':'＋';
+  });
+
+  const overview=root.querySelector('#module-overview');
+  root.querySelectorAll('.mod-card').forEach(btn=>btn.onclick=()=>{
+    if(btn.dataset.mod==='m01'){
+      showPage('m01');
+      return;
+    }
+    if(overview) overview.style.display='none';
+    root.querySelectorAll('.mod-detail').forEach(d=>d.classList.remove('show'));
+    const el=root.querySelector('#'+btn.dataset.mod);
+    if(el){
+      el.classList.add('show');
+      el.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  });
+
+  root.querySelectorAll('.back-btn').forEach(btn=>btn.onclick=()=>{
+    root.querySelectorAll('.mod-detail').forEach(d=>d.classList.remove('show'));
+    if(overview){
+      overview.style.display='block';
+      overview.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded',initProblemNavigator);
+
+
+/* ===== Obsidian article routes ===== */
+const obsidianEssays={
+'01':{label:'ESSAY 01 / 个人实践',title:'从会用AI，到重新认识自己的能力',deck:'2025年初，我进入AI科技公司，几乎每天使用AI超过四小时。从最初的震惊，到独立跑通AI原生产品开发，我发现产品能跑起来，与产品真正好用之间，还隔着一整套原有的基础能力。',pull:'实践改变了我的问题：不是AI还能做什么，而是我能用AI创造什么。',sections:[['01 / 最初：惊叹工具的能力','学习陌生领域、讨论难题、处理工作，AI迅速扩大了我能够完成的任务范围。'],['02 / 转折：第一次跑通AI原生产品','技术实现的门槛与时间大幅降低，真正困难的部分却越来越清楚：用户需求、问题定义、产品逻辑与反馈迭代。'],['03 / 留下的问题','当“做出来”越来越容易，什么决定“做得对、做得好、有价值”？']]},
+'02':{label:'ESSAY 02 / 认知突破',title:'一个公式，拆开AI时代的价值创造',deck:'西南财经大学的一场讲座，让我模糊的感受有了结构。信息与知识是起点，模型是放大器，洞察与有效影响决定价值能否真正发生，Agent进一步改变行动效能。',pull:'让我印象最深的是 a、b 和 d：基座从哪里来，以及洞察如何成为影响。',sections:[['01 / 价值创造模型','价值创造 ≈ { [信息(a) + 知识(b)] ^ LLM × 洞察(c) × 有效影响(d) } × Agent + 协同涌现(e)。这是一种启发式模型，而非可直接计量的数学公式。'],['02 / 为什么关注 a 与 b','大多数人不能改变底层模型，但可以持续优化信息来源、知识结构、问题意识和判断能力。'],['03 / 为什么 d 更震撼','有洞察不等于创造价值。要通过表达、协作、产品与行动，让洞察真正发生影响。']]},
+'03':{label:'ESSAY 03 / 元技能与协作',title:'AI改变任务，元技能为什么更重要',deck:'AI将改变每个人的工作：任务会变化，但批判性思维、学习如何学习、建立关系、妥协与团队协作依然关键。这也让我把目光从个人认知，转向人与人的有效协作。',pull:'有价值的判断，还要穿过人与人之间的关系，才能真正推动改变。',sections:[['01 / 任务与能力不是同一件事','具体任务可能被自动化，但决定目标、判断前提、承担责任仍然重要。'],['02 / 学习与批判性思维','答案触手可及，如何提问、辨别和更新自己的理解更值得练习。'],['03 / 从个人洞察到共同完成','信任、共情、协商与团队协作，是价值落地的重要环节。']]},
+'04':{label:'ESSAY 04 / 智能服务化',title:'当智能像电力一样被调用',deck:'越来越多智能能力正在以可计量、可调用的服务形态出现。一个越来越清晰的问题是：当智能供给越来越普遍，人真正需要掌握的是什么？',pull:'智能供给越普及，越需要知道自己为什么调用、如何组织、怎样评价。',sections:[['01 / 从能力拥有到服务调用','Token可以衡量模型使用量与成本，但不等于智力价值的统一单位。'],['02 / 调用之前先有目标','拥有电力不等于能造好机器；能调用模型，也不等于一定能创造价值。'],['03 / 从提示词走向系统设计','定义问题、组织工作流、监督Agent、反馈纠偏，将成为重要的人机协同能力。']]},
+'05':{label:'ESSAY 05 / 未来与选择',title:'脑力劳动被接管之后，我们需要健脑房吗？',deck:'工业革命之后，人们不必每天依靠繁重体力劳动维持生产，却主动走进健身房。那么，当越来越多脑力工作交给机器，我们会不会需要自己的“健脑房”？',pull:'不只是如何创造更多价值，也要追问：我们究竟想过怎样的生活？',sections:[['01 / 健脑不是和机器比智力','而是主动保持好奇、判断、想象、理解世界与自主选择的能力。'],['02 / 效率之外还有体验','学会某样东西、想通一个难题、亲手创造的快乐，并不总能由最终结果代替。'],['03 / 未来的开放问题','当物质越来越丰富、任务越来越自动化，人如何理解自由、幸福与创造？']]}
+};
+function openObsidianEssay(id){
+  const d=obsidianEssays[id];if(!d)return;
+  document.getElementById('obsArticleLabel').textContent=d.label;
+  document.getElementById('obsArticleTitle').textContent=d.title;
+  document.getElementById('obsArticleDeck').textContent=d.deck;
+  document.getElementById('obsArticlePull').textContent=d.pull;
+  const toc=document.getElementById('obsArticleToc'),body=document.getElementById('obsArticleBody');
+  toc.innerHTML='';body.innerHTML='';
+  d.sections.forEach((s,i)=>{
+    const sid='obs-sec-'+id+'-'+(i+1);
+    const btn=document.createElement('button');btn.textContent=s[0];btn.onclick=()=>document.getElementById(sid).scrollIntoView({behavior:'smooth',block:'start'});toc.appendChild(btn);
+    const sec=document.createElement('section');sec.id=sid;sec.innerHTML='<h2>'+s[0]+'</h2><p>'+s[1]+'</p>';body.appendChild(sec);
+  });
+  const n=Number(id),prev=document.getElementById('obsPrev'),next=document.getElementById('obsNext');
+  prev.textContent=n>1?'← 上一篇':'← 返回总论';next.textContent=n<5?'下一篇 →':'返回总论 →';
+  prev.onclick=()=>n>1?openObsidianEssay(String(n-1).padStart(2,'0')):showPage('thesis');
+  next.onclick=()=>n<5?openObsidianEssay(String(n+1).padStart(2,'0')):showPage('thesis');
+  showPage('article');location.hash='essay-'+id;
+}
+document.querySelectorAll('.obsidian-essay').forEach(x=>x.onclick=()=>openObsidianEssay(x.dataset.essay));
+document.getElementById('obsBackToThesis').onclick=()=>showPage('thesis');
+
+/* ===== M01 interactions ===== */
+(function(){
+  const root=document.getElementById('page-m01');if(!root)return;
+  root.querySelectorAll('.mod-head').forEach(h=>h.onclick=()=>{const mod=h.closest('.mod');mod.classList.toggle('open');const t=h.querySelector('.mod-toggle');if(t)t.textContent=mod.classList.contains('open')?'−':'＋';});
+  root.querySelectorAll('.module-chip').forEach(b=>b.onclick=()=>focusMod(b.dataset.target));
+  root.querySelectorAll('.toc button').forEach(b=>b.onclick=()=>{const el=root.querySelector('#'+b.dataset.scroll);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});});
+  const map={tired:{mod:'mod-energy',node:'node-sleep',q:'tired'},sleep:{mod:'mod-energy',node:'node-sleep',q:'sleep'},recovery:{mod:'mod-energy',node:'node-recovery',q:'recovery'},anxiety:{mod:'mod-psy',node:'node-awareness',q:'anxiety'},cantstop:{mod:'mod-psy',node:null,q:'cantstop'},focus:{mod:'mod-state',node:'node-focus',q:'focus'},freedom:{mod:'mod-happy',node:null,q:'freedom'},meaning:{mod:'mod-happy',node:null,q:'meaning'},health:{mod:'mod-health',node:'node-screen',q:'health'}};
+  function clear(){root.querySelectorAll('.highlight').forEach(x=>x.classList.remove('highlight'));root.querySelectorAll('.quick-btn.active').forEach(x=>x.classList.remove('active'));}
+  function focusMod(id){clear();const mod=root.querySelector('#'+id);if(!mod)return;if(!mod.classList.contains('open')){mod.classList.add('open');const t=mod.querySelector('.mod-toggle');if(t)t.textContent='−';}mod.classList.add('highlight');mod.scrollIntoView({behavior:'smooth',block:'center'});}
+  function locate(key){clear();const d=map[key];if(!d)return;const mod=root.querySelector('#'+d.mod);if(!mod)return;if(!mod.classList.contains('open')){mod.classList.add('open');const t=mod.querySelector('.mod-toggle');if(t)t.textContent='−';}mod.classList.add('highlight');if(d.node){const n=root.querySelector('#'+d.node);if(n)n.classList.add('highlight');}const q=root.querySelector('.q[data-q="'+d.q+'"]');if(q){q.classList.add('highlight');q.scrollIntoView({behavior:'smooth',block:'center'});}root.querySelectorAll('.quick-btn[data-key="'+key+'"]').forEach(x=>x.classList.add('active'));const dr=root.querySelector('#drawer');if(dr)dr.classList.remove('open');}
+  root.querySelectorAll('.quick-btn').forEach(b=>b.onclick=()=>locate(b.dataset.key));
+  const search=root.querySelector('#searchInput');if(search)search.addEventListener('input',e=>{const v=e.target.value.trim().toLowerCase();root.querySelectorAll('#quickList .quick-btn').forEach(b=>b.style.display=!v||b.textContent.toLowerCase().includes(v)?'block':'none');});
+  const op=root.querySelector('#openDrawer'),cl=root.querySelector('#closeDrawer'),dr=root.querySelector('#drawer');if(op&&dr)op.onclick=()=>dr.classList.add('open');if(cl&&dr)cl.onclick=()=>dr.classList.remove('open');
+  root.querySelectorAll('.q').forEach(q=>q.onclick=()=>alert('原型交互：正式版进入由 Obsidian Markdown 自动生成的具体问题文章页\\n\\n'+q.textContent.trim()));
+})();
+window.addEventListener('load',()=>{const h=(location.hash||'').slice(1);if(/^essay-\d{2}$/.test(h))openObsidianEssay(h.slice(-2));});
+
+
+/* ===== Compass V2 filters: input type → destination module ===== */
+(function initCompassV2(){
+  const page=document.getElementById('page-compass');
+  if(!page)return;
+  let activeType='all',activeModule='all';
+  const cards=[...page.querySelectorAll('.compass-note')];
+  const count=document.getElementById('compassCount');
+  const empty=document.getElementById('emptyNotes');
+
+  function applyCompassFilters(){
+    let visible=0;
+    cards.forEach(card=>{
+      const typeOk=activeType==='all'||card.dataset.type===activeType;
+      const modules=(card.dataset.modules||'').split(/\s+/);
+      const moduleOk=activeModule==='all'||modules.includes(activeModule);
+      const show=typeOk&&moduleOk;
+      card.style.display=show?'flex':'none';
+      if(show)visible++;
+    });
+    if(count)count.textContent=visible;
+    if(empty)empty.style.display=visible===0?'block':'none';
+  }
+
+  page.querySelectorAll('#typeFilters .filter-btn').forEach(btn=>btn.onclick=()=>{
+    activeType=btn.dataset.type;
+    page.querySelectorAll('#typeFilters .filter-btn').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');applyCompassFilters();
+  });
+  page.querySelectorAll('#moduleFilters .filter-btn').forEach(btn=>btn.onclick=()=>{
+    activeModule=btn.dataset.module;
+    page.querySelectorAll('#moduleFilters .filter-btn').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');applyCompassFilters();
+  });
+
+  const noteData=/* COMPASS_NOTE_DATA */{};
+
+  function openCompassNote(id){
+    const d=noteData[id];if(!d)return;
+    document.getElementById('caType').textContent=d.type||'—';
+    document.getElementById('caTitle').textContent=d.title||'罗盘笔记';
+    document.getElementById('caSummary').textContent=d.summary||'';
+    const mods=document.getElementById('caModules');
+    mods.innerHTML=(d.modules||[]).map(x=>'<span>'+x+'</span>').join('');
+    const body=document.getElementById('caBody');
+    body.innerHTML=d.html||'<p>暂无正文。</p>';
+    const toc=document.getElementById('caToc');
+    toc.innerHTML='<b>本篇目录</b>'+(d.toc||[]).map(x=>'<button data-target="'+x.id+'">'+x.text+'</button>').join('');
+    toc.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{
+      const el=document.getElementById(btn.dataset.target);
+      if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    body.querySelectorAll('[data-compass-id]').forEach(a=>a.onclick=(e)=>{e.preventDefault();openCompassNote(a.dataset.compassId);});
+    showPage('compass-article');
+    location.hash='compass-note-'+encodeURIComponent(id);
+  }
+
+  cards.forEach(card=>card.onclick=()=>openCompassNote(card.dataset.note));
+  const back=document.getElementById('backCompass');
+  if(back)back.onclick=()=>showPage('compass');
+
+  window.openCompassNote=openCompassNote;
+  applyCompassFilters();
+})();
+
+
+window.addEventListener('load',()=>{
+  const h=(location.hash||'').slice(1);
+  if(h.startsWith('compass-note-')&&window.openCompassNote){
+    const id=decodeURIComponent(h.slice('compass-note-'.length));
+    window.openCompassNote(id);
+  }
+});
+
+</script>
+</body>
+</html>
