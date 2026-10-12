@@ -972,6 +972,67 @@ body.dark #page-m01{
 #page-compass-article .article-body .wiki{color:var(--ink2);border-bottom:1px dashed var(--line)}
 #page-compass-article .article-body code{background:var(--bg2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:.9em}
 
+
+/* ===== FORMAL SITE ENHANCEMENTS · Compass hierarchy / return nav / contact ===== */
+#page-compass-article .compass-returnbar{
+  position:sticky;top:64px;z-index:74;
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  min-height:48px;padding:8px max(20px,calc((100vw - 1040px)/2 + 30px));
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+}
+#page-compass-article .compass-returnbar button{
+  border:1px solid var(--line);background:var(--card);border-radius:999px;
+  padding:6px 11px;cursor:pointer;color:var(--ink2);font-size:11.5px;
+}
+#page-compass-article .compass-returnbar button:hover{border-color:var(--gold);color:var(--gold2)}
+#page-compass-article .compass-returnbar .parent-return{display:none}
+#page-compass-article .compass-returnbar .return-sep{font-size:10px;color:var(--ink3)}
+#page-compass-article .article-toc button{border-left:1px solid transparent;padding-right:4px}
+#page-compass-article .article-toc button.toc-l1{font:700 12px var(--serif);color:var(--ink);padding-left:0}
+#page-compass-article .article-toc button.toc-l2{padding-left:12px}
+#page-compass-article .article-toc button.toc-l3{padding-left:26px;font-size:11px;color:var(--ink3)}
+#page-compass-article .article-toc button.toc-l4{padding-left:40px;font-size:10.5px;color:var(--ink3)}
+#page-compass-article .article-toc button.active{
+  color:var(--gold2);border-left-color:var(--gold);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 8%,transparent),transparent);
+}
+#page-about .about-contact{margin-top:18px}
+#page-about .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:18px}
+#page-about .contact-card{
+  border:1px solid var(--line);background:var(--card);border-radius:16px;padding:20px;
+  display:flex;flex-direction:column;min-height:190px;
+}
+#page-about .contact-card h3{font-size:18px;margin:9px 0 6px}
+#page-about .contact-card p{font-size:12px;color:var(--ink2);line-height:1.8;flex:1}
+#page-about .contact-icon{
+  width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+  font:700 14px var(--serif);color:var(--gold2);transition:.18s;
+}
+#page-about .contact-icon:hover{border-color:var(--gold);transform:translateY(-1px)}
+#page-about a.contact-icon{text-decoration:none}
+#page-about .contact-action{margin-top:14px;font-size:11px;color:var(--gold2)}
+#page-about .intro-article{
+  margin-top:18px;border:1px solid var(--line);background:var(--bg2);border-radius:15px;padding:19px;
+}
+#page-about .intro-article .kicker{margin-bottom:8px}
+#page-about .intro-article h3{font-size:18px;margin-bottom:6px}
+#page-about .intro-article p{font-size:12px;color:var(--ink2)}
+#page-about .intro-article a{display:inline-block;margin-top:10px;color:var(--gold2);font-size:11.5px}
+.qr-modal-card{text-align:center;max-width:420px}
+.qr-modal-card h3{margin:6px 0 8px}
+.qr-modal-card p{max-width:320px;margin:0 auto 16px}
+.qr-modal-card img{
+  width:min(260px,72vw);aspect-ratio:1/1;object-fit:contain;background:#fff;
+  border:1px solid var(--line);border-radius:15px;padding:12px;
+}
+.qr-modal-card .qr-tip{font-size:11px;color:var(--ink3);margin-top:12px}
+@media(max-width:800px){
+  #page-compass-article .compass-returnbar{top:64px;padding-left:20px;padding-right:20px}
+  #page-about .contact-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -1895,6 +1956,11 @@ body.dark #page-m01{
 </main>
 <!-- ================= COMPASS ARTICLE ================= -->
 <main class="page" id="page-compass-article">
+<div class="compass-returnbar">
+<button id="caBackCompassTop">← 返回罗盘笔记</button>
+<button class="parent-return" id="caBackParentTop">← 返回上级</button>
+<span class="return-sep" id="caReturnContext"></span>
+</div>
 <div class="wrap">
 <header class="compass-article-head">
 <div class="compass-breadcrumb">罗盘笔记 / <span id="caType">—</span></div>
@@ -1919,14 +1985,56 @@ body.dark #page-m01{
 <header class="page-hero"><div class="wrap"><div class="kicker">ABOUT</div><h1>关于我</h1><p>我在做的事情，是把长期学习、判断、工作、创造和使用 AI 的经验重新组织成一套可以理解、调用、验证并持续进化的个人能力系统。</p></div></header>
 <section><div class="wrap">
 <div class="about-grid">
-<div class="about-card"><div class="kicker">ZHANG XIAOHUA</div><h3>张小花</h3><p>关注 AI 时代人的长期发展：如何建立底层能力、进入陌生领域、形成判断、与人和 AI 协同，并把经验转成可复用、可创造价值的资产。</p><a class="more article-link" data-article="about">了解更多 →</a></div>
-<div class="about-card"><div class="kicker">FOLLOW</div><h3>找到我</h3><div class="channel"><span>微信公众号</span><span>是花花噢</span></div><div class="channel"><span>小红书</span><span>内容持续更新</span></div><div class="channel"><span>知乎</span><span>长文与回答</span></div><div class="channel"><span>其他平台</span><span>陆续接入</span></div></div>
+<div class="about-card">
+<div class="kicker">ZHANG XIAOHUA</div><h3>张小花</h3>
+<p>关注 AI 时代人的长期发展：如何建立底层能力、进入陌生领域、形成判断、与人和 AI 协同，并把经验转成可复用、可创造价值的资产。</p>
+<a class="more article-link" data-article="about">了解更多 →</a>
+<div class="intro-article">
+<div class="kicker">START HERE</div>
+<h3>第一次认识我？</h3>
+<p>可以先读《离开事务所两年后，我现在在做什么？》，了解我从审计、管理咨询到 AI 产品与个人能力系统构建的这段路径。</p>
+<a href="https://mp.weixin.qq.com/s/SSAyROpm0YslD8PAiK4t_w" target="_blank" rel="noopener">阅读这篇文章 →</a>
+</div>
+</div>
+<div class="about-card">
+<div class="kicker">CONTACT & FOLLOW</div><h3>找到我</h3>
+<p>欢迎日常交流、合作沟通与咨询服务。不同入口承担不同用途。</p>
+<div class="about-contact">
+<div class="contact-grid">
+<div class="contact-card">
+<button class="contact-icon qr-open" data-qr="assets/contact/wechat-personal.svg" data-title="添加微信" data-desc="欢迎日常交流、合作沟通与咨询服务。添加时可以简单备注来意。">微</button>
+<h3>微信</h3><p>用于日常沟通、合作交流、咨询服务等。</p>
+<span class="contact-action">点击图标查看二维码 →</span>
+</div>
+<div class="contact-card">
+<a class="contact-icon" href="https://xhslink.cn/o/57rPpGr8WTo" target="_blank" rel="noopener">小</a>
+<h3>小红书</h3><p>日常思考、阅读、实践与阶段性内容更新。</p>
+<span class="contact-action">点击图标进入主页 →</span>
+</div>
+<div class="contact-card">
+<button class="contact-icon qr-open" data-qr="assets/contact/wechat-official.svg" data-title="微信公众号｜是花花噢" data-desc="扫描二维码查看并关注公众号。体系长文与阶段性研究主要在这里持续更新。">号</button>
+<h3>微信公众号</h3><p>「是花花噢」｜体系长文与阶段性研究。</p>
+<span class="contact-action">点击图标查看二维码 →</span>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div></section>
 </main>
-<footer><div class="foot"><div>✿ 张小花 · AI时代以人为中心的终身能力发展系统</div><div>完整网站交互原型 · V8罗盘空数据版</div></div></footer>
+<footer><div class="foot"><div>© 2026 张小花 · 是花花噢</div><div>AI时代以人为中心的终身能力发展系统 · 持续构建中</div></div></footer>
 <div class="modal" id="modal">
 <div class="modal-card"><button class="x" id="modalClose">×</button><div class="kicker">LONG-FORM ARTICLE</div><h3 id="modalTitle"></h3><p id="modalText"></p><code id="modalPath"></code></div>
+</div>
+<div class="modal" id="qrModal">
+<div class="modal-card qr-modal-card">
+<button class="x" id="qrModalClose">×</button>
+<div class="kicker">CONTACT</div>
+<h3 id="qrModalTitle">联系我</h3>
+<p id="qrModalDesc"></p>
+<img id="qrModalImg" src="" alt="二维码"/>
+<div class="qr-tip">请使用微信扫码</div>
+</div>
 </div>
 <script>
 const pageButtons=[...document.querySelectorAll('.nav-page')];
@@ -2144,6 +2252,7 @@ window.addEventListener('load',()=>{const h=(location.hash||'').slice(1);if(/^es
 
   const noteData=/* COMPASS_NOTE_DATA */{};
 
+  let tocObserver=null;
   function openCompassNote(id){
     const d=noteData[id];if(!d)return;
     document.getElementById('caType').textContent=d.type||'—';
@@ -2153,12 +2262,35 @@ window.addEventListener('load',()=>{const h=(location.hash||'').slice(1);if(/^es
     mods.innerHTML=(d.modules||[]).map(x=>'<span>'+x+'</span>').join('');
     const body=document.getElementById('caBody');
     body.innerHTML=d.html||'<p>暂无正文。</p>';
+
+    const parent=d.parent&&noteData[d.parent]?noteData[d.parent]:null;
+    const parentBtn=document.getElementById('caBackParentTop');
+    const context=document.getElementById('caReturnContext');
+    parentBtn.style.display=parent?'inline-flex':'none';
+    parentBtn.textContent=parent?'← 返回上级：'+parent.title:'← 返回上级';
+    parentBtn.onclick=()=>{if(parent)openCompassNote(parent.id);};
+    context.textContent=parent?'罗盘笔记 / '+parent.title+' / '+d.title:'罗盘笔记 / '+d.title;
+
     const toc=document.getElementById('caToc');
-    toc.innerHTML='<b>本篇目录</b>'+(d.toc||[]).map(x=>'<button data-target="'+x.id+'">'+x.text+'</button>').join('');
+    toc.innerHTML='<b>本篇目录</b>'+(d.toc||[]).map(x=>'<button class="toc-l'+(x.level||2)+'" data-target="'+x.id+'">'+x.text+'</button>').join('');
     toc.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{
       const el=document.getElementById(btn.dataset.target);
       if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
     });
+
+    if(tocObserver)tocObserver.disconnect();
+    const tocButtons=[...toc.querySelectorAll('button')];
+    const headings=tocButtons.map(btn=>document.getElementById(btn.dataset.target)).filter(Boolean);
+    if('IntersectionObserver' in window&&headings.length){
+      tocObserver=new IntersectionObserver(entries=>{
+        const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);
+        if(!visible.length)return;
+        const activeId=visible[0].target.id;
+        tocButtons.forEach(btn=>btn.classList.toggle('active',btn.dataset.target===activeId));
+      },{rootMargin:'-96px 0px -65% 0px',threshold:[0,1]});
+      headings.forEach(h=>tocObserver.observe(h));
+    }
+
     body.querySelectorAll('[data-compass-id]').forEach(a=>a.onclick=(e)=>{e.preventDefault();openCompassNote(a.dataset.compassId);});
     showPage('compass-article');
     location.hash='compass-note-'+encodeURIComponent(id);
@@ -2167,6 +2299,8 @@ window.addEventListener('load',()=>{const h=(location.hash||'').slice(1);if(/^es
   cards.forEach(card=>card.onclick=()=>openCompassNote(card.dataset.note));
   const back=document.getElementById('backCompass');
   if(back)back.onclick=()=>showPage('compass');
+  const backTop=document.getElementById('caBackCompassTop');
+  if(backTop)backTop.onclick=()=>showPage('compass');
 
   window.openCompassNote=openCompassNote;
   applyCompassFilters();
@@ -2180,6 +2314,22 @@ window.addEventListener('load',()=>{
     window.openCompassNote(id);
   }
 });
+
+/* ===== Contact QR modal ===== */
+(function(){
+  const qrModal=document.getElementById('qrModal');
+  const qrTitle=document.getElementById('qrModalTitle');
+  const qrDesc=document.getElementById('qrModalDesc');
+  const qrImg=document.getElementById('qrModalImg');
+  document.querySelectorAll('.qr-open').forEach(btn=>btn.onclick=()=>{
+    qrTitle.textContent=btn.dataset.title||'联系我';
+    qrDesc.textContent=btn.dataset.desc||'';
+    qrImg.src=btn.dataset.qr||'';
+    qrModal.classList.add('open');
+  });
+  document.getElementById('qrModalClose').onclick=()=>qrModal.classList.remove('open');
+  qrModal.onclick=e=>{if(e.target===qrModal)qrModal.classList.remove('open')};
+})();
 
 </script>
 </body>
