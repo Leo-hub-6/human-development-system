@@ -108,6 +108,7 @@ def load_notes():
             "modules": modules,
             "role": str(meta.get("role") or "main").strip().lower(),
             "parent": str(meta.get("parent") or "").strip(),
+            "section": str(meta.get("section") or "").strip().lower(),
             "order": order,
             "date": str(meta.get("date") or "").strip(),
             "summary": str(meta.get("summary") or "").strip(),
@@ -198,6 +199,8 @@ def build():
             "toc": toc,
             "role": note["role"],
             "parent": note["parent"],
+            "section": note["section"],
+            "order": note["order"],
         }
 
     cards = [n for n in notes if n["role"] != "child"]
