@@ -19,7 +19,7 @@ import mistune
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_DIR = ROOT / "罗盘笔记"
+SOURCE_DIR = ROOT / "published-content" / "罗盘笔记" / "书籍阅读"
 TEMPLATE = ROOT / "website-src" / "index.template.html"
 OUTPUT = ROOT / "website-preview" / "index.html"
 
