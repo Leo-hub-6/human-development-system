@@ -152,7 +152,7 @@ def render_markdown(body: str, target_map: dict[str, str]):
         level, inner = m.group(1), m.group(2)
         counter += 1
         sec_id = f"ca-sec-{counter}"
-        toc.append({"id": sec_id, "text": plain_heading(inner)})
+        toc.append({"id": sec_id, "text": plain_heading(inner), "level": int(level)})
         return f'<h{level} id="{sec_id}">{inner}</h{level}>'
 
     rendered = re.sub(r"<h([1-4])>(.*?)</h\1>", heading_repl, rendered, flags=re.S)
