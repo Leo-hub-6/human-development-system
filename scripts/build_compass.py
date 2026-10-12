@@ -2,7 +2,7 @@
 """Build the Compass section from Obsidian Markdown.
 
 Publishing contract:
-- Source: compass/**/*.md (folder names do not matter)
+- Source: 罗盘笔记/**/*.md (folder names do not matter)
 - Publish only notes with type: compass and status: published
 - role: main => appears as a card in Compass Notes
 - role: child => gets a web article and can be opened through wikilinks, but does not appear as a top-level card
@@ -20,7 +20,7 @@ import mistune
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_DIR = ROOT / "compass"
+SOURCE_DIR = ROOT / "罗盘笔记"
 TEMPLATE = ROOT / "website-src" / "index.template.html"
 OUTPUT = ROOT / "website-preview" / "index.html"
 

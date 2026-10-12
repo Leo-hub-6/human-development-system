@@ -32,7 +32,7 @@ summary: "摘要"
 - `order` 控制显示顺序；可以用 100、200、300 预留插入空间。
 - `modules` 只写 M01–M10 代码，可多选。
 - `input_type` 取值：书籍、课程、文章、论文、讲座、感悟、其他。
-- `compass/` 下文件夹名称不参与发布逻辑；脚本递归读取 Markdown，因此以后合并“主内容/辅内容”目录也不影响发布。
+- `罗盘笔记/` 是网站公开内容源目录；其下可以直接平铺，也可以继续分子目录，脚本会递归读取 Markdown。
 
 ## 主内容与子文章链接
 
@@ -48,4 +48,4 @@ Obsidian 中继续使用 WikiLink：
 
 工作流文件：`.github/workflows/build-compass.yml`。
 
-当 `compass/**/*.md`、模板或构建脚本发生变化时，GitHub Actions 自动运行 `scripts/build_compass.py`，生成 `website-preview/index.html` 并提交。
+当 `罗盘笔记/**/*.md`、模板或构建脚本发生变化时，GitHub Actions 自动运行 `scripts/build_compass.py`，生成 `website-preview/index.html` 并提交。

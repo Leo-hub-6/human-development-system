@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'compass/**/*.md'
+      - '罗盘笔记/**/*.md'
       - 'website-src/index.template.html'
       - 'scripts/build_compass.py'
       - 'scripts/requirements.txt'
