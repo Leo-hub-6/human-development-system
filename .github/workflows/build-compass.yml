@@ -1,10 +1,10 @@
-name: Build Compass
+name: Build Published Compass
 
 on:
   push:
     branches: [main]
     paths:
-      - '罗盘笔记/**'
+      - 'published-content/罗盘笔记/书籍阅读/**'
       - 'website-src/index.template.html'
       - 'scripts/build_compass.py'
       - 'scripts/requirements.txt'
