@@ -479,16 +479,16 @@ footer{padding:32px 0;border-top:1px solid var(--line);font-size:12px;color:var(
   border-color:color-mix(in srgb,var(--gold) 30%,var(--line));
 }
 #page-problems .mod-card[data-type="application"] .mod-type{
-  color:var(--teal);
-  border-color:color-mix(in srgb,var(--teal) 30%,var(--line));
-}
-#page-problems .mod-card[data-type="upper"] .mod-type{
   color:var(--purple);
   border-color:color-mix(in srgb,var(--purple) 30%,var(--line));
 }
-#page-problems .mod-card[data-type="cross"] .mod-type{
+#page-problems .mod-card[data-type="upper"] .mod-type{
   color:var(--red);
   border-color:color-mix(in srgb,var(--red) 30%,var(--line));
+}
+#page-problems .mod-card[data-type="cross"] .mod-type{
+  color:var(--teal);
+  border-color:color-mix(in srgb,var(--teal) 30%,var(--line));
 }
 
 /* 9模块 -> M10：不用九条长箭头，改为九点汇流 */
@@ -622,9 +622,9 @@ footer{padding:32px 0;border-top:1px solid var(--line);font-size:12px;color:var(
   background:var(--bg2);
 }
 #page-problems .matrix-legend .f i{background:color-mix(in srgb,var(--gold) 30%,var(--bg2))}
-#page-problems .matrix-legend .a i{background:color-mix(in srgb,var(--teal) 30%,var(--bg2))}
-#page-problems .matrix-legend .u i{background:color-mix(in srgb,var(--purple) 30%,var(--bg2))}
-#page-problems .matrix-legend .c i{background:color-mix(in srgb,var(--red) 30%,var(--bg2))}
+#page-problems .matrix-legend .a i{background:color-mix(in srgb,var(--purple) 30%,var(--bg2))}
+#page-problems .matrix-legend .u i{background:color-mix(in srgb,var(--red) 30%,var(--bg2))}
+#page-problems .matrix-legend .c i{background:color-mix(in srgb,var(--teal) 30%,var(--bg2))}
 
 @media(max-width:820px){
   #page-problems .module-matrix{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -1080,6 +1080,135 @@ body.dark #page-m01{
   #page-about .contact-grid{grid-template-columns:1fr}
 }
 
+
+/* ===== CAPABILITY MAP V1 · FOUR-LAYER DYNAMIC SYSTEM ===== */
+#page-system .wrap-reading{max-width:1040px;margin:auto;padding:0 30px}
+#page-system .hero-note{margin-top:23px;display:flex;gap:8px;flex-wrap:wrap}
+#page-system .map-shell{margin-top:34px;border:1px solid var(--line);border-radius:24px;background:var(--bg2);padding:28px;box-shadow:var(--shadow)}
+#page-system .goal-wrap{text-align:center;padding-bottom:22px;margin-bottom:20px;border-bottom:1px dashed var(--line)}
+#page-system .goal-label{font-size:10px;letter-spacing:.18em;color:var(--gold);margin-bottom:10px}
+#page-system .map-goal{display:flex;justify-content:center;align-items:center;gap:13px;flex-wrap:wrap}
+#page-system .goal{padding:8px 25px;border-radius:999px;border:1px solid color-mix(in srgb,var(--gold) 35%,var(--line));background:var(--card);font:700 17px var(--serif);color:var(--gold2)}
+#page-system .goal-x{color:var(--gold);opacity:.5}
+#page-system .goal-desc{font-size:11px;color:var(--ink3);margin-top:11px}
+#page-system .layer-stack{display:grid;gap:11px}
+#page-system .layer-band{border:1px solid var(--line);background:var(--card);border-radius:17px;padding:18px 20px;display:grid;grid-template-columns:175px 1fr;gap:20px;align-items:center;position:relative;overflow:hidden}
+#page-system .layer-band::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
+#page-system .layer-band.cross::before{background:var(--teal)}
+#page-system .layer-band.application::before{background:var(--purple)}
+#page-system .layer-band.lift::before{background:var(--red)}
+#page-system .layer-title .lno{font-size:9px;letter-spacing:.16em;color:var(--gold);margin-bottom:3px}
+#page-system .layer-title h3{font-size:19px;margin-bottom:3px}
+#page-system .layer-title p{font-size:10.5px;color:var(--ink3)}
+#page-system .layer-mods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#page-system .layer-band.cross .layer-mods,#page-system .layer-band.application .layer-mods,#page-system .layer-band.lift .layer-mods{grid-template-columns:repeat(2,minmax(0,1fr))}
+#page-system .layer-chip{border:1px solid var(--line);background:var(--bg);border-radius:11px;padding:11px 12px;min-height:64px}
+#page-system .layer-chip b{display:block;font:700 13px var(--serif);margin-bottom:2px}
+#page-system .layer-chip span{font-size:9.5px;color:var(--ink3)}
+#page-system .layer-band.cross{border:1.5px solid color-mix(in srgb,var(--teal) 45%,var(--line));background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 6%,var(--card)),var(--card))}
+#page-system .layer-band.application{border-color:color-mix(in srgb,var(--purple) 25%,var(--line))}
+#page-system .layer-band.lift{border-color:color-mix(in srgb,var(--red) 24%,var(--line))}
+#page-system .map-logic{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+#page-system .logic-card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:17px}
+#page-system .logic-card .ltag{font-size:9px;letter-spacing:.14em;color:var(--gold);margin-bottom:5px}
+#page-system .logic-card h4{font-size:15px;margin-bottom:5px}
+#page-system .logic-card p{font-size:11.5px;color:var(--ink2)}
+#page-system .logic-card.ai{border-color:color-mix(in srgb,var(--teal) 32%,var(--line))}
+#page-system .map-note{margin-top:14px;border-left:2px solid var(--gold);padding:13px 15px;background:var(--card);font-size:12px;color:var(--ink2);border-radius:0 12px 12px 0}
+#page-system .engine-main{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:28px}
+#page-system .step{position:relative;text-align:center;border:1px solid var(--line);background:var(--card);border-radius:13px;padding:17px 8px}
+#page-system .step b{display:block;font:700 13px var(--serif);color:var(--gold2)}
+#page-system .step span{font-size:10px;color:var(--ink3)}
+#page-system .step:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--gold)}
+#page-system .step.value{border-color:color-mix(in srgb,var(--teal) 36%,var(--line))}
+#page-system .engine-groups{display:grid;grid-template-columns:4fr 2fr;gap:10px;margin-top:10px}
+#page-system .eg{text-align:center;font-size:10px;color:var(--ink3);padding-top:5px;border-top:1px dashed var(--line)}
+#page-system .eg b{color:var(--gold2)}
+#page-system .eg:last-child b{color:var(--teal)}
+#page-system .engine-expansion{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:32px}
+#page-system .engine-box{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:22px}
+#page-system .engine-box .box-tag{font-size:9px;letter-spacing:.15em;color:var(--gold);margin-bottom:7px}
+#page-system .engine-box h3{font-size:19px;margin-bottom:6px}
+#page-system .engine-box>p{font-size:12px;color:var(--ink2);margin-bottom:15px}
+#page-system .grow-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+#page-system .grow-step{border:1px solid var(--line);background:var(--bg2);border-radius:10px;padding:11px 9px;text-align:center;position:relative}
+#page-system .grow-step:not(:last-child)::after{content:"→";position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:var(--gold)}
+#page-system .grow-step b{display:block;font:700 11px var(--serif);margin-bottom:2px}
+#page-system .grow-step span{font-size:8.8px;color:var(--ink3)}
+#page-system .content-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+#page-system .content-item{border:1px solid var(--line);background:var(--bg2);border-radius:10px;padding:10px}
+#page-system .content-item b{display:block;font:700 11px var(--serif);margin-bottom:2px}
+#page-system .content-item span{font-size:9px;color:var(--ink3)}
+#page-system .engine-note{margin-top:14px;font-size:11px;color:var(--ink3)}
+#page-system .modules-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:28px}
+#page-system .modules-head .hint{font-size:12px;color:var(--ink3);max-width:400px;text-align:right}
+#page-system .module-layer{margin-top:17px;border:1px solid var(--line);background:var(--bg2);border-radius:20px;padding:18px}
+#page-system .module-layer:first-of-type{margin-top:0}
+#page-system .module-layer-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:13px}
+#page-system .module-layer-head .code{font-size:9px;letter-spacing:.15em;color:var(--gold);padding-top:4px;min-width:66px}
+#page-system .module-layer-head h3{font-size:18px;margin-bottom:2px}
+#page-system .module-layer-head p{font-size:11px;color:var(--ink3)}
+#page-system .module-layer.cross{border-color:color-mix(in srgb,var(--teal) 28%,var(--line))}
+#page-system .module-layer.application{border-color:color-mix(in srgb,var(--purple) 22%,var(--line))}
+#page-system .module-layer.lift{border-color:color-mix(in srgb,var(--red) 22%,var(--line))}
+#page-system .modules-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#page-system .module-card{border:1px solid var(--line);background:var(--card);border-radius:14px;overflow:hidden;transition:.2s}
+#page-system .module-card:hover{border-color:color-mix(in srgb,var(--gold) 42%,var(--line));box-shadow:var(--shadow)}
+#page-system .module-card.featured{border:1.5px solid color-mix(in srgb,var(--teal) 50%,var(--line))}
+#page-system .module-toggle{width:100%;border:0;background:transparent;padding:16px 17px;cursor:pointer;text-align:left;display:flex;align-items:flex-start;gap:11px}
+#page-system .mcode{font:700 11px var(--serif);color:var(--gold);min-width:36px;padding-top:2px}
+#page-system .module-copy{min-width:0;flex:1}
+#page-system .module-card h4{font-size:16px;margin-bottom:3px}
+#page-system .module-card p{font-size:11px;color:var(--ink2)}
+#page-system .module-status{font-size:8.5px;padding:3px 6px;border:1px solid var(--line);border-radius:999px;color:var(--ink3);white-space:nowrap}
+#page-system .module-status.forming{color:var(--teal);border-color:color-mix(in srgb,var(--teal) 30%,var(--line))}
+#page-system .plus{font-size:14px;color:var(--ink3);margin-left:2px}
+#page-system .module-detail{display:none;border-top:1px dashed var(--line);padding:14px 17px 16px;background:var(--card2)}
+#page-system .module-card.open .module-detail{display:block}
+#page-system .module-card.open .plus{color:var(--gold2)}
+#page-system .module-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#page-system .detail-unit{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--card)}
+#page-system .detail-unit .dtag{font-size:8px;letter-spacing:.12em;color:var(--gold);margin-bottom:3px}
+#page-system .detail-unit b{display:block;font:700 11px var(--serif);margin-bottom:2px}
+#page-system .detail-unit span{display:block;font-size:9px;color:var(--ink3)}
+#page-system .module-link{display:inline-flex;margin-top:11px;color:var(--gold2);font-size:10.5px}
+#page-system .paths{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+#page-system .path{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:22px}
+#page-system .path:first-child{border-color:color-mix(in srgb,var(--gold) 52%,var(--line))}
+#page-system .path .pno{font-size:10px;letter-spacing:.15em;color:var(--gold);margin-bottom:8px}
+#page-system .path h3{font-size:18px;margin-bottom:7px}
+#page-system .path p{font-size:12.5px;color:var(--ink2)}
+#page-system .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+#page-system .road{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:22px}
+#page-system .road .rno{font-size:9px;letter-spacing:.15em;color:var(--gold);margin-bottom:8px}
+#page-system .road h3{font-size:18px;margin-bottom:7px}
+#page-system .road p{font-size:12px;color:var(--ink2)}
+#page-system .road-link{display:inline-flex;margin-top:12px;color:var(--gold2);font-size:11px;cursor:pointer}
+@media(max-width:940px){
+  #page-system .layer-band{grid-template-columns:1fr}
+  #page-system .layer-mods,#page-system .layer-band.cross .layer-mods,#page-system .layer-band.application .layer-mods,#page-system .layer-band.lift .layer-mods{grid-template-columns:repeat(2,1fr)}
+  #page-system .engine-expansion{grid-template-columns:1fr}
+  #page-system .engine-main{grid-template-columns:repeat(3,1fr)}
+  #page-system .step:nth-child(3)::after{display:none}
+  #page-system .paths,#page-system .roadmap{grid-template-columns:1fr}
+  #page-system .modules-head{display:block}
+  #page-system .modules-head .hint{text-align:left;margin-top:8px}
+}
+@media(max-width:620px){
+  #page-system .wrap-reading{padding-left:20px;padding-right:20px}
+  #page-system .map-logic,#page-system .modules-grid,#page-system .module-detail-grid,#page-system .content-grid{grid-template-columns:1fr}
+  #page-system .layer-mods,#page-system .layer-band.cross .layer-mods,#page-system .layer-band.application .layer-mods,#page-system .layer-band.lift .layer-mods{grid-template-columns:1fr}
+  #page-system .engine-main{grid-template-columns:repeat(2,1fr)}
+  #page-system .step:nth-child(3)::after{display:block}
+  #page-system .step:nth-child(2n)::after{display:none}
+  #page-system .engine-groups{grid-template-columns:1fr}
+  #page-system .grow-flow{grid-template-columns:1fr 1fr}
+  #page-system .grow-step:nth-child(2)::after{display:none}
+  #page-system .grow-step:nth-child(3)::after{display:block}
+  #page-system .module-layer-head{display:block}
+  #page-system .module-layer-head .code{margin-bottom:3px}
+}
+
 </style>
 </head>
 <body>
@@ -1201,81 +1330,206 @@ body.dark #page-m01{
 </main>
 <!-- ================= SYSTEM ================= -->
 <main class="page" id="page-system">
-<header class="page-hero">
-<div class="wrap">
-<div class="kicker">SYSTEM MAP</div>
-<h1>AI时代终身能力地图</h1>
-<p>这不是知识分类，而是一套可以从地基向上构建、也可以根据目标和问题反向定位短板的终身能力系统。</p>
-</div>
-</header>
-<section>
-<div class="wrap">
-<div class="kicker">01 · THE WHOLE MAP</div>
-<h2>一张图看清：目标、层级、贯穿机制与时代变化。</h2>
-<p class="lead">终身能力地图重点不是“从第一层学到第五层”，而是理解每一层的角色、依赖关系，以及 AI 时代能力重心发生了什么变化。</p>
-<div class="map-shell">
-<div class="map-goal"><span class="goal-pill">财富</span><span class="goal-x">×</span><span class="goal-pill">幸福</span><span class="goal-x">×</span><span class="goal-pill">代际传递</span></div>
-<div class="goal-caption">总体目标持续牵引整个系统：为什么学、为什么判断、为什么创造，最终都要回到人的生活与长期发展。</div>
-<div class="map-grid">
-<aside class="rail map-rail">
-<div class="rtag">VERTICAL ENGINE</div><h4>能力形成引擎</h4><p>贯穿每一层。每一种能力，都要经过形成与调用。</p>
-<div class="engine-mini"><div class="em"><b>了解</b><span>知道</span></div><div class="em"><b>理解</b><span>解释</span></div><div class="em"><b>内化</b><span>进入自身模型</span></div><div class="em"><b>应用</b><span>稳定调用</span></div><div class="em value"><b>创造</b><span>产生新价值</span></div><div class="em value"><b>资产化</b><span>沉淀复利</span></div></div>
-</aside>
-<main class="layers">
-<div class="slayer s5"><div class="toprow"><div class="sno">S5</div><div><h3>目标与延伸</h3><p>财富 · 幸福 · 代际传递</p></div><span class="badge">目标牵引</span></div><div class="detail">目标持续反向决定当前最值得补哪一层、做什么、不做什么。M10 儿童教育位于代际传递维度，并承接 M01–M09 的能力传递。</div></div>
-<div class="slayer s4"><div class="toprow"><div class="sno">S4</div><div><h3>价值创造闭环</h3><p>问题 → 判断 → 实现 → 产品 → 反馈 → 迭代</p></div><span class="badge">现实检验</span></div><div class="detail">把能力放进真实世界，通过结果和反馈验证。M05 技术赋能、M06 职业发展、M07 创业投资会大量在这一层进入真实应用。</div></div>
-<div class="slayer s3"><div class="toprow"><div class="sno">S3</div><div><h3>领域知识</h3><p>通用领域 × 专用领域</p></div><span class="badge">过去最常被重视</span></div><div class="detail">传统教育和职业训练主要投入“知道什么、专业懂什么”。领域知识仍然重要，但不再足以单独构成竞争力。M08 想象力与审美会进一步拉高创造上限。</div></div>
-<div class="slayer s2"><div class="toprow"><div class="sno">S2</div><div><h3>操作系统</h3><p>三观构建 × 学习能力 × 六层认知体系</p></div><span class="badge">AI时代核心</span></div><div class="detail"><b>M02 三观构建 + M03 学习能力 + M04 认知体系。</b>认知体系内部仍使用 L1–L6，这里的系统层级统一改用 S1–S5，避免编号冲突。</div></div>
-<div class="slayer s1"><div class="toprow"><div class="sno">S1</div><div><h3>身心管理</h3><p>睡眠 · 运动 · 饮食 · 情绪 · 恢复 · 专注 · 心流</p></div><span class="badge">根基地基</span></div><div class="detail"><b>M01 身心管理。</b>所有学习、判断、创造和协同最终都运行在人的身体与心理状态之上。</div></div>
-</main>
-<aside class="rail rail-right map-rail">
-<div class="rtag">CROSS-CUTTING</div><h4>M09 · 九类人际影响</h4><p>横向贯穿各层，让价值在人、组织与 AI 之间发生作用。</p>
-<div class="mini-list"><span>A 营销与销售</span><span>B 教育与传递</span><span>C 管理与任务</span><span>D 协作与共创</span><span>E 谈判与协调</span><span>F 人际与关系</span><span>G 专业服务</span><span>H 公共传播</span><span>I 人机协同</span></div>
-</aside>
-</div>
-<div class="map-note"><b style="color:var(--gold2)">重要：</b>这张图表示“结构与依赖”，不是决定性的线性顺序。现实问题可以从任意一层进入，并跨层调用、回退和补课。</div>
-<div class="compare"><div class="compare-card"><div class="ctag">PAST · 过去更常见</div><h4>主要投入 S3｜领域知识</h4><p>读书、考试、专业训练、职业资格，大量成长路径围绕“掌握更多领域知识”展开。</p></div><div class="compare-card ai"><div class="ctag">AI ERA · 能力重心变化</div><h4>S1 + S2 的重要性显著上升</h4><p>S1 是根基；S2 决定一个人能否在知识快速变化、AI 大幅放大的环境里持续学习、判断、调度和更新自己。</p></div></div>
-</div>
-</div>
-</section>
-<section>
-<div class="wrap">
-<div class="kicker">02 · CAPABILITY ENGINE</div>
-<h2>知道，不等于拥有能力。</h2>
-<p class="lead">任何一项能力都要经历从了解、理解、内化到应用的形成过程，直到它能够在真实问题中被稳定调用，才真正成为能力。如果还希望进一步创造价值，就需要继续走向创造与资产化。</p>
-<div class="engine-main"><div class="step"><b>01 了解</b><span>知道是什么</span></div><div class="step"><b>02 理解</b><span>形成解释</span></div><div class="step"><b>03 内化</b><span>进入自己的模型</span></div><div class="step"><b>04 应用</b><span>真实问题中稳定调用</span></div><div class="step value"><b>05 创造</b><span>产生新方案与价值</span></div><div class="step value"><b>06 资产化</b><span>沉淀、复用与复利</span></div></div>
-<div class="engine-groups"><div class="eg"><b>能力形成</b>｜前四步解决“真正会不会”</div><div class="eg"><b>价值放大</b>｜后两步解决“能否创造与复利”</div></div>
-</div>
-</section>
-<section>
-<div class="wrap">
-<div class="kicker">03 · CROSS-CUTTING CAPABILITY</div><h2>M09 · 九类人际影响</h2>
-<p class="lead">价值不是“做出来”就结束，还需要被别人理解、采纳、协作、购买、应用和传递；AI 时代还增加了人与智能体之间的意图转换与任务协同。</p>
-<div class="influence-grid">
-<div class="influence"><b>A 商业营销与销售</b><span>注意 → 理解价值 → 选择 → 购买</span></div><div class="influence"><b>B 教育与知识传递</b><span>理解 → 能力形成 → 迁移</span></div><div class="influence"><b>C 管理与任务协同</b><span>管理意图 → 团队执行</span></div>
-<div class="influence"><b>D 协作与共同创造</b><span>信息 → 共识 → 分工 → 共创</span></div><div class="influence"><b>E 谈判与利益协调</b><span>差异目标 → 可接受方案</span></div><div class="influence"><b>F 人际与关系沟通</b><span>理解 → 边界 → 信任</span></div>
-<div class="influence"><b>G 专业服务与决策支持</b><span>专业判断 → 非专业决策</span></div><div class="influence"><b>H 公共传播与内容影响</b><span>不确定受众 → 认知影响</span></div><div class="influence"><b>I 人机协同与智能体管理</b><span>意图 → 任务 → 执行 → 反馈</span></div>
-</div>
-</div>
-</section>
-<section>
-<div class="wrap">
-<div class="kicker">04 · THREE ENTRY PATHS</div><h2>同一张地图，可以从不同位置进入。</h2><p class="lead">完整地图用于定位，不意味着每个人都必须按同一顺序学习。</p>
-<div class="paths"><div class="path"><div class="pno">路径 A · 自下而上</div><h3>我要系统构建</h3><p>身心管理 → 操作系统 → 领域知识 → 价值创造 → 财富 / 幸福 / 代际传递。这是一条主要参考路线，不是决定性的线性关系。</p></div><div class="path"><div class="pno">路径 B · 目标倒推</div><h3>我有明确目标</h3><p>从目标反推当前最关键的短板，必要时跨层补课。</p></div><div class="path go-problems"><div class="pno">路径 C · 问题驱动</div><h3>我现在有一个问题</h3><p>从真实困惑进入问题导航，再定位和调用相关模块。</p></div></div>
-</div>
-</section>
-<section>
-<div class="wrap">
-<div class="kicker">05 · ROADMAP</div>
-<h2>为什么当前阶段，先构建基座？</h2>
-<p class="lead">大模型正在快速压缩“从想法到结果”的技术门槛，但它并没有取消人的能力差异。相反，问题定义、信息判断、学习、认知、身心状态与价值创造能力，都会被 AI 进一步放大。</p>
-<div class="roadmap">
-<div class="road"><div class="rno">当前阶段</div><h3>构建基座</h3><p>先把人的底层能力、能力地图、问题导航与内容系统打牢。不是为了延迟使用 AI，而是为了让后续放大有可靠基础。</p><a class="road-link go-thesis">为什么我认为“基座不牢，放大无效”？ →</a></div>
-<div class="road"><div class="rno">下一阶段</div><h3>人机协同人生系统</h3><p>在基座之上叠加 AI 功能、个人执行系统与监控大盘——AI 从外部工具成为长期协同者。</p></div>
-<div class="road"><div class="rno">长期方向</div><h3>价值创造与代际传递</h3><p>稳定方法升维为产品与服务。</p></div>
-</div>
-</div>
-</section>
+  <header class="page-hero">
+    <div class="wrap-reading">
+      <div class="kicker">CAPABILITY MAP</div>
+      <h1>AI时代终身能力地图</h1>
+      <p>不是把所有能力列成清单，而是看清：哪些能力构成底座，哪些能力横向放大，哪些进入真实价值创造，哪些决定一个人的创造上限与代际传递。</p>
+      <div class="hero-note"><span class="pill">总体目标牵引</span><span class="pill">4层结构</span><span class="pill">10个模块</span><span class="pill">动态生长</span></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap-reading">
+      <div class="kicker">01 · THE WHOLE MAP</div>
+      <h2>一张图看清：四层能力结构与总体目标。</h2>
+      <p class="lead">能力地图不是固定的学习顺序，而是对“一个人在 AI 时代需要什么能力”的当前结构化回答。总体目标持续牵引，四层能力共同作用。</p>
+
+      <div class="map-shell">
+        <div class="goal-wrap">
+          <div class="goal-label">OVERALL GOAL · 总体目标牵引</div>
+          <div class="map-goal"><span class="goal">财富</span><span class="goal-x">×</span><span class="goal">幸福</span><span class="goal-x">×</span><span class="goal">代际传递</span></div>
+          <div class="goal-desc">最终不是“能力越多越好”，而是回到人的长期发展、生活质量、价值创造与传递。</div>
+        </div>
+
+        <div class="layer-stack">
+          <div class="layer-band foundation">
+            <div class="layer-title"><div class="lno">LAYER 01</div><h3>基础能力层</h3><p>人的底层运行系统</p></div>
+            <div class="layer-mods">
+              <div class="layer-chip"><b>M01 身心管理</b><span>精力 · 情绪 · 专注 · 恢复</span></div>
+              <div class="layer-chip"><b>M02 三观构建</b><span>世界观 · 人生观 · 价值观</span></div>
+              <div class="layer-chip"><b>M03 学习能力</b><span>输入 · 理解 · 内化 · 迁移</span></div>
+              <div class="layer-chip"><b>M04 认知体系</b><span>信息 · 判断 · 问题解决 · 调度</span></div>
+            </div>
+          </div>
+
+          <div class="layer-band cross">
+            <div class="layer-title"><div class="lno">LAYER 02</div><h3>贯穿层</h3><p>横向作用于其他层，放大人的能力</p></div>
+            <div class="layer-mods">
+              <div class="layer-chip"><b>M05 技术赋能</b><span>AI · 工具 · 自动化 · 人机协同</span></div>
+              <div class="layer-chip"><b>M09 人际影响</b><span>沟通 · 协作 · 传播 · 人机协同</span></div>
+            </div>
+          </div>
+
+          <div class="layer-band application">
+            <div class="layer-title"><div class="lno">LAYER 03</div><h3>应用层</h3><p>进入真实世界创造与交换价值</p></div>
+            <div class="layer-mods">
+              <div class="layer-chip"><b>M06 职业发展</b><span>职业选择 · 专业能力 · 价值交换</span></div>
+              <div class="layer-chip"><b>M07 创业投资</b><span>机会 · 资源 · 组织 · 资本配置</span></div>
+            </div>
+          </div>
+
+          <div class="layer-band lift">
+            <div class="layer-title"><div class="lno">LAYER 04</div><h3>拔高传递层</h3><p>突破已有边界，并把能力向下一代传递</p></div>
+            <div class="layer-mods">
+              <div class="layer-chip"><b>M08 想象力与审美</b><span>创造上限 · 表达品质 · 新可能</span></div>
+              <div class="layer-chip"><b>M10 儿童教育</b><span>能力培养 · 家庭共学 · 代际传递</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-note"><b style="color:var(--gold2)">重要：</b>四层表达的是结构和作用位置，不是“必须从第一层学到第四层”的线性顺序。现实问题可以从任何一个模块进入，再跨层调用和补课。</div>
+
+        <div class="map-logic">
+          <div class="logic-card"><div class="ltag">PAST · 传统时代</div><h4>专业知识与岗位能力往往是主线</h4><p>过去的成长路径更多围绕学历、专业训练、岗位经验展开，很多底层能力和贯穿能力依赖个人自行形成。</p></div>
+          <div class="logic-card ai"><div class="ltag">AI ERA · 能力重心变化</div><h4>基础能力与贯穿能力的重要性显著上升</h4><p>AI正在压缩“从想法到结果”的实现门槛。技术越强，学习、判断、调度、协同以及人的身心状态，越容易成为真正的分水岭。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="kicker">02 · CAPABILITY ENGINE</div>
+      <h2>知道，不等于拥有能力。</h2>
+      <p class="lead">能力地图回答“要构建什么”，能力形成引擎回答“它怎样真正长到一个人身上”。任何模块都要经历从了解、理解、内化到应用，再进一步走向创造与资产化。</p>
+
+      <div class="engine-main">
+        <div class="step"><b>01 了解</b><span>知道是什么</span></div>
+        <div class="step"><b>02 理解</b><span>形成解释</span></div>
+        <div class="step"><b>03 内化</b><span>进入自己的模型</span></div>
+        <div class="step"><b>04 应用</b><span>真实问题中稳定调用</span></div>
+        <div class="step value"><b>05 创造</b><span>形成新方案与新价值</span></div>
+        <div class="step value"><b>06 资产化</b><span>沉淀、复用与复利</span></div>
+      </div>
+      <div class="engine-groups"><div class="eg"><b>能力形成</b>｜前四步解决“真正会不会”</div><div class="eg"><b>价值放大</b>｜后两步解决“能否创造与复利”</div></div>
+
+      <div class="engine-expansion">
+        <div class="engine-box">
+          <div class="box-tag">HOW THE MAP GROWS · 能力地图如何形成</div>
+          <h3>先有 V1 框架，再靠输入与实践不断校准。</h3>
+          <p>能力地图既是阶段性结论，也是研究假设。它不需要等“全部研究完”才出现，而是在罗盘输入、现实问题和案例验证中逐步稳定。</p>
+          <div class="grow-flow">
+            <div class="grow-step"><b>罗盘输入</b><span>书籍 / 课程 / 论文 / 对话 / 感悟</span></div>
+            <div class="grow-step"><b>提出框架</b><span>形成模块与能力的 V1</span></div>
+            <div class="grow-step"><b>问题验证</b><span>看真实困惑是否能被解释</span></div>
+            <div class="grow-step"><b>案例验证</b><span>看方法是否真的能解决问题</span></div>
+          </div>
+          <div class="engine-note">持续循环：输入 → 结构 → 问题 → 实践 → 修正；稳定后再进入产品化。</div>
+        </div>
+
+        <div class="engine-box">
+          <div class="box-tag">WHAT YOU CAN SEE · 进入能力地图能看到什么</div>
+          <h3>不是一张静态图，而是一个可不断深入的知识系统。</h3>
+          <p>每个成熟模块会逐渐长出自己的地图、问题、研究来源、方法工具与实践证据。</p>
+          <div class="content-grid">
+            <div class="content-item"><b>能力结构</b><span>模块 → 子能力 → 模型 / 方法</span></div>
+            <div class="content-item"><b>问题导航</b><span>从真实困惑反向定位能力</span></div>
+            <div class="content-item"><b>研究来源</b><span>相关罗盘笔记与持续输入</span></div>
+            <div class="content-item"><b>方法与工具</b><span>可以直接调用的实践方法</span></div>
+            <div class="content-item"><b>实践案例</b><span>哪些真实场景已经验证</span></div>
+            <div class="content-item"><b>成熟度</b><span>探索中 / 形成中 / 稳定 / 已验证</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="modules-head">
+        <div>
+          <div class="kicker">03 · MODULES</div>
+          <h2>10 个模块，按四层展开。</h2>
+          <p class="lead">每个模块都可以点击展开。未来一个成熟模块会拥有自己的能力地图、问题导航、罗盘来源、方法工具和案例；现在先展示当前结构与建设方向。</p>
+        </div>
+        <div class="hint">点击任意模块查看当前定义。<b style="color:var(--teal)">M05 技术赋能</b> 已有较完整的 V1 框架。</div>
+      </div>
+
+      <div class="module-layer foundation">
+        <div class="module-layer-head"><div class="code">LAYER 01</div><div><h3>基础能力层</h3><p>决定一个人能否稳定学习、理解、判断和行动。</p></div></div>
+        <div class="modules-grid">
+          <article class="module-card"><button class="module-toggle"><span class="mcode">M01</span><span class="module-copy"><h4>身心管理</h4><p>让所有能力拥有稳定的生理与心理底座。</p></span><span class="module-status">构建中</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">POSITION</div><b>模块定位</b><span>精力、睡眠、运动、情绪、恢复、专注与心流。</span></div><div class="detail-unit"><div class="dtag">WEBSITE</div><b>未来可见</b><span>能力地图 / 问题导航 / 实践方案 / 身心案例。</span></div></div></div></article>
+          <article class="module-card"><button class="module-toggle"><span class="mcode">M02</span><span class="module-copy"><h4>三观构建</h4><p>形成理解世界、人生与价值的稳定底层框架。</p></span><span class="module-status">构建中</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">POSITION</div><b>模块定位</b><span>世界观、人生观、价值观与重大选择的底层依据。</span></div><div class="detail-unit"><div class="dtag">WEBSITE</div><b>未来可见</b><span>核心命题 / 形成路径 / 关键问题 / 相关研究来源。</span></div></div></div></article>
+          <article class="module-card"><button class="module-toggle"><span class="mcode">M03</span><span class="module-copy"><h4>学习能力</h4><p>把外部知识转化成可以理解、迁移和使用的能力。</p></span><span class="module-status forming">形成中</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">POSITION</div><b>模块定位</b><span>输入、理解、内化、练习、迁移与创造。</span></div><div class="detail-unit"><div class="dtag">WEBSITE</div><b>未来可见</b><span>学习地图 / 问题模式 / 学习方法 / 工具与案例。</span></div></div></div></article>
+          <article class="module-card"><button class="module-toggle"><span class="mcode">M04</span><span class="module-copy"><h4>认知体系</h4><p>建立从信息安检到调度系统的六层认知架构。</p></span><span class="module-status forming">形成中</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">CURRENT MAP</div><b>L1–L6</b><span>信息安检 / 视野校准 / 拆解引擎 / 表达协同 / 进化复盘 / 调度系统。</span></div><div class="detail-unit"><div class="dtag">WEBSITE</div><b>未来可见</b><span>六层手册 / 问题导航 / 应用领域 / 测试与案例。</span></div></div></div></article>
+        </div>
+      </div>
+
+      <div class="module-layer cross">
+        <div class="module-layer-head"><div class="code">LAYER 02</div><div><h3>贯穿层</h3><p>不只在某个场景使用，而是横向作用于学习、工作、创造与协作全过程。</p></div></div>
+        <div class="modules-grid">
+          <article class="module-card featured"><button class="module-toggle"><span class="mcode">M05</span><span class="module-copy"><h4>技术赋能</h4><p>借助 AI、软件、自动化与数字系统放大人的能力。</p></span><span class="module-status forming">框架形成中</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">CURRENT MAP</div><b>5 个入口</b><span>应用地图 / 工具地图 / 底层能力 / 核心基础设施 / 案例与解决方案。</span></div><div class="detail-unit"><div class="dtag">FEATURED</div><b>Obsidian专题</b><span>AI时代的文本、知识、语义与上下文基础设施。</span></div></div><span class="module-link">下一步可进入 M05 独立模块主页 →</span></div></article>
+          <article class="module-card"><button class="module-toggle"><span class="mcode">M09</span><span class="module-copy"><h4>人际影响</h4><p>让价值被理解、采纳、协作、购买、传播与传递。</p></span><span class="module-status forming">形成中</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">CURRENT MAP</div><b>九类影响</b><span>营销、教育、管理、协作、谈判、关系、专业服务、公共传播、人机协同。</span></div><div class="detail-unit"><div class="dtag">ROLE</div><b>横向贯穿</b><span>不是单独某一场景，而是价值在人、组织与AI之间流动的能力。</span></div></div></div></article>
+        </div>
+      </div>
+
+      <div class="module-layer application">
+        <div class="module-layer-head"><div class="code">LAYER 03</div><div><h3>应用层</h3><p>把基础能力与贯穿能力带入真实职业、组织和资本环境。</p></div></div>
+        <div class="modules-grid">
+          <article class="module-card"><button class="module-toggle"><span class="mcode">M06</span><span class="module-copy"><h4>职业发展</h4><p>理解职业系统，在组织与市场中持续形成可交换价值。</p></span><span class="module-status">待展开</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">DIRECTION</div><b>初步方向</b><span>职业选择 / 能力积累 / 组织协作 / 个人价值 / 职业迁移。</span></div><div class="detail-unit"><div class="dtag">DEPENDENCY</div><b>调用前两层</b><span>学习、认知、技术和影响力会在职业场景中被集中检验。</span></div></div></div></article>
+          <article class="module-card"><button class="module-toggle"><span class="mcode">M07</span><span class="module-copy"><h4>创业投资</h4><p>从机会识别、资源配置到组织与资本，构建更大的价值系统。</p></span><span class="module-status">待展开</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">DIRECTION</div><b>初步方向</b><span>机会 / 商业模式 / 资源 / 组织 / 资本 / 风险。</span></div><div class="detail-unit"><div class="dtag">DEPENDENCY</div><b>综合调用</b><span>是对基础能力、技术、影响力和现实判断的综合应用。</span></div></div></div></article>
+        </div>
+      </div>
+
+      <div class="module-layer lift">
+        <div class="module-layer-head"><div class="code">LAYER 04</div><div><h3>拔高传递层</h3><p>一边突破已有框架、提高创造上限，一边把能力向家庭和下一代传递。</p></div></div>
+        <div class="modules-grid">
+          <article class="module-card"><button class="module-toggle"><span class="mcode">M08</span><span class="module-copy"><h4>想象力与审美</h4><p>突破已有框架，提高创造、表达和选择的上限。</p></span><span class="module-status">待展开</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">DIRECTION</div><b>初步方向</b><span>想象、审美、创造、表达、感受力与新可能。</span></div><div class="detail-unit"><div class="dtag">ROLE</div><b>能力拔高</b><span>不是装饰层，而是决定创造品质与突破已有范式的上限。</span></div></div></div></article>
+          <article class="module-card"><button class="module-toggle"><span class="mcode">M10</span><span class="module-copy"><h4>儿童教育</h4><p>把成人能力体系转化为家庭共学与代际传递。</p></span><span class="module-status">长期构建</span><span class="plus">＋</span></button><div class="module-detail"><div class="module-detail-grid"><div class="detail-unit"><div class="dtag">DIRECTION</div><b>初步方向</b><span>儿童能力培养 / 家庭环境 / 共学 / 发展阶段 / 代际传递。</span></div><div class="detail-unit"><div class="dtag">ROLE</div><b>体系向下一代延伸</b><span>M10不是普通第十模块，而是整个成人能力系统的传递维度。</span></div></div></div></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap-reading">
+      <div class="kicker">04 · THREE ENTRY PATHS</div>
+      <h2>同一张地图，可以从不同位置进入。</h2>
+      <p class="lead">地图负责定位，不要求每个人按同一条路线学习。不同的人可以从系统构建、目标倒推或现实问题进入。</p>
+      <div class="paths">
+        <div class="path"><div class="pno">路径 A · 系统构建</div><h3>我想系统地建立长期能力</h3><p>先认识基础能力层，再逐步补足贯穿能力，并把它们带到职业、创业等真实应用；拔高与传递不是最后才开始，而是持续出现。</p></div>
+        <div class="path"><div class="pno">路径 B · 目标倒推</div><h3>我有一个明确目标</h3><p>从财富、幸福、代际传递或当前阶段目标出发，反推最关键的能力短板，必要时跨层补课。</p></div>
+        <div class="path go-problems"><div class="pno">路径 C · 问题驱动</div><h3>我现在有一个具体问题</h3><p>从问题导航进入，先定位涉及哪些模块，再进入相关能力、方法工具、罗盘研究和实践案例。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="kicker">05 · ROADMAP</div>
+      <h2>为什么当前阶段，先构建基座？</h2>
+      <p class="lead">大模型正在快速压缩“从想法到结果”的技术门槛，但它并没有取消人的能力差异。相反，问题定义、信息判断、学习、认知、身心状态与价值创造能力，都会被 AI 进一步放大。</p>
+      <div class="roadmap">
+        <div class="road">
+          <div class="rno">当前阶段</div>
+          <h3>构建基座</h3>
+          <p>先把人的底层能力、能力地图、问题导航与内容系统打牢。不是为了延迟使用 AI，而是为了让后续放大有可靠基础。</p>
+          <a class="road-link go-thesis">为什么我认为“基座不牢，放大无效”？ →</a>
+        </div>
+        <div class="road">
+          <div class="rno">下一阶段</div>
+          <h3>人机协同人生系统</h3>
+          <p>在基座之上叠加 AI 功能、个人执行系统与监控大盘——AI 从外部工具成为长期协同者。</p>
+        </div>
+        <div class="road">
+          <div class="rno">长期方向</div>
+          <h3>价值创造与代际传递</h3>
+          <p>稳定方法升维为产品与服务。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 <!-- ================= PROBLEMS ================= -->
 <main class="page" id="page-problems">
@@ -1306,8 +1560,8 @@ body.dark #page-m01{
 <div class="reason-grid">
 <div class="reason-card"><div class="reason-head"><div class="reason-no">01</div><h3>这套系统的总体目标是什么？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>财富 × 幸福 × 代际传递。</strong><br/>系统不是为了让人“懂得更多”，而是让能力真正服务于人的长期发展、现实创造与下一代传递。</div></div>
 <div class="reason-card"><div class="reason-head"><div class="reason-no">02</div><h3>这套系统到底在解决什么问题？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>解决“一个人如何长期发展并持续更新”的系统性问题。</strong><br/>现实问题很少只属于一个模块：状态、信息、判断、知识、协作、反馈经常同时发生作用。</div></div>
-<div class="reason-card"><div class="reason-head"><div class="reason-no">03</div><h3>这套系统由哪些部分组成？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>S1–S5 终身能力地图 + M01–M10 问题模块 + 能力形成引擎 + 九类人际影响。</strong><br/>能力地图描述结构关系；模块导航组织问题与内容；能力形成引擎描述“知道”如何真正变成能力。</div></div>
-<div class="reason-card"><div class="reason-head"><div class="reason-no">04</div><h3>为什么这样组成？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>因为不同部分承担不同功能，而且存在依赖与反馈关系。</strong><br/>身心提供真实算力；操作系统负责学习和判断；领域与应用提供真实材料；价值创造接受现实检验；目标持续牵引系统。</div></div>
+<div class="reason-card"><div class="reason-head"><div class="reason-no">03</div><h3>这套系统由哪些部分组成？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>四层终身能力地图 + M01–M10 问题模块 + 能力形成引擎。</strong><br/>能力地图描述结构关系；模块导航组织问题与内容；能力形成引擎描述“知道”如何真正变成能力。</div></div>
+<div class="reason-card"><div class="reason-head"><div class="reason-no">04</div><h3>为什么这样组成？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>因为不同部分承担不同功能，而且存在依赖与反馈关系。</strong><br/>基础能力提供长期底座；贯穿层横向放大人的能力；应用层进入职业与创业等真实价值创造；拔高传递层提升创造上限并承接代际传递；总体目标持续牵引系统。</div></div>
 <div class="reason-card"><div class="reason-head"><div class="reason-no">05</div><h3>这套系统在现实中如何运行？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>不是按目录顺序使用，而是围绕真实问题跨模块调用。</strong><br/>一个问题可能从任何模块进入，再根据反馈回退、切换、补课或调用其他模块。</div></div>
 <div class="reason-card"><div class="reason-head"><div class="reason-no">06</div><h3>如何在标准化基础上形成自己的个性化版本？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>标准系统提供公共骨架，个人系统形成自己的权重、顺序和资产。</strong><br/>长期记录高频问题、优势、薄弱项、目标、方法、工具、项目经验与 AI 协同方式。</div></div>
 <div class="reason-card"><div class="reason-head"><div class="reason-no">07</div><h3>系统未来如何扩展、传递和升维？</h3><div class="reason-plus">＋</div></div><div class="reason-body"><strong>从个人系统向产品、家庭与下一代延伸。</strong><br/>稳定方法可以产品化；成人能力可以根据儿童发展阶段进行降维、转译、共同实践与传递。</div></div>
@@ -1326,65 +1580,65 @@ body.dark #page-m01{
 </div>
 <div class="module-matrix">
 <button class="mod-card go-m01" data-mod="m01" data-type="foundation">
-<div class="mod-topline"><div class="mno">M01 · S1</div><span class="mod-type">通用底层</span></div>
+<div class="mod-topline"><div class="mno">M01</div><span class="mod-type">基础</span></div>
 <h3>身心管理</h3>
 <div class="mwhy">睡眠、运动、饮食、情绪、压力恢复、专注、心流与整体状态。</div>
 <span class="mgo">进入模块 →</span>
 </button>
 <button class="mod-card" data-mod="m02" data-type="foundation">
-<div class="mod-topline"><div class="mno">M02 · S2</div><span class="mod-type">通用底层</span></div>
+<div class="mod-topline"><div class="mno">M02</div><span class="mod-type">基础</span></div>
 <h3>三观构建</h3>
 <div class="mwhy">理解自己、世界与社会，形成价值判断与长期选择的底层框架。</div>
 <span class="mgo">进入模块 →</span>
 </button>
 <button class="mod-card" data-mod="m03" data-type="foundation">
-<div class="mod-topline"><div class="mno">M03 · S2</div><span class="mod-type">通用底层</span></div>
+<div class="mod-topline"><div class="mno">M03</div><span class="mod-type">基础</span></div>
 <h3>学习能力</h3>
 <div class="mwhy">进入陌生领域、形成理解、迁移知识、建立能力与知识资产。</div>
 <span class="mgo">进入模块 →</span>
 </button>
 <button class="mod-card" data-mod="m04" data-type="foundation">
-<div class="mod-topline"><div class="mno">M04 · S2</div><span class="mod-type">通用底层</span></div>
+<div class="mod-topline"><div class="mno">M04</div><span class="mod-type">基础</span></div>
 <h3>认知体系</h3>
 <div class="mwhy">L1 信息安检 → L6 调度系统，处理信息、理解、拆解、协同、复盘与调度。</div>
 <span class="mgo">进入模块 →</span>
 </button>
-<button class="mod-card" data-mod="m05" data-type="application">
-<div class="mod-topline"><div class="mno">M05</div><span class="mod-type">应用导向</span></div>
+<button class="mod-card" data-mod="m05" data-type="cross">
+<div class="mod-topline"><div class="mno">M05</div><span class="mod-type">贯穿</span></div>
 <h3>技术赋能</h3>
 <div class="mwhy">技术与 AI 如何成为人的放大器，并进入真实任务、工作流与产品。</div>
 <span class="mgo">进入模块 →</span>
 </button>
 <button class="mod-card" data-mod="m06" data-type="application">
-<div class="mod-topline"><div class="mno">M06</div><span class="mod-type">应用导向</span></div>
+<div class="mod-topline"><div class="mno">M06</div><span class="mod-type">应用</span></div>
 <h3>职业发展</h3>
 <div class="mwhy">能力如何进入职业路径、专业壁垒、长期选择与价值创造。</div>
 <span class="mgo">进入模块 →</span>
 </button>
 <button class="mod-card" data-mod="m07" data-type="application">
-<div class="mod-topline"><div class="mno">M07</div><span class="mod-type">应用导向</span></div>
+<div class="mod-topline"><div class="mno">M07</div><span class="mod-type">应用</span></div>
 <h3>创业投资</h3>
 <div class="mwhy">机会识别、判断、资源配置、价值创造、反馈与财富形成。</div>
 <span class="mgo">进入模块 →</span>
 </button>
 <button class="mod-card" data-mod="m08" data-type="upper">
-<div class="mod-topline"><div class="mno">M08</div><span class="mod-type">拔高上限</span></div>
+<div class="mod-topline"><div class="mno">M08</div><span class="mod-type">拔高</span></div>
 <h3>想象力与审美</h3>
 <div class="mwhy">从“正确和有效”进一步走向创造、表达、组合与更高质量的可能性。</div>
 <span class="mgo">进入模块 →</span>
 </button>
 <button class="mod-card" data-mod="m09" data-type="cross">
-<div class="mod-topline"><div class="mno">M09</div><span class="mod-type">横向贯穿</span></div>
+<div class="mod-topline"><div class="mno">M09</div><span class="mod-type">贯穿</span></div>
 <h3>人际影响</h3>
 <div class="mwhy">营销、教育、管理、协作、谈判、关系、专业服务、公共传播与人机协同。</div>
 <span class="mgo">进入模块 →</span>
 </button>
 </div>
 <div aria-label="模块类型" class="matrix-legend">
-<span class="f"><i></i>通用底层 M01–M04</span>
-<span class="a"><i></i>应用导向 M05–M07</span>
-<span class="u"><i></i>拔高上限 M08</span>
-<span class="c"><i></i>横向贯穿 M09</span>
+<span class="f"><i></i>基础 M01–M04</span>
+<span class="c"><i></i>贯穿 M05 / M09</span>
+<span class="a"><i></i>应用 M06–M07</span>
+<span class="u"><i></i>拔高 M08</span>
 </div>
 <div aria-label="九个模块向代际传递汇流" class="transfer-zone">
 <div class="transfer-dots">
@@ -2121,6 +2375,13 @@ document.querySelectorAll('.accord>button').forEach(btn=>btn.onclick=()=>{
   btn.querySelector('.plus').textContent=a.classList.contains('open')?'−':'＋';
 });
 document.querySelectorAll('.slayer').forEach(x=>x.onclick=()=>x.classList.toggle('open'));
+document.querySelectorAll('#page-system .module-toggle').forEach(btn=>btn.onclick=()=>{
+  const card=btn.closest('.module-card');
+  const wasOpen=card.classList.contains('open');
+  card.classList.toggle('open');
+  const plus=btn.querySelector('.plus');
+  if(plus) plus.textContent=wasOpen?'＋':'−';
+});
 
 const nd=document.getElementById('networkDetail');
 document.querySelectorAll('.node').forEach(x=>x.onclick=()=>{
