@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'published-content/罗盘笔记/书籍阅读/**'
+      - 'published-content/罗盘笔记/**'
       - 'website-src/index.template.html'
       - 'scripts/build_compass.py'
       - 'scripts/requirements.txt'
