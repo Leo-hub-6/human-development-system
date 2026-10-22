@@ -19,7 +19,7 @@ import mistune
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_DIR = ROOT / "published-content" / "罗盘笔记" / "书籍阅读"
+SOURCE_DIR = ROOT / "published-content" / "罗盘笔记"
 TEMPLATE = ROOT / "website-src" / "index.template.html"
 OUTPUT = ROOT / "website-preview" / "index.html"
 
@@ -81,7 +81,7 @@ def load_notes():
     notes = []
     if not SOURCE_DIR.exists():
         return notes
-    for path in sorted(SOURCE_DIR.rglob("*.md")):
+    for path in sorted(SOURCE_DIR.glob("*.md")):
         text = path.read_text(encoding="utf-8")
         meta, body = split_frontmatter(text)
         if str(meta.get("type", "")).strip().lower() != "compass":
